@@ -3,11 +3,13 @@ import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from '../src/components/Navbar';
 import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Navbar />
       <App />
     </BrowserRouter>
   </React.StrictMode>,

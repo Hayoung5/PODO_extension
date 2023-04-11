@@ -1,13 +1,12 @@
 const lightwallet = require("eth-lightwallet");
 const CryptoJS = require('crypto-js');
 
-export const createAccount = async (password) => {
-    const seed = await lightwallet.keystore.generateRandomSeed();
+export const createAccount = async (mnemonic, password) => {
     const keyStore = await new Promise((resolve, reject) => {
         lightwallet.keystore.createVault(
             {
                 password: password,
-                seedPhrase: seed,
+                seedPhrase: mnemonic,
                 hdPathString: "m/44'/60'/0'/0",
             },
             (err, ks) => {
@@ -32,14 +31,15 @@ export const createAccount = async (password) => {
     // 키스토어를 암호화합니다. 최초 생성시 키스토어 암호화는 password로 함.
     const secretKey = password;
     const encryptedKeystore = CryptoJS.AES.encrypt(JSON.stringify(keyStore), secretKey).toString();
-    localStorage.setItem('encryptedKeystore', encryptedKeystore);
-
+    // localStorage.setItem('encryptedKeystore', encryptedKeystore);
+    chrome.storage.local.set('encryptedKeystore', encryptedKeystore);
     return keyStore.getAddresses()[0];
 }
 
 export const decryptKeystore = async (password) => {
     try {
-        const userKeystore = await localStorage.getItem('encryptedKeystore');
+        // const userKeystore = await localStorage.getItem('encryptedKeystore');
+        const userKeystore = await chrome.storage.local.get('encryptedKeystore');
         if (!userKeystore) {
             throw new Error('No keystore found in localStorage');
         }
