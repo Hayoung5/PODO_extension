@@ -24,20 +24,16 @@ const App = () => {
 	return (
 			<Routes>
 				<Route path="/*" element={<Home />} />
-				<Route path="/login" element={<Login 
-          wallet = {wallet}
-          setWallet = {setWallet}
-        />} />
-				<Route path="/create" element={<Create />} 
-          wallet = {wallet}
-          setWallet = {setWallet}
-        />
+				<Route 
+					path="/login" 
+					element={<Login setWallet = {setWallet}/>}
+				/>
+				<Route path="/create" element={<Create />} />
 				<Route path="/content" element={<Content />} />
 				<Route path="/account" element={<Account />} />
 				<Route path="/tokenlist" element={<TokenList />} />
-				<Route path="/transfer" element={<Transfer />} 
-          wallet = {wallet}
-        />
+				<Route path="/transfer" element={<Transfer wallet = {wallet} />} 
+        		/>
 				<Route path="/myaccount" element={<MyAccount />} />
 				<Route path="/showmnemonic" element={<ShowMnemonic />} />
 				<Route path="/initaccount" element={<InitAccount />} />

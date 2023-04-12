@@ -9,7 +9,7 @@ import { LogIn} from "../APIs/walletAPI";
 
 const theme = createTheme();
 
-const Login = ({wallet, setWallet}) => {
+const Login = ({setWallet}) => {
 	const navigate = useNavigate();
 	const [isLogin, setIsLogin] = useState(false);
 
@@ -25,6 +25,7 @@ const Login = ({wallet, setWallet}) => {
 		console.log(11);
 
 		await LogIn(pw).then((res) => {
+			console.log("login");
 			console.log(res);
 			setWallet(res);
 			setIsLogin(true);

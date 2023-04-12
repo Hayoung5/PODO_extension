@@ -28,7 +28,8 @@ export const createWallet = async (password) => {
                             reject(err);
                         } else {
                             ks.generateNewAddress(pwDerivedKey, 1);
-                            resolve({ks, pwDerivedKey})
+                            resolve({ks, pwDerivedKey});
+                            console.log("pwDerivedKey",pwDerivedKey);
                         }
                     });
                 }
@@ -44,13 +45,16 @@ export const createWallet = async (password) => {
     chrome.storage.local.set({encryptedKeystore : encryptedKeystore});
     console.log("saved!");
 
+    // 사실은 이 단계에서 wallet 생성 필요 없고 로그인 단계에서 어차피 만듬. 중복인데 일단 테스트용으로 냅둠
     const wallet = await new Promise((resolve, reject) => {
         keyStore.ks.keyFromPassword(password, (err, pwDerivedKey) => {
           if (err) {
             reject(err);
           } else {
             const privateKey = keyStore.ks.exportPrivateKey(address, keyStore.pwDerivedKey);
-            const wallet = new ethers.Wallet(privateKey, provider);
+            const createWallet = new ethers.Wallet(privateKey, provider);
+            console.log(address, privateKey);
+            console.log(wallet);
             resolve(wallet);
           }
         });
@@ -60,6 +64,7 @@ export const createWallet = async (password) => {
 };
 
 export const LogIn = async (password) => {
+    console.log("login api!")
     try {
         const encryptedKeystore = await new Promise((resolve) => {
             chrome.storage.local.get('encryptedKeystore', (data) => {
@@ -68,11 +73,32 @@ export const LogIn = async (password) => {
         });
         if (!encryptedKeystore) {
             throw new Error('No keystore found in localStorage');
-        }
-        const bytes = CryptoJS.AES.decrypt(encryptedKeystore, password);
-        const decryptedKeystore = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        
-        const wallet = await ethers.Wallet.fromEncryptedJson(JSON.stringify(decryptedKeystore), password);
+        };
+        const address = await new Promise((resolve) => {
+            chrome.storage.local.get('address', (data) => {
+              resolve(data.address);
+            });
+        });
+        if (!address) {
+            throw new Error('No address found in localStorage');
+        };
+        const decryptedKeystoreBytes = CryptoJS.AES.decrypt(encryptedKeystore, password);
+        const decryptedKeystoreJson = decryptedKeystoreBytes.toString(CryptoJS.enc.Utf8);
+        const keyStore = lightwallet.keystore.deserialize(decryptedKeystoreJson);
+        console.log(password);
+        const wallet = await new Promise((resolve, reject) => {
+            keyStore.keyFromPassword(password, (err, pwDerivedKey) => {
+              if (err) {
+                reject(err);
+              } else {
+                const privateKey = keyStore.exportPrivateKey(address, pwDerivedKey);
+                const wallet = new ethers.Wallet(privateKey, provider);
+                console.log(address, privateKey);
+                console.log(wallet);
+                resolve(wallet);
+              }
+            });
+        });
         return wallet;
     } catch (err) {
         console.error(err);
@@ -84,19 +110,24 @@ export const LogIn = async (password) => {
 export const transfer = async (wallet, toAddress, ethAmount) => {
     // 이더 전송
     try {
+        const address = await new Promise((resolve) => {
+            chrome.storage.local.get('address', (data) => {
+              resolve(data.address);
+            });
+        });
+        if (!address) {
+            throw new Error('No address found in localStorage');
+        };
+
+        const nonce = await provider.getTransactionCount(address);
 
         const tx = {
-            nonce: 0,
+            nonce: nonce,
             gasLimit: 21000,
-            gasPrice: ethers.utils.parseUnits('20', 'gwei'),
+            gasPrice: ethers.utils.parseUnits('250', 'gwei'),
             to: toAddress,
             value: ethers.utils.parseEther(ethAmount),
         };
-
-        // 전송할 트랜잭션 객체 생성
-        const unsignedTx = await wallet.getTransactionCount().then(nonce => {
-            return { ...tx, nonce };
-        });
 
         // 서명된 트랜잭션 생성 및 전송
         const signedTx = await wallet.sign(tx);
