@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Stack, Typography, Button, Avatar, Box } from "@mui/material";
+import * as serverAPI from '../APIs/serverAPI';
 
 const Home = () => {
 	const navigate = useNavigate();
@@ -16,6 +17,33 @@ const Home = () => {
 		});
 		
 	}, [isLogin]);
+
+	const handleClick = async (event) => {
+		console.log("test1");
+		await serverAPI.getGreeting()
+		.then((res) => {
+			console.log(res);
+			if (res.status == 200){
+				console.log("성공");
+		}}).catch(function (error) {
+			let res = error.response.data;
+			console.log(`${res.status} ERROR!: ${res.message}`);
+		});
+	};
+
+
+	const handleClick2 = async (event) => {
+		console.log("test2");
+		await serverAPI.postText("abcde")
+		.then((res) => {
+			console.log(res);
+			if (res.status == 200){
+				console.log("성공");
+		}}).catch(function (error) {
+			let res = error.response.data;
+			console.log(`${res.status} ERROR!: ${res}`);
+		});
+	};
 
 	return (
 		<div>
@@ -47,6 +75,8 @@ const Home = () => {
 							<Link component={Link} to="/initaccount" variant="body2">
 								복구 구문을 잊으셨나요?
 							</Link>
+							<Button onClick={handleClick}> GET 테스트 </Button>
+							<Button onClick={handleClick2}> POST 테스트 </Button>
 						</Stack>
 					</Stack>
 				</Box>

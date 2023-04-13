@@ -1,6 +1,3 @@
-
- 
-
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import * as ReactDOM from "react-dom";
@@ -19,8 +16,9 @@ import InitAccount from "./components/InitAccount";
 // import SignTransaction from "./components/SignTransaction";
 
 const App = () => {
-  const [wallet, setWallet] = useState({});
-  console.log("hello word!");
+  	const [wallet, setWallet] = useState({});
+  	console.log("hello word!");
+	
 	return (
 			<Routes>
 				<Route path="/*" element={<Home />} />
