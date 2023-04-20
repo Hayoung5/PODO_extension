@@ -11,6 +11,16 @@ export const getGreeting = async () => {
     });
 };
 
+export const getLogs = async () => {
+  return await axios.get(`${config.apiBaseUrl}/logs`)
+    .then(response => {
+      return response.data.logs;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
+
 
 export const postText = async (text) => {
   const data = { "text" : text };
