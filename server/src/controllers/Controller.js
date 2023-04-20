@@ -17,7 +17,7 @@ const LogRef = db.ref('Log');
 
 // GET 요청 테스트
 Controller.getIndex = (req, res) => {
-  res.status(200).send({ data: 'Hello World!' });
+  res.status(200).send({ data : 'Hello World!' });
   // 데이터 가져오기
   accountsRef.once('value', (snapshot) => {
     const accounts = snapshot.val();
@@ -32,6 +32,7 @@ Controller.getIndex = (req, res) => {
 });
 };
 
+
 // POST 요청 테스트
 Controller.postUppercase = (req, res) => {
   const { text } = req.body;
@@ -43,7 +44,7 @@ Controller.postUppercase = (req, res) => {
 
   const uppercased = text.toUpperCase();
 
-  res.status(200).send({ data: uppercased });
+  res.status(200).send({ uppercased });
 
   const newAccount = {
     description: '설명2',
@@ -60,5 +61,17 @@ Controller.postUppercase = (req, res) => {
   });
 };
 
+// 로그 가져오기
+Controller.getLogs = (req, res) => {
+  // 데이터 가져오기
+  LogRef.once('value', (snapshot) => {
+    const logs = snapshot.val();
+    console.log(logs);
+    res.status(200).send({ logs });
+  }, (error) => {
+    console.error(error);
+    res.status(500).send({ error: 'Failed to fetch logs' });
+  });
+};
 
 module.exports = Controller;
