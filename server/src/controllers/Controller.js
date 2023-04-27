@@ -2,6 +2,7 @@ const Controller = {};
 
 const admin = require("firebase-admin");
 const serviceAccount = require("../../.podo.json");
+const { txRisk } = require("../utils/utils");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -73,5 +74,32 @@ Controller.getLogs = (req, res) => {
     res.status(500).send({ error: 'Failed to fetch logs' });
   });
 };
+
+// risk measures
+// 0: whitelisted
+// 1: standard
+// 2: reported / unvalidated
+// 3: blacklisted
+Controller.postExamineTx = wrap(async (req, res) => {
+  const tx = JSON.parse(req.body[0]);
+  if(!tx) {
+    res.status(400).send('Bad Request');
+    return;
+  }
+
+  risk = await txRisk(tx);
+  res.status(200).send({ risk: risk })
+})
+
+const wrap = (fn) => {
+  return (async (req, res) => {
+    try {
+      return await fn(req, res);
+    } catch (error) {
+      res.status(500).send(error);
+      return;
+    }
+  })
+}
 
 module.exports = Controller;

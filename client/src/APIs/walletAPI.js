@@ -139,6 +139,25 @@ export const transfer = async (wallet, toAddress, ethAmount) => {
     };
 };
 
+export const signTransaction = async (wallet, unsignedTx) => {
+    try {
+        const signedTx = await wallet.sign(unsignedTx);
+        
+        
+        return signedTx;
+    } catch (error) {
+        console.error(error);
+    };
+}
+
+export const sendTransaction = async (wallet, unsignedTx) => {
+    try {
+        const signedTx = await signTransaction(wallet, unsignedTx);
+
+    } catch (error) {
+        console.error(error);
+    };
+}
 
 export const getAddBalance = async (address) => {
     try {

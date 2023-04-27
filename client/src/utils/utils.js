@@ -53,3 +53,7 @@ export const decryptKeystore = async (password) => {
         return null;
     }
 }
+
+export const examineTransaction = async () => {
+    
+}
