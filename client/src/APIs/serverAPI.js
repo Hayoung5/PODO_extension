@@ -32,3 +32,14 @@ export const postText = async (text) => {
     throw error;
   }
 };
+
+export const examineTx = async(tx) => {
+  const data = { "tx" : JSON.stringify(tx) };
+    try {
+    const response = await axios.post(`${config.apiBaseUrl}/examineTx`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
