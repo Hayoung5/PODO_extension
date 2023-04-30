@@ -54,7 +54,7 @@ const Navbar = () => {
 
 	return (
 		<>
-			<Box sx={{ flexGrow: 1 }}>
+			<Box sx={{ flexGrow: 1, minWidth: 400}}>
 				<AppBar position="static">
 					<Toolbar variant="dense">
 						<FormControl variant="standard" sx={{ minWidth: 60 }} size="small">
