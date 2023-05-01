@@ -1,4 +1,3 @@
-/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, Toolbar, Typography, IconButton, Menu, MenuItem, Divider, ListItemIcon, FormControl, Select, Avatar, Modal, Stack, Button } from "@mui/material";
@@ -47,7 +46,6 @@ const Navbar = () => {
 	};
 
 	const handleLogout = () => {
-		chrome.storage.local.set({ login: false });
 		alert("로그아웃");
 		navigate("/login");
 	};

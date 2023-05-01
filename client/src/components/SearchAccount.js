@@ -1,9 +1,7 @@
 
-/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { Typography, Box, AppBar, Toolbar, Button, IconButton, Avatar, Stack, Divider, Modal, Chip } from "@mui/material";
 import { Link } from "react-router-dom";
-import Transaction from "../components/Transaction";
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import { getAddBalance } from '../APIs/walletAPI';
 

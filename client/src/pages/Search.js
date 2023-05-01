@@ -1,7 +1,3 @@
-
- 
-
-/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { Typography, Box, AppBar, Toolbar, Button, IconButton, TextField, Stack, Divider, Modal, Chip } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';

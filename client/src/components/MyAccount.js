@@ -1,4 +1,3 @@
-/*global chrome*/
 import React from "react";
 import { Typography, Divider, Grid, Stack, Avatar, Box } from "@mui/material";
 import { Link } from "react-router-dom";
