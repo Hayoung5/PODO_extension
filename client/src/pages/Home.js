@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Stack, Typography, Button, Avatar, Box } from "@mui/material";
 import * as serverAPI from '../APIs/serverAPI';
+import { styled } from '@mui/system';
+
 
 const Home = () => {
 	const navigate = useNavigate();
@@ -48,6 +50,22 @@ const Home = () => {
 		});
 	};
 
+	const TestButton = styled(Button)`
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 5px 15px;
+	width: 132.5px;
+	height: 53px;
+	border-radius: 15px;
+	background-color: #5660E6;
+	color: #ffffff;
+	&:hover {
+		background-color: #5660E6CC;
+	}
+	`;
+
+
 	return (
 		<div>
 		<Box sx={{ flexGrow: 1 }}>
@@ -59,21 +77,27 @@ const Home = () => {
 						<Typography variant="h5">Podo Extension</Typography>
 						<Avatar variant="square" alt="Podo" src={require("../assets/podo_logo.png")} sx={{ width: 40, height: 40 }} />
 						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
-							<Link component={Link} to="/search" variant="body2">
+							<TestButton component={Link} to="/search" variant="body2">
 								조회 하기
-							</Link>
+							</TestButton>
 						</Stack>
+
 						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
-							<Link component={Link} to="/findmnemonic" variant="body2">
+							<TestButton component={Link} to="/findmnemonic" variant="body2">
 								신고 하기
-							</Link>
+							</TestButton>
 						</Stack>
+
 						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
-							<Link component={Link} to="/findmnemonic" variant="body2">
+							<TestButton component={Link} to="/findmnemonic" variant="body2">
 								내 정보
-							</Link>
-							<Button onClick={handleClick}> GET 테스트 </Button>
-							<Button onClick={handleClick2}> POST 테스트 </Button>
+							</TestButton>
+						</Stack>
+
+
+						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
+							<TestButton onClick={handleClick}> GET 테스트 </TestButton>
+							<TestButton onClick={handleClick2}> POST 테스트 </TestButton>
 						</Stack>
 					</Stack>
 				</Box>
