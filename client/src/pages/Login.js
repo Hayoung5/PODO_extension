@@ -1,4 +1,3 @@
-/*global chrome*/
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { Typography, Avatar, Button, CssBaseline, TextField, Grid, Box, Container } from "@mui/material";
@@ -14,7 +13,6 @@ const Login = ({setWallet}) => {
 	const [isLogin, setIsLogin] = useState(false);
 
 	useEffect(() => {
-		chrome.storage.local.set({ login: true });
 	}, [isLogin]);
 
 	const handleLogin = async (event) => {
@@ -29,7 +27,6 @@ const Login = ({setWallet}) => {
 			console.log(res);
 			setWallet(res);
 			setIsLogin(true);
-			chrome.storage.local.set({login: true});
 			alert("로그인 성공");
 			navigate("/content");
 		})

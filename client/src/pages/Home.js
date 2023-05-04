@@ -1,22 +1,82 @@
-/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Stack, Typography, Button, Avatar, Box } from "@mui/material";
+import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import * as serverAPI from '../APIs/serverAPI';
+import { styled } from '@mui/system';
+import '../styles/styles.css';
+
+const StyledBox = styled(Box)`
+	position: absolute;
+	width: 360px;
+	height: 470px;
+	left: 0px;
+	top: 60px;
+	/* Back_Phantom */
+	background: #131313;
+`;
+
+const StyledTextField = styled(TextField)`
+	position: absolute;
+	width: 330px;
+	left: 15px;
+	top: 126px;
+	font-size: 30px;
+	color: #FFFFFF;
+
+	/* Button_Phantom */
+
+	background: #2D2D2D;
+	border-radius: 7.5px;
+`;
+
+const StyledButton1 = styled(Button)`
+	position: absolute;
+	width: 320px;
+	height: 72px;
+	left: 20px;
+	top: 239px;
+
+	/* Button_Phantom */
+
+	background: #2D2D2D;
+	border-radius: 7.5px;
+	color: #C0C0C0;
+    padding: 20px;
+    font-weight: 600;
+    font-size: 17.5px;
+    line-height: 22px;
+    font-size: 18px;
+`;
+
+const StyledButton2 = styled(Button)`
+	position: absolute;
+	width: 320px;
+	height: 72px;
+	left: 20px;
+	top: 326px;
+
+	/* Button_Phantom */
+
+	background: #2D2D2D;
+	border-radius: 7.5px;
+	color: #C0C0C0;
+    padding: 20px;
+    font-weight: 600;
+    font-size: 17.5px;
+    line-height: 22px;
+    font-size: 18px;
+`;
 
 const Home = () => {
 	const navigate = useNavigate();
-	const [isLogin, setIsLogin] = useState(false);
+
+	const [option, setOption] = useState('');
+
 	useEffect(() => {
-		chrome.storage.local.get("login", (res) => {
-			if (res.login == true) {
-			navigate(`/content`);
-			setIsLogin(true);
-			}
-		});
 		
-	}, [isLogin]);
+	}, );
 
 	const handleClick = async (event) => {
 		console.log("test1");
@@ -47,41 +107,25 @@ const Home = () => {
 
 	return (
 		<div>
-		<Box sx={{ flexGrow: 1 }}>
-			{isLogin ? (
-				navigate(`/content`)
-			) : (
-				<Box>
-					<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={4} sx={{ mt: 4 }}>
-						<Typography variant="h5">Podo Wallet</Typography>
-						<Avatar variant="square" alt="Podo" src={require("../assets/podo_logo.png")} sx={{ width: 40, height: 40 }} />
-						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
-							<Typography variant="subtitle2">패스워드를 입력하여 로그인</Typography>
-							<Button variant="contained" color="info" component={Link} to="/login">
-								Login
-							</Button>
-						</Stack>
-						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
-							<Typography variant="subtitle2">지갑 생성하기</Typography>
-							<Button variant="contained" color="info" component={Link} to="/create">
-								Create Wallet
-							</Button>
-						</Stack>
-
-						<Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={1}>
-							<Link component={Link} to="/findmnemonic" variant="body2">
-								패스워드를 잊으셨나요?
-							</Link>
-							<Link component={Link} to="/initaccount" variant="body2">
-								복구 구문을 잊으셨나요?
-							</Link>
-							<Button onClick={handleClick}> GET 테스트 </Button>
-							<Button onClick={handleClick2}> POST 테스트 </Button>
-						</Stack>
-					</Stack>
-				</Box>
-			)}
-		</Box>
+		<StyledBox>
+			<Box>
+				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 4 }}>
+				<div style={{ position: 'relative' }}>
+					<input type="text" className="home_input" placeholder="검색할 정보를 입력하세요" />
+					<SearchIcon sx={{position: 'absolute', color: "#FFFFFF", fontSize: "30px", left: "290px", top: "100px"}} />
+				</div>
+					{/* <Button onClick={handleClick}> GET 테스트 </Button>
+					<Button onClick={handleClick2}> POST 테스트 </Button> */}
+				</Stack>
+				<StyledButton1>
+					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
+					{"등록 하기"}
+				</StyledButton1>
+				<StyledButton2>
+					{"내 정보 확인하기"}
+				</StyledButton2>
+			</Box>
+		</StyledBox>
 		</div>
 
 	);

@@ -1,4 +1,3 @@
-/*global chrome*/
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Stack, TextField, FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -19,7 +18,6 @@ const Transfer = ({wallet}) => {
 
 		const result = await transfer(wallet, toAddress, ethAmount);
 		console.log(3, result);
-		chrome.storage.local.set({ transfer: result });
 		alert('success transfer: ' + result);
 	};
 
