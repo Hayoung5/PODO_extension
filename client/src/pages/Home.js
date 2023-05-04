@@ -14,7 +14,7 @@ const StyledBox = styled(Box)`
 	left: 0px;
 	top: 60px;
 	/* Back_Phantom */
-	background: #131313;
+	background: #202020;
 `;
 
 const StyledTextField = styled(TextField)`
