@@ -57,6 +57,12 @@ export async function txRisk(tx) {
     return risk;
 }
 
+export async function doReport(report) {
+    
+}
+
+
+
 function chainName(chainid) {
     if(chainid == 1) return "mainnet"
     else if(chainid == 5) return "goerli"

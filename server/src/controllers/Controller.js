@@ -2,7 +2,7 @@ const Controller = {};
 
 const admin = require("firebase-admin");
 const serviceAccount = require("../../.podo.json");
-const { txRisk } = require("../utils/utils");
+const { txRisk, doReport } = require("../utils/utils");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -89,6 +89,21 @@ Controller.postExamineTx = wrap(async (req, res) => {
 
   risk = await txRisk(tx);
   res.status(200).send({ risk: risk })
+})
+
+Controller.postReport = wrap(async (req, res) => {
+  const report = JSON.parse(req.body[0]);
+  if(!report) {
+    res.status(400).send('Bad Request');
+    return;
+  }
+
+  await doReport(report).catch( err => {
+    res.status(400).send('Report Failed: ' + err);
+    return;
+  })
+
+  res.status(200).send('Reported');
 })
 
 const wrap = (fn) => {
