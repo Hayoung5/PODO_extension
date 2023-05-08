@@ -22,10 +22,18 @@ export const getLogs = async () => {
 };
 
 
-export const postText = async (text) => {
-  const data = { "text" : text };
+export const postReport = async (reporter, content, domain, reportedAddr, txHash) => {
+  const data = {
+    "address" : reportedAddr,
+    "associatedTx" : txHash,
+    "content" : content,
+    "domain" : domain,
+    "reporter" : reporter,
+    "timestamp" : Math.floor(Date.now() / 1000),
+  };
+  
   try {
-    const response = await axios.post(`${config.apiBaseUrl}/uppercase`, data);
+    const response = await axios.post(`${config.apiBaseUrl}/report`, data);
     return response.data;
   } catch (error) {
     console.error(error);
