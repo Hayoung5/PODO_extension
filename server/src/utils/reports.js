@@ -1,6 +1,7 @@
 var reports = {}
 const ethers = require("ethers");
 
+const etherscan = require("./etherscan.js")
 const db = require("./db.js");
 
 const parseDomain = (domain) => {
@@ -12,7 +13,7 @@ const parseDomain = (domain) => {
   return parseResult;
 }
 
-reports.reportDomain = async (domain, reportIndex) => {
+reports.reportDomain = async (domain, hash) => {
   
   const parseResult = parseDomain(domain);
   var snapshot = {};
@@ -32,12 +33,12 @@ reports.reportDomain = async (domain, reportIndex) => {
   var updates = {}
 
   updates['/reportCount'] = count + 1;
-  updates['/reportHistory/' + count] = reportIndex;
+  updates['/reportHistory/' + count] = hash;
 
   db.ref("ReportedSite/" + parseResult).update(updates);
 }
 
-reports.reportAccount = async (address, hasTx, damage, reportIndex) => {
+reports.reportAccount = async (address, hasTx, damage, hash) => {
   const accRef = db.ref("ReportedAccount/" + address);
   var snapshot = {};
   await accRef.get().then(ret => {
@@ -62,16 +63,16 @@ reports.reportAccount = async (address, hasTx, damage, reportIndex) => {
   updates["/reportCount"] = count + 1;
   updates["/txReportCount"] = txcount + (hasTx ? 1 : 0);
   updates["/damageAmount"] = accDamage + damage;
-  updates["/reportHistory/" + count] = reportIndex;
+  updates["/reportHistory/" + count] = hash;
 
   accRef.update(updates);
 }
 
 
-reports.reportContract = async (address, hasTx, damage, reportIndex) => {
+reports.reportContract = async (address, hasTx, damage, hash) => {
   const ctrRef = db.ref("ReportedContract/" + address);
   var snapshot = {};
-  await accRef.get().then(ret => {
+  await ctrRef.get().then(ret => {
     if(ret.exists()) {
       snapshot = ret.val();
     } else {
@@ -93,13 +94,12 @@ reports.reportContract = async (address, hasTx, damage, reportIndex) => {
   updates["/reportCount"] = count + 1;
   updates["/txReportCount"] = txcount + (hasTx ? 1 : 0);
   updates["/damageAmount"] = accDamage + damage;
-  updates["/reportHistory/" + count] = reportIndex;
+  updates["/reportHistory/" + count] = hash;
 
   ctrRef.update(updates);
 }
 
 reports.reportHash = (report) => {
-  console.log(ethers.utils);
   return ethers.utils.base64.encode(
     ethers.utils.solidityKeccak256(
       ["string", "string", "string", "string"],
@@ -119,15 +119,28 @@ reports.reportHash = (report) => {
   reporter: "0x0987",
   timestamp: 1683210000,
 } */
-reports.newReport = async (report) => {
+reports.newReport = async (report, hash) => {
   if(!hasAddress(report) && !hasDomain(report)) {
     throw new Error("Invalid Report!");
   }
 
+  var data = {
+    address: "",
+    associatedTx: "",
+    content: report.content,
+    damage: 0,
+    domain: "",
+    reporter: report.reporter,
+    timestamp: report.timestamp,
+  };
+
   if(hasAddress(report)) {
     var damage = 0;
     const _hasTx = hasTx(report);
-    if(_hasTx) damage = etherscan.getDamage(report.associatedTx);
+    if(_hasTx) {
+      damage = etherscan.getDamage(report.associatedTx);
+      data.associatedTx = report.associatedTx;
+    }
     const isContract = etherscan.isContract(report.address);
 
     if(isContract) {
@@ -135,11 +148,38 @@ reports.newReport = async (report) => {
     } else {
       reports.reportAccount(report.address, _hasTx, damage, hash);
     }
+    data.address = report.address;
+    data.damage = damage;
   }
 
   if(hasDomain(report)) {
-      reports.reportDomain(report.domain, hash);
+    reports.reportDomain(report.domain, hash);
+    data.domain = report.domain;
   }
+
+  db.ref("Reports/" + hash).set(data);
+
+  const logRef = db.ref("ReportLog/" + report.reporter);
+  var snapshot = {};
+  await logRef.get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      snapshot = null;
+    }
+  });
+
+  var count = 0;
+  if(snapshot != null) {
+    count = snapshot.reportCount;
+  }
+
+  var updates = {};
+
+  updates["/reportCount"] = count + 1;
+  updates["/reportHistory/" + count] = hash;
+
+  logRef.update(updates);
 }
 
 const hasAddress = (report) => {

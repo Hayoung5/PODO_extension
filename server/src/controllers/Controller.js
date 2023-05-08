@@ -1,16 +1,8 @@
 const Controller = {};
 
-const admin = require("firebase-admin");
-const serviceAccount = require("../../.podo.json");
 const { txRisk, doReport } = require("../utils/utils");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://podo-wallet-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
-
-// Realtime Database 참조 가져오기
-const db = admin.database();
+const db = require('../utils/db.js')
 const accountsRef = db.ref('Accounts');
 const domainsRef = db.ref('Domains');
 const LogRef = db.ref('Log');
@@ -99,6 +91,7 @@ Controller.postReport = wrap(async (req, res) => {
   }
 
   await doReport(report).catch( err => {
+    console.log(err);
     res.status(400).send('Report Failed: ' + err);
     return;
   })
@@ -106,11 +99,12 @@ Controller.postReport = wrap(async (req, res) => {
   res.status(200).send('Reported');
 })
 
-const wrap = (fn) => {
+function wrap(fn) {
   return (async (req, res) => {
     try {
       return await fn(req, res);
     } catch (error) {
+      console.log(error);
       res.status(500).send(error);
       return;
     }

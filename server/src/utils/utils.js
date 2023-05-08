@@ -52,10 +52,10 @@ utils.doReport = async (report) => {
     const reportRef = await db.ref("Reports/" + hash).get();
 
     if(!reportRef.exists()) {
-        reports.newReport(report);
+        reports.newReport(report, hash);
     } else {
         // Update Report
-        reportRef.update({
+        db.ref("Reports/" + hash).update({
             content: report.content,
             timestamp: report.timestamp,
         })
