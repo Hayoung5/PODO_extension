@@ -41,7 +41,7 @@ const Box2 = styled(Box)`
 const StyledButton = styled(Button)`
 	display: flex;
 	flex-direction: row;
-	align-items: flex-start;
+	align-items: center;
 	padding: 8px 3px;
 	gap: 10px;
 
@@ -49,13 +49,13 @@ const StyledButton = styled(Button)`
 	width: 59px;
 	height: 29px;
 	left: 290px;
-	top: 16px;
+	top: 15px;
 
 	background: #131313;
 	border-radius: 15px;
 	font-size: 8px;
 	color: #FFFFFF;
-	
+	text-transform: capitalize;
 `;
 
 

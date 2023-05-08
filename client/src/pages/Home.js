@@ -8,14 +8,14 @@ import { styled } from '@mui/system';
 import { returnType } from "../utils/utils";
 import '../styles/styles.css';
 
-const StyledBox = styled(Box)`
+const BackgroundBox = styled(Box)`
 	position: absolute;
 	width: 360px;
 	height: 470px;
 	left: 0px;
 	top: 60px;
 	/* Back_Phantom */
-	background: #131313;
+	background: #202020;
 `;
 
 const StyledTextField = styled(TextField)`
@@ -32,7 +32,7 @@ const StyledTextField = styled(TextField)`
 	border-radius: 7.5px;
 `;
 
-const StyledButton1 = styled(Button)`
+const Button_Report = styled(Button)`
 	position: absolute;
 	width: 320px;
 	height: 72px;
@@ -51,7 +51,7 @@ const StyledButton1 = styled(Button)`
     font-size: 18px;
 `;
 
-const StyledButton2 = styled(Button)`
+const Button_Mypage = styled(Button)`
 	position: absolute;
 	width: 320px;
 	height: 72px;
@@ -98,10 +98,9 @@ const Home = ({setInputValue, setIsURL}) => {
 	};
 
 
-
 	return (
 		<div>
-		<StyledBox>
+		<BackgroundBox>
 			<Box>
 				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 4 }}>
 				<div style={{ position: 'relative' }}>
@@ -111,15 +110,28 @@ const Home = ({setInputValue, setIsURL}) => {
 					{/* <Button onClick={handleClick}> GET 테스트 </Button>
 					<Button onClick={handleClick2}> POST 테스트 </Button> */}
 				</Stack>
-				<StyledButton1 component={Link} to="/report" variant="body2">
+				<Button_Report component={Link} to="/report" variant="body2">
 					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
 					{"등록 하기"}
-				</StyledButton1>
-				<StyledButton2>
+				</Button_Report>
+				<Button_Mypage component={Link} to="/myaccount">
 					{"내 정보 확인하기"}
-				</StyledButton2>
+				</Button_Mypage>
 			</Box>
-		</StyledBox>
+			{/*
+			<Box style={{position: "absolute", top: "430px",}}>
+				<Button component={Link} to="/resultnormal">
+						{"(테스트)일반"}
+				</Button>
+				<Button component={Link} to="/resultwarning">
+						{"(테스트)주의"}
+				</Button>
+				<Button component={Link} to="/resultscam">
+						{"(테스트)스캠"}
+				</Button>
+			</Box>
+			*/}
+		</BackgroundBox>
 		</div>
 
 	);

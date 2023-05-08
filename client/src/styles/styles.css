@@ -20,3 +20,24 @@
     background: #2D2D2D;
     border-radius: 7.5px;
 }
+
+.test_input{
+    position: absolute;
+    width: 300px;
+    height: 42px;
+    left: 20px;
+    right: 15px;
+    top: 66px;
+    border: none;
+    color: #C0C0C0;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 17.5px;
+    line-height: 22px;
+    font-size: 18px;
+
+    /* Button_Phantom */
+
+    background: #2D2D2D;
+    border-radius: 7.5px;
+}
