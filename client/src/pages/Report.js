@@ -9,25 +9,17 @@ import { returnType, returnDomain } from "../utils/utils";
 import { postReport } from "../APIs/serverAPI";
 import '../styles/styles.css';
 
-const StyledBox = styled(Box)`
+const BackgroundBox = styled(Box)`
 	position: absolute;
     overflow:scroll;
-    padding-top: 20px;
 	width: 360px;
 	height: 470px;
 	left: 0px;
-	top: 30px;
+	top: 36px;
 	/* Back_Phantom */
-	background: #131313;
-    color: #FFFFFF;	
+	background: #202020;
 `;
 
-// background-color: #5660E6;
-// color: #ffffff;
-// &:hover {
-//     background-color: #5660E6CC;
-// }
-// ;
 const StyledTextField = styled(TextField)`
 	width: 330px;
 	left: 15px;
@@ -102,8 +94,9 @@ const Report = () => {
 
 
 	return (
-		<StyledBox component="form" noValidate onSubmit={handleReport} sx={{ mt: 3 }}>
+		<BackgroundBox component="form" noValidate onSubmit={handleReport} sx={{ mt: 3 }}>
             <Stack direction="column" justifyContent="flex-end" spacing={2}>
+                <span></span>
                 <StyledTypography align="left" variant="h6">
                     {"피해를 입은 계정 주소 (필수)"}
                 </StyledTypography>
@@ -138,7 +131,7 @@ const Report = () => {
             <StyledButton1 type="submit" variant="contained" >
                 {"제보 하기"}
             </StyledButton1>
-		</StyledBox>
+		</BackgroundBox>
 
 	);
 };

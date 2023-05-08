@@ -18,19 +18,6 @@ const BackgroundBox = styled(Box)`
 	background: #202020;
 `;
 
-const StyledTextField = styled(TextField)`
-	position: absolute;
-	width: 330px;
-	left: 15px;
-	top: 126px;
-	font-size: 30px;
-	color: #FFFFFF;
-
-	/* Button_Phantom */
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-`;
 
 const Button_Report = styled(Button)`
 	position: absolute;
@@ -101,7 +88,6 @@ const Home = ({setInputValue, setIsURL}) => {
 	return (
 		<div>
 		<BackgroundBox>
-			<Box>
 				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 4 }}>
 				<div style={{ position: 'relative' }}>
 					<input type="text" className="home_input" placeholder="검색할 정보를 입력하세요" onKeyPress={handleKeyPress} />
@@ -117,20 +103,6 @@ const Home = ({setInputValue, setIsURL}) => {
 				<Button_Mypage component={Link} to="/myaccount">
 					{"내 정보 확인하기"}
 				</Button_Mypage>
-			</Box>
-			{/*
-			<Box style={{position: "absolute", top: "430px",}}>
-				<Button component={Link} to="/resultnormal">
-						{"(테스트)일반"}
-				</Button>
-				<Button component={Link} to="/resultwarning">
-						{"(테스트)주의"}
-				</Button>
-				<Button component={Link} to="/resultscam">
-						{"(테스트)스캠"}
-				</Button>
-			</Box>
-			*/}
 		</BackgroundBox>
 		</div>
 
