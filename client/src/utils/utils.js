@@ -1,59 +1,51 @@
 // const lightwallet = require("eth-lightwallet");
 // const CryptoJS = require('crypto-js');
 
-// export const createAccount = async (mnemonic, password) => {
-//     const keyStore = await new Promise((resolve, reject) => {
-//         lightwallet.keystore.createVault(
-//             {
-//                 password: password,
-//                 seedPhrase: mnemonic,
-//                 hdPathString: "m/44'/60'/0'/0",
-//             },
-//             (err, ks) => {
-//                 if (err) {
-//                     console.error(err);
-//                     reject(err);
-//                 } else {
-//                     ks.keyFromPassword(password, (err, pwDerivedKey) => {
-//                         if (err) {
-//                             console.error(err);
-//                             reject(err);
-//                         } else {
-//                             ks.generateNewAddress(pwDerivedKey, 1);
-//                             resolve(ks);
-//                         }
-//                     });
-//                 }
-//             }
-//         );
-//     });
+//이 함수를 사용하여 다음과 같이 문자열이 유효한 URL인지 확인할 수 있습니다.
+const isValidUrl = (input) => {
+  try {
+    new URL(input);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
-//     // 키스토어를 암호화합니다. 최초 생성시 키스토어 암호화는 password로 함.
-//     const secretKey = password;
-//     const encryptedKeystore = CryptoJS.AES.encrypt(JSON.stringify(keyStore), secretKey).toString();
-//     // localStorage.setItem('encryptedKeystore', encryptedKeystore);
-//     chrome.storage.local.set('encryptedKeystore', encryptedKeystore);
-//     return keyStore.getAddresses()[0];
-// }
+//console.log(isValidUrl("https://www.google.com")); // true
+//console.log(isValidUrl("google.com")); // false
 
-// export const decryptKeystore = async (password) => {
-//     try {
-//         // const userKeystore = await localStorage.getItem('encryptedKeystore');
-//         const userKeystore = await chrome.storage.local.get('encryptedKeystore');
-//         if (!userKeystore) {
-//             throw new Error('No keystore found in localStorage');
-//         }
-//         const decryptedKeystoreBytes = await CryptoJS.AES.decrypt(userKeystore, password);
-//         const decryptedKeystoreJson = await decryptedKeystoreBytes.toString(CryptoJS.enc.Utf8);
-//         const keystore = lightwallet.keystore.deserialize(decryptedKeystoreJson);
-//         console.log(JSON.stringify(keystore));
-//         return keystore;
-//     } catch (err) {
-//         console.error(err);
-//         return null;
-//     }
-// }
+const isEthereumAddress = (str) => {
+    return /^0x[0-9a-fA-F]{40}$/.test(str);
+}
 
-// export const examineTransaction = async () => {
+export const returnType = (address) => {
+    if (address.startsWith('0x')){
+        if (isEthereumAddress(address)) {
+            return "ADDRESS"
+        } else {
+            return "INVALID ADDRESS";
+        }
+    } else {
+        if (isValidUrl(address)) {
+            return "URL";
+        } else {
+            return "INVALID URL";
+        }
+    }
+}
+
+export const returnDomain = (url) => {
+        // Remove protocol (https:// or http://)
+        let result = url.replace(/^(https?:\/\/)/, '');
     
-// }
+      
+        // Check if the URL ends with '/'
+        const endsWithSlash = result.endsWith('/');
+      
+        // Remove trailing '/'
+        if (endsWithSlash) {
+          result = result.slice(0, -1);
+        }
+      
+        return result;
+};

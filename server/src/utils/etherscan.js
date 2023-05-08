@@ -14,6 +14,10 @@ async function etherscanRequest(params = {}, network = "mainnet") {
     });
 }
 
+etherscan.getDamage = async (tx) => {
+    return 0;
+}
+
 etherscan.isVerified = async (address, network = "mainnet") => {
     res = await etherscanRequest({
         "module": "contract",
