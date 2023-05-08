@@ -1,18 +1,8 @@
+utils = {}
+
 const etherscan = require("./etherscan.js");
-
-const admin = require("firebase-admin");
-const serviceAccount = require("../../.podo.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://podo-wallet-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
-
-// Realtime Database 참조 가져오기
-const db = admin.database();
-const accountsRef = db.ref('Accounts');
-const domainsRef = db.ref('Domains');
-const LogRef = db.ref('Log');
+const db = require("./db.js");
+const reports = require("./reports.js");
 
 const APPROVE = "095ea7b3"
 const SETAPPROVALFORALL = "a22cb465"
@@ -22,9 +12,9 @@ const SETAPPROVALFORALL = "a22cb465"
 // 1: standard
 // 2: reported / unvalidated
 // 3: blacklisted
-export async function lookupAddress(address, network="mainnet") {
+utils.lookupAddress = async (address, network="mainnet") => {
     var risk = 1;
-    const data = (await accountsRef.child("0x0000000").get()).val();
+    const data = (await db.ref("").get()).val();
     if(data != null) {
         risk = data.risk;
         if(risk == 0 || risk == 3) return risk;
@@ -36,7 +26,7 @@ export async function lookupAddress(address, network="mainnet") {
     return risk;
 }
 
-export async function txRisk(tx) {
+utils.txRisk = async (tx) => {
     const txData = tx.data;
     const chainid = tx.chainId;
     const network = chainName(chainid);
@@ -57,15 +47,29 @@ export async function txRisk(tx) {
     return risk;
 }
 
-export async function doReport(report) {
-    
+utils.doReport = async (report) => {
+    const hash = reports.reportHash(report);
+    const reportRef = await db.ref("Reports/" + hash).get();
+
+    if(!reportRef.exists()) {
+        reports.newReport(report);
+    } else {
+        // Update Report
+        reportRef.update({
+            content: report.content,
+            timestamp: report.timestamp,
+        })
+    }
+}
+
+
+const chainName = (chainid) => {
+    if(chainid == 1) return "mainnet";
+    else if(chainid == 5) return "goerli";
+    else if(chainid == 11155111) return "sepolia";
+    return "none";
 }
 
 
 
-function chainName(chainid) {
-    if(chainid == 1) return "mainnet"
-    else if(chainid == 5) return "goerli"
-    else if(chainid == 11155111) return "sepolia"
-    return "none"
-}
+module.exports = utils;

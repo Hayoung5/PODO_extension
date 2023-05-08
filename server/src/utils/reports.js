@@ -1,14 +1,7 @@
 var reports = {}
-const admin = require("firebase-admin");
-    
-const serviceAccount = require("../../.podo.json");
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://podo-wallet-default-rtdb.asia-southeast1.firebasedatabase.app"
-});
+const ethers = require("ethers");
 
-// Realtime Database 참조 가져오기
-const db = admin.database();
+const db = require("./db.js");
 
 const parseDomain = (domain) => {
   splitted = domain.split(".");
@@ -17,10 +10,6 @@ const parseDomain = (domain) => {
     parseResult = splitted[i] + "/" + parseResult;
   }
   return parseResult;
-}
-
-reports.pushReport = (report) => {
-  return db.ref("Reports").push(report).key
 }
 
 reports.reportDomain = async (domain, reportIndex) => {
@@ -109,6 +98,18 @@ reports.reportContract = async (address, hasTx, damage, reportIndex) => {
   ctrRef.update(updates);
 }
 
+reports.reportHash = (report) => {
+  console.log(ethers.utils);
+  return ethers.utils.base64.encode(
+    ethers.utils.solidityKeccak256(
+      ["string", "string", "string", "string"],
+      [report.address,
+       report.associatedTx,
+       report.domain,
+       report.reporter]
+  ))
+}
+
 /* report = 
 {
   address: "0x1234",
@@ -119,8 +120,55 @@ reports.reportContract = async (address, hasTx, damage, reportIndex) => {
   timestamp: 1683210000,
 } */
 reports.newReport = async (report) => {
-  //isContract = etherscan.
+  if(!hasAddress(report) && !hasDomain(report)) {
+    throw new Error("Invalid Report!");
+  }
+
+  if(hasAddress(report)) {
+    var damage = 0;
+    const _hasTx = hasTx(report);
+    if(_hasTx) damage = etherscan.getDamage(report.associatedTx);
+    const isContract = etherscan.isContract(report.address);
+
+    if(isContract) {
+      reports.reportContract(report.address, _hasTx, damage, hash);
+    } else {
+      reports.reportAccount(report.address, _hasTx, damage, hash);
+    }
+  }
+
+  if(hasDomain(report)) {
+      reports.reportDomain(report.domain, hash);
+  }
 }
 
+const hasAddress = (report) => {
+  try {
+    return (report.address.length == 42 && report.address.slice(0, 2) == "0x");
+  } catch {
+    return false;
+  }
+}
+const hasDomain = (report) => {
+  try {
+    return typeof report.domain == "string";
+  } catch {
+    return false;
+  }
+}
+const hasReporter = (report) => {
+  try {
+    return (report.reporter.length == 42 && report.reporter.slice(0, 2) == "0x");
+  } catch {
+    return false;
+  }
+}
+const hasTx = (report) => {
+  try {
+    return (report.associatedTx.length == 66 && report.associatedTx.slice(0, 2) == "0x");
+  } catch {
+    return false;
+  }
+}
 
-
+module.exports = reports
