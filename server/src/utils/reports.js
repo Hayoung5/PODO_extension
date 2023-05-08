@@ -138,7 +138,7 @@ reports.newReport = async (report, hash) => {
     var damage = 0;
     const _hasTx = hasTx(report);
     if(_hasTx) {
-      damage = etherscan.getDamage(report.associatedTx);
+      damage = await etherscan.getDamage(report.associatedTx);
       data.associatedTx = report.associatedTx;
     }
     const isContract = etherscan.isContract(report.address);
