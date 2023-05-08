@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/system';
 import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import normalIcon from "../assets/normal.png";
 import * as serverAPI from '../APIs/serverAPI';
 import '../styles/styles.css';
@@ -51,7 +52,7 @@ const Button_Home = styled(Button)`
 	width: 320px;
 	height: 72px;
 	left: 20px;
-	top: 350px;
+	top: 380px;
 
 	background: #2D2D2D;
 	border-radius: 7.5px;
@@ -63,14 +64,18 @@ const Button_Home = styled(Button)`
     font-size: 18px;
 `;
 
-
 const Report = () => {
+
   return (
     <div>
     <BackgroundBox>
         <TextBox>
             신고화면 입니다.
         </TextBox>
+
+        <div style={{ position: 'relative'}}>
+            <input type="text" className="test_input" placeholder="계정 정보를 입력하세요"/>
+        </div>
 
         <Button_Home component={Link} to="/*">
             {"홈으로 돌아가기"}

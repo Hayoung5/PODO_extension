@@ -124,6 +124,7 @@ const Home = () => {
 					{"내 정보 확인하기"}
 				</Button_Mypage>
 			</Box>
+			{/*
 			<Box style={{position: "absolute", top: "430px",}}>
 				<Button component={Link} to="/resultnormal">
 						{"(테스트)일반"}
@@ -135,6 +136,7 @@ const Home = () => {
 						{"(테스트)스캠"}
 				</Button>
 			</Box>
+			*/}
 		</BackgroundBox>
 		</div>
 
