@@ -17,6 +17,19 @@ const BackgroundBox = styled(Box)`
 	background: #202020;
 `;
 
+const TextBox1 = styled(Box)`
+    position: absolute;
+    left: 50%;
+    top: 160px;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+`;
+
+
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
@@ -25,6 +38,7 @@ const TextBox = styled(Box)`
     color: #FFFFFF;
     font-size: 25px;
     display: flex;
+    font-weight: 600;
     flex-direction: column;
     align-items: center;
     text-align: center; 
@@ -65,12 +79,14 @@ const Button_Home = styled(Button)`
 `;
 
 
-const ResultWarning = () => {
+const ResultWarning = ({inputValue}) => {
   return (
     <div>
     <BackgroundBox>
+        <TextBox1>
+            {inputValue}
+        </TextBox1>
         <TextBox>
-            {"0xbF .. 8EA3"}
             <br />
             <a style={{color : "#FFE800", paddingRight: "5px"}}>주의</a>
         </TextBox>

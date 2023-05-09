@@ -1,24 +1,8 @@
 
 import React, { useEffect, useState } from "react";
-import { Typography, Box, AppBar, Toolbar, Button, IconButton, Avatar, Stack, Divider, Modal, Chip } from "@mui/material";
-import { Link } from "react-router-dom";
-import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { styled } from '@mui/system';
-import { getAddBalance } from '../APIs/walletAPI';
-
-
-const StyledBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	/* Back_Phantom */
-	background: #131313;
-    color : #FFFFFF;
-`;
-
+import ResultNormal from "../components/ResultNormal";
+import ResultWarning from "../components/ResultWarning";
+import ResultScam from "../components/ResultScam";
 
 const SearchResult = ({inputValue, isURL}) => {
 
@@ -28,27 +12,21 @@ const SearchResult = ({inputValue, isURL}) => {
         // 결과에 따른 page 보여주기
     }
 
+    // test용 함수
+    const getResult2 = (val) => {
+        if (val === 1) {
+            return (<ResultNormal inputValue={inputValue} />)
+        } else if (val === 2) {
+            return (<ResultWarning inputValue={inputValue} />)
+        } else if (val === 3) {
+            return (<ResultScam inputValue={inputValue} />)
+        }
+    }
+
 	return (
-        <StyledBox>
-            <Stack direction="column" justifyContent="flex-end" spacing={2}>
-                {getResult()}
-                <Typography align="left" variant="h6">
-                    🚨 주의! 해당 계정은 3회 신고를 받았어요.
-                </Typography>
-                <Typography align="left" variant="h6">
-                    {/* {account} */}
-                </Typography>
-                <Typography align="left" variant="h6">
-                    신고내역
-                </Typography>
-                <Typography align="left" variant="h7">
-                    2020.12.13 이 사람 유명한 사기꾼이에요!
-                </Typography>
-                <Typography align="left" variant="h7">
-                    2020.12.24 이 사람 이더리움 먼저 보내주면 2배로 불려준다고 사기치고 다님
-                </Typography>
-            </Stack>
-        </StyledBox>
+        <div>
+            {getResult2(3)}
+        </div>
 	);
 };
 
