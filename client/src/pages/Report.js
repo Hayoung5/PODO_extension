@@ -68,27 +68,30 @@ const Report = () => {
 
 
     const handleReport = async (event) => {
-        
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		const reporter = data.get("reporter");
+		const reporter = data.get("reporter").replace(/\s/g, '');
         const content = data.get("content");
-        const website = data.get("website");
-        const reportedAddr = data.get("reportedAddr");
-        const txHash = data.get("txHash");
+        const website = data.get("website").replace(/\s/g, '');
+        const reportedAddr = data.get("reportedAddr").replace(/\s/g, '');
+        const txHash = data.get("txHash").replace(/\s/g, '');
+        console.log(returnType(reportedAddr));
         if (returnType(reporter) != "ADDRESS") {
             alert(`피해를 입은 계정 주소를 확인해주세요. 입력값 : ${reporter}`);
         } else if (returnType(website) != "URL" && returnType(reportedAddr) != "ADDRESS") {
             alert(`페이지 주소 또는 사기 계정 주소를 올바르게 입력해주세요.`);
         } else {
-            await postReport(reporter, content, returnDomain(website), reportedAddr, txHash).then((res) => {
+            try {
+                const res = await postReport(reporter, content, returnDomain(website), reportedAddr, txHash);
                 if (res.status == 200) {
                     alert("신고가 등록 되었습니다!");
                     navigate("/");
                 } else {
                     alert(res);
                 }
-            });
+            } catch (error) {
+                alert(error);
+            }
         }
 	};
 

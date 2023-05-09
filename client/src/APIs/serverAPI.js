@@ -34,9 +34,8 @@ export const postReport = async (reporter, content, domain, reportedAddr, txHash
   
   try {
     const response = await axios.post(`${config.apiBaseUrl}/report`, data);
-    return response.data;
+    return response;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
