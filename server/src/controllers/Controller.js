@@ -72,6 +72,7 @@ Controller.getLogs = (req, res) => {
 // 1: standard
 // 2: reported / unvalidated
 // 3: blacklisted
+
 Controller.postExamineTx = wrap(async (req, res) => {
   const tx = JSON.parse(req.body[0]);
   if(!tx) {
@@ -83,8 +84,9 @@ Controller.postExamineTx = wrap(async (req, res) => {
   res.status(200).send({ risk: risk })
 })
 
+// 신고 내역 POST
 Controller.postReport = wrap(async (req, res) => {
-  const report = JSON.parse(req.body[0]);
+  const report = req.body;
   if(!report) {
     res.status(400).send('Bad Request');
     return;
