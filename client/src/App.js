@@ -4,7 +4,6 @@ import * as ReactDOM from "react-dom";
 import { Route, Routes, Link } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Search from "./pages/Search";
 import Login from "./pages/Login";
 import Transfer from "./components/Transfer";
 import MyAccount from "./components/MyAccount";
