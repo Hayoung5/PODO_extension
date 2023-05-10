@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/system';
 import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
-import scamIcon from "../assets/scam.png";
 import * as serverAPI from '../APIs/serverAPI';
 import '../styles/styles.css';
 
@@ -14,7 +13,19 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #C80505;
+	background: #202020;
+`;
+
+const TextBox1 = styled(Box)`
+    position: absolute;
+    left: 50%;
+    top: 160px;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
 `;
 
 const TextBox = styled(Box)`
@@ -22,9 +33,10 @@ const TextBox = styled(Box)`
     left: 50%;
     top: 200px;
     transform: translate(-50%, -50%);
-    color: #FFFFFF;
+    color: #C80505;
     font-size: 25px;
     display: flex;
+    font-weight: 600;
     align-items: center;
     text-align: center; 
 `;
@@ -51,25 +63,18 @@ const Button_Home = styled(Button)`
 `;
 
 
-const ResultScam = () => {
+const ResultScam = ({inputValue}) => {
   return (
     <div>
     <BackgroundBox>
+        <TextBox1>
+            {inputValue}
+        </TextBox1>
         <TextBox>
-        {"0xbF .. 8EA3"}
         <br />
             위험!
         </TextBox>
-            <img
-            src={scamIcon}
-            alt="Normal"
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "85px",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
+        <div style={{position: "absolute", left: "50%", top: "85px", fontSize: "70px", transform: "translate(-50%, -50%)"}}>🚨</div>
         <Button_Home component={Link} to="/*">
             {"홈으로 돌아가기"}
         </Button_Home>
