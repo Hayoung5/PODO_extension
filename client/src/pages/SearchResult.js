@@ -7,6 +7,14 @@ import { searchAccount, searchDomain } from "../APIs/serverAPI";
 import { returnDomain } from "../utils/utils";
 
 const SearchResult = ({inputValue, isURL}) => {
+    const [risk, setRisk] = useState("");
+    const [reportCount, setReportCount] = useState("");
+    const [damageAmount, setDamageAmount] = useState("");
+    const [reportHistory, setReportHistory] = useState([]);
+    const [isContract , setIsContract] = useState("");
+    const [isVerified , setIsVerified] = useState("");
+    const [isBlacked, setIsBlacked] = useState("");
+
 
     const getResult = async() => {
         // serverAPI 작성
@@ -16,7 +24,13 @@ const SearchResult = ({inputValue, isURL}) => {
             try {
                 const res = await searchAccount(inputValue);
                 if (res.status == 200) {
-                    alert("계정 검색 결과!");
+                    const result = res.data;
+                    setRisk(result.risk);
+                    setReportCount(result.reportCount);
+                    setDamageAmount(result.damageAmount);
+                    setReportHistory(result.reportHistory);
+                    setIsContract(result.isContract);
+                    setIsVerified(result.isVerified);
                 } else {
                     alert(res);
                 }
@@ -27,7 +41,11 @@ const SearchResult = ({inputValue, isURL}) => {
             try {
                 const res = await searchDomain(returnDomain(inputValue));
                 if (res.status == 200) {
-                    alert("도메인 검색 결과!");
+                    const result = res.data;
+                    setRisk(result.risk);
+                    setReportCount(result.reportCount);
+                    setReportHistory(result.reportHistory);
+                    setIsBlacked(result.blacklisted);
                 } else {
                     alert(res);
                 }
@@ -37,20 +55,60 @@ const SearchResult = ({inputValue, isURL}) => {
         }
     }
 
+    useEffect(() => {
+        getResult();
+	}, [risk]);
+
     // test용 함수
-    const getResult2 = (val) => {
-        if (val === 1) {
-            return (<ResultNormal inputValue={inputValue} />)
+    const returnPage = (val) => {
+        if (val === 0 || val == 1) {
+            return (<ResultNormal 
+                inputValue={inputValue}
+                isURL={isURL}
+                result={{
+                    risk : risk,
+                    reportCount : reportCount,
+                    damageAmount : damageAmount,
+                    reportHistory : reportHistory,
+                    isContract : isContract,
+                    isVerified : isVerified,
+                    isBlacked : isBlacked
+                }}
+                />)
         } else if (val === 2) {
-            return (<ResultWarning inputValue={inputValue} />)
+            return (<ResultWarning 
+                inputValue={inputValue}
+                isURL={isURL}
+                result={{
+                    risk : risk,
+                    reportCount : reportCount,
+                    damageAmount : damageAmount,
+                    reportHistory : reportHistory,
+                    isContract : isContract,
+                    isVerified : isVerified,
+                    isBlacked : isBlacked
+                }}
+                />)
         } else if (val === 3) {
-            return (<ResultScam inputValue={inputValue} />)
+            return (<ResultScam 
+                inputValue={inputValue}
+                isURL={isURL}
+                result={{
+                    risk : risk,
+                    reportCount : reportCount,
+                    damageAmount : damageAmount,
+                    reportHistory : reportHistory,
+                    isContract : isContract,
+                    isVerified : isVerified,
+                    isBlacked : isBlacked
+                }}
+                />)
         }
     }
 
 	return (
         <div>
-            {getResult2(3)}
+            {returnPage(risk)}
         </div>
 	);
 };

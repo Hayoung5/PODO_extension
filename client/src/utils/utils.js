@@ -49,3 +49,23 @@ export const returnDomain = (url) => {
       
         return result;
 };
+
+export const shortenEthereumAddress = (address) => {
+  const prefix = address.substring(0, 5);
+  const suffix = address.substring(address.length - 4);
+  
+  // Return the shortened address
+  return `${prefix}...${suffix}`;
+};
+
+export const convertUnixTime = (unixTime) => {
+  const date = new Date(unixTime * 1000); // Unix 시간을 밀리초 단위로 변환하여 Date 객체 생성
+  
+  const year = date.getFullYear(); // 년도 가져오기
+  const month = date.getMonth() + 1; // 월 (0부터 시작하므로 +1)
+  const day = date.getDate(); // 일 가져오기
+  const hour = date.getHours(); // 시간 가져오기
+  const minute = date.getMinutes(); // 분 가져오기
+  
+  return (`${year}.${month}.${day} ${hour}:${minute}`);
+}

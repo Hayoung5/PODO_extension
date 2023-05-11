@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/system';
 import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
-import * as serverAPI from '../APIs/serverAPI';
+import { shortenEthereumAddress } from "../utils/utils";
 import '../styles/styles.css';
 
 const BackgroundBox = styled(Box)`
@@ -22,7 +22,8 @@ const TextBox1 = styled(Box)`
     top: 160px;
     transform: translate(-50%, -50%);
     color: #FFFFFF;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 25px;
     display: flex;
     align-items: center;
     text-align: center; 
@@ -68,7 +69,7 @@ const ResultScam = ({inputValue}) => {
     <div>
     <BackgroundBox>
         <TextBox1>
-            {inputValue}
+            {shortenEthereumAddress(inputValue)}
         </TextBox1>
         <TextBox>
         <br />

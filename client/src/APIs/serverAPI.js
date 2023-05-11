@@ -41,12 +41,13 @@ export const postReport = async (reporter, content, domain, reportedAddr, txHash
 };
 
 export const searchAccount = async (account) => {
-  const data = {
-    "account" : account,
-  };
+  const data = { params : {
+    "address" : account,
+  }};
   
   try {
-    const response = await axios.get(`${config.apiBaseUrl}/searchAccount`, data);
+    const response = await axios.get(`${config.apiBaseUrl}/addressInfo`, data);
+    console.log(response.data);
     return response;
   } catch (error) {
     throw error;
@@ -54,12 +55,12 @@ export const searchAccount = async (account) => {
 };
 
 export const searchDomain = async (domain) => {
-  const data = {
-    "domain" : domain,
-  };
+  const data = { params : {
+    "address" : domain,
+  }};
   
   try {
-    const response = await axios.get(`${config.apiBaseUrl}/searchDomain`, data);
+    const response = await axios.get(`${config.apiBaseUrl}/domainInfo`, data);
     return response;
   } catch (error) {
     throw error;
