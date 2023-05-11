@@ -38,9 +38,9 @@ const StyledTypography = styled(Typography)`
 `;
 
 const TitleTypography = styled(Typography)`
-    padding-top: 20px;
+    padding-top: 25px;
     padding-left: 25px;
-    color: #EEEEEE;
+    color: #FFFFFF;
     font-weight: 600;
     line-height: 24px;
     font-size: 24px;
