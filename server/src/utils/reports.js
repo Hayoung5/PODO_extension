@@ -13,6 +13,173 @@ const parseDomain = (domain) => {
   return parseResult;
 }
 
+
+const getReportsFromHash = async (hashes = []) => {
+  var result = [];
+
+  for(hash of hashes) {
+    await db.ref("Reports/" + hash).get().then(ret => {
+      if(ret.exists()) {
+        result.push(ret.val());
+      }
+    });
+  }
+
+  return result;
+}
+
+reports.getLogs = async (reporter) => {
+  const logRef = db.ref("ReportLog/" + reporter);
+  var snapshot = {};
+  await logRef.get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      snapshot = {
+        reportCount: 0,
+        reportHistory: [],
+      };
+    }
+  });
+  snapshot.reportHistory = await getReportsFromHash(snapshot.reportHistory);
+  return snapshot;
+}
+
+reports.riskAddress = async (address) => {
+  if(!validAddress(address)) {
+    throw new Error("Invalid Address: " + address)
+  }
+  var isContract = etherscan.isContract(address);
+  var snapshot = {};
+  if(isContract) {
+    var isVerified = await etherscan.isVerified(address);
+
+    await db.ref("ReportedContract/" + address).get().then(ret => {
+      if(ret.exists()) {
+        snapshot = ret.val();
+      } else {
+        snapshot = null;
+      }
+    });
+
+    if(snapshot == null) {
+      if(isVerified)
+        return {
+          risk: 1,
+          reportCount: 0,
+          damageAmount: 0,
+          reportHistory: [],
+          txReportCount: 0,
+          isContract: true,
+          isVerified: true,
+        }
+      else
+        return {
+          risk: 2,
+          reportCount: 0,
+          damageAmount: 0,
+          reportHistory: [],
+          txReportCount: 0,
+          isContract: true,
+          isVerified: false,
+        }
+    } else {
+      if((!isVerified &&
+          (snapshot.reportCount > 2 ||
+          snapshot.txReportCount > 0)) ||
+        snapshot.damage > 10 ||
+        snapshot.txReportCount > 1 ||
+        snapshot.reportCount > 4 ||
+        snapshot.blacklisted)
+      {
+        snapshot.risk = 3;
+      }
+      else if(!isVerified || snapshot.reportCount > 0)
+      {
+        snapshot.risk = 2;
+      }
+      else snapshot.risk = 1;
+
+      snapshot.isVerified = isVerified;
+      snapshot.isContract = true;
+      snapshot.reportHistory = await getReportsFromHash(snapshot.reportHistory);
+      return snapshot;
+    }
+  } else {
+    await db.ref("ReportedAccount/" + address).get().then(ret => {
+      if(ret.exists()) {
+        snapshot = ret.val();
+      } else {
+        snapshot = null;
+      }
+    });
+
+    if(snapshot == null) {
+      return {
+        risk: 1,
+        reportCount: 0,
+        damageAmount: 0,
+        reportHistory: [],
+        txReportCount: 0,
+        isContract: false,
+      }
+    } else {
+      if(snapshot.damage > 10 ||
+        snapshot.txReportCount > 1 ||
+        snapshot.reportCount > 4 ||
+        snapshot.blacklisted)
+      {
+        snapshot.risk = 3;
+      }
+      else if(snapshot.reportCount > 0)
+      {
+        snapshot.risk = 2;
+      }
+      else snapshot.risk = 1;
+
+      snapshot.isContract = false;
+      snapshot.reportHistory = await getReportsFromHash(snapshot.reportHistory);
+      return snapshot;
+    }
+  }
+}
+
+reports.riskDomain = async (domain) => {
+  if(!validDomain(domain)) {
+    throw new Error("Invalid Domain: " + domain);
+  }
+  const parseResult = parseDomain(domain);
+  await db.ref("ReportedSite/" + parseResult).get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      snapshot = null;
+    }
+  });
+
+  if(snapshot == null) {
+    return {
+      risk: 1,
+      reportCount: 0,
+      reportHistory: [],
+    }
+  } else {
+    if(snapshot.reportCount > 9 ||
+      snapshot.blacklisted)
+    {
+      snapshot.risk = 3;
+    }
+    else if(snapshot.reportCount > 0)
+    {
+      snapshot.risk = 2;
+    }
+    else snapshot.risk = 1;
+
+    snapshot.reportHistory = await getReportsFromHash(snapshot.reportHistory);
+    return snapshot;
+  }
+}
+
 reports.reportDomain = async (domain, hash) => {
   
   const parseResult = parseDomain(domain);
@@ -100,7 +267,7 @@ reports.reportContract = async (address, hasTx, damage, hash) => {
 }
 
 reports.reportHash = (report) => {
-  return ethers.utils.base64.encode(
+  return ethers.utils.base58.encode(
     ethers.utils.solidityKeccak256(
       ["string", "string", "string", "string"],
       [report.address,
@@ -120,7 +287,7 @@ reports.reportHash = (report) => {
   timestamp: 1683210000,
 } */
 reports.newReport = async (report, hash) => {
-  if(!hasAddress(report) && !hasDomain(report)) {
+  if(!validAddress(report.address) && !validDomain(report.domain)) {
     throw new Error("Invalid Report!");
   }
 
@@ -134,9 +301,9 @@ reports.newReport = async (report, hash) => {
     timestamp: report.timestamp,
   };
 
-  if(hasAddress(report)) {
+  if(validAddress(report.address)) {
     var damage = 0;
-    const _hasTx = hasTx(report);
+    const _hasTx = validTx(report.associatedTx);
     if(_hasTx) {
       damage = await etherscan.getDamage(report.associatedTx);
       data.associatedTx = report.associatedTx;
@@ -152,7 +319,7 @@ reports.newReport = async (report, hash) => {
     data.damage = damage;
   }
 
-  if(hasDomain(report)) {
+  if(validDomain(report.domain)) {
     reports.reportDomain(report.domain, hash);
     data.domain = report.domain;
   }
@@ -182,33 +349,26 @@ reports.newReport = async (report, hash) => {
   logRef.update(updates);
 }
 
-const hasAddress = (report) => {
+const validAddress = (address) => {
   try {
-    return (report.address.length == 42 && report.address.slice(0, 2) == "0x");
+    return (address.length == 42 && address.slice(0, 2) == "0x");
   } catch {
     return false;
   }
 }
-const hasDomain = (report) => {
+const validDomain = (domain) => {
   try {
-    return typeof report.domain == "string";
+    return typeof domain == "string";
   } catch {
     return false;
   }
 }
-const hasReporter = (report) => {
+const validTx = (txHash) => {
   try {
-    return (report.reporter.length == 42 && report.reporter.slice(0, 2) == "0x");
-  } catch {
-    return false;
-  }
-}
-const hasTx = (report) => {
-  try {
-    return (report.associatedTx.length == 66 && report.associatedTx.slice(0, 2) == "0x");
+    return (txHash.length == 66 && txHash.slice(0, 2) == "0x");
   } catch {
     return false;
   }
 }
 
-module.exports = reports
+module.exports = reports;

@@ -12,18 +12,22 @@ const SETAPPROVALFORALL = "a22cb465"
 // 1: standard
 // 2: reported / unvalidated
 // 3: blacklisted
-utils.lookupAddress = async (address, network="mainnet") => {
-    var risk = 1;
-    const data = (await db.ref("").get()).val();
-    if(data != null) {
-        risk = data.risk;
-        if(risk == 0 || risk == 3) return risk;
-    }
+utils.lookupAddress = async (address) => {
+    return await reports.riskAddress(address);
+}
 
-    isContract = await etherscan.isContract(address, network);
-    isVerified = await etherscan.isVerified(address, network);
-    if(isContract && !isVerified) risk = 2;
-    return risk;
+utils.lookupDomain = async (domain) => {
+    var data = await reports.riskDomain(domain);
+    if(data == null)
+        return {
+            risk: 1,
+            reportCount: 0
+        }
+    return data;
+}
+
+utils.getLogs = async (reporter) => {
+    return await reports.getLogs(reporter);
 }
 
 utils.txRisk = async (tx) => {

@@ -1,18 +1,82 @@
 ## SERVER JSON API
 ### Send New Report
 ```
-/report
+ADDRESS: Valid Ethereum Address(string)
+TXHASH: Valid Ethereum Transaction Hash(string)
+DOMAIN: Valid Domain(string, "*.*.*")
 ```
+
+
+#### POST `/report`
 
 Query Parameters
 ```json
 {
-    address: "0x1234",
-    associatedTx: "0xabcdef12",
-    content: "Description",
-    domain: "a.example.com",
-    reporter: "0x0987",
-    timestamp: 1683210000, // UNIX Timestamp
+    address: ADDRESS,
+    associatedTx: TXHASH,
+    content: STRING,
+    domain: DOMAIN,
+    reporter: ADDRESS,
+    timestamp: INT, // UNIX Timestamp
+}
+```
+
+#### GET `/addressInfo`
+
+Query Parameters
+```json
+{
+    address: ADDRESS
+}
+```
+
+Response
+```json
+{
+    damageAmount: INT,
+    reportCount: INT,
+    txReportCount: INT,
+    reportHistory: ARRAY(REPORT),
+    risk: INT,
+    isVerified: BOOL,
+    isContract: BOOL,
+    blacklisted: BOOL,
+}
+```
+
+#### GET `/domainInfo`
+
+Query Parameters
+```json
+{
+    domain: DOMAIN
+}
+```
+
+Response
+```json
+{
+    reportCount: INT,
+    reportHistory: ARRAY(REPORT),
+    risk: INT,
+    blacklisted: BOOL,
+}
+```
+
+#### GET `/logs`
+
+Query Parameters
+```json
+{
+    reporter: ADDRESS
+}
+```
+
+Response
+```json
+{
+    reportCount: INT,
+    reportHistory: ARRAY(REPORT),
 }
 ```
 
@@ -47,4 +111,4 @@ Blocked
 Tx 첨부 신고가 2회 이상
 피해액 0.1ETH 이상
 신고가 5회 이상
-신고 3회 이상 && Verify 안 되어 있음
+Verify 안 되어 있음 && 신고 3회 이상 또는 Tx 첨부 신고 1회 이상
