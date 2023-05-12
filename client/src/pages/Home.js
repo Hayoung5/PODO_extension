@@ -98,7 +98,7 @@ const Home = ({setInputValue, setIsURL}) => {
 				</Stack>
 				<Button_Report component={Link} to="/report" variant="body2">
 					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-					{"등록 하기"}
+					{"신고하기"}
 				</Button_Report>
 				<Button_Mypage component={Link} to="/myaccount">
 					{"내 정보 확인하기"}
