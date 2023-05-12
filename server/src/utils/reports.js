@@ -49,7 +49,8 @@ reports.riskAddress = async (address) => {
   if(!validAddress(address)) {
     throw new Error("Invalid Address: " + address)
   }
-  var isContract = etherscan.isContract(address);
+  // add "await" to return isContract's result, if not isContract is promise
+  var isContract = await etherscan.isContract(address);
   var snapshot = {};
   if(isContract) {
     var isVerified = await etherscan.isVerified(address);
