@@ -93,9 +93,9 @@ const ResultWarning = ({inputValue, isURL, result}) => {
     const handleOpen = () => setOpen(true);
 
     const infoBox = () => {
-        if (!isURL) {
-            return (
-                <InfoBox>
+        return (
+            <InfoBox>
+                {!isURL ?
                     <div style={{paddingBottom:"10px"}}>
                         {
                             isContract === true && isVerified === false
@@ -107,22 +107,24 @@ const ResultWarning = ({inputValue, isURL, result}) => {
                             : ""
                         }
                     </div>
-                    <div style={{paddingBottom:"20px"}}>
-                        {
-                            reportCount === 0
-                            ? "• 등록된 피해 사례가 없습니다."
-                            : <div>
-                                <span>{"• "}</span>
-                                <Modal_Button onClick={handleOpen}>
-                                    {`피해 사례가 ${reportCount}회 접수`}
-                                </Modal_Button>
-                                <span>{" 되었습니다."}</span>
-                             </div>
-                        }
-                    </div>
-                </InfoBox>
-            )
-        }
+                    : <div/>
+                }
+
+                <div style={{paddingBottom:"20px"}}>
+                    {
+                        reportCount === 0
+                        ? "• 등록된 피해 사례가 없습니다."
+                        : <div>
+                            <span>{"• "}</span>
+                            <Modal_Button onClick={handleOpen}>
+                                {`피해 사례가 ${reportCount}회 접수`}
+                            </Modal_Button>
+                            <span>{" 되었습니다."}</span>
+                        </div>
+                    }
+                </div>
+            </InfoBox>
+        )
     }
 
     return (
@@ -130,7 +132,7 @@ const ResultWarning = ({inputValue, isURL, result}) => {
         <BackgroundBox>
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
             <TextBox1>
-                {shortenEthereumAddress(inputValue)}
+                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
             </TextBox1>
             <TextBox>
                 <br />

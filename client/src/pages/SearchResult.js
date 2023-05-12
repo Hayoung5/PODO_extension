@@ -14,6 +14,8 @@ const SearchResult = ({inputValue, isURL}) => {
     const [isContract , setIsContract] = useState("");
     const [isVerified , setIsVerified] = useState("");
     const [isBlacked, setIsBlacked] = useState("");
+    const [isWhited, setIsWhited] = useState("");
+    const [description, setDescription] = useState();
 
 
     const getResult = async() => {
@@ -45,7 +47,9 @@ const SearchResult = ({inputValue, isURL}) => {
                     setRisk(result.risk);
                     setReportCount(result.reportCount);
                     setReportHistory(result.reportHistory);
-                    setIsBlacked(result.blacklisted);
+                    setIsBlacked(result.blackListed);
+                    setIsWhited(result.whiteListed);
+                    setDescription(result.description);
                 } else {
                     alert(res);
                 }
@@ -59,49 +63,37 @@ const SearchResult = ({inputValue, isURL}) => {
         getResult();
 	}, [risk]);
 
+    const result = {
+        risk : risk,
+        reportCount : reportCount,
+        damageAmount : damageAmount,
+        reportHistory : reportHistory,
+        isContract : isContract,
+        isVerified : isVerified,
+        isBlacked : isBlacked,
+        isWhited : isWhited,
+        description : description,
+    }
+
     // test용 함수
     const returnPage = (val) => {
         if (val === 0 || val == 1) {
             return (<ResultNormal 
                 inputValue={inputValue}
                 isURL={isURL}
-                result={{
-                    risk : risk,
-                    reportCount : reportCount,
-                    damageAmount : damageAmount,
-                    reportHistory : reportHistory,
-                    isContract : isContract,
-                    isVerified : isVerified,
-                    isBlacked : isBlacked
-                }}
+                result={result}
                 />)
         } else if (val === 2) {
             return (<ResultWarning 
                 inputValue={inputValue}
                 isURL={isURL}
-                result={{
-                    risk : risk,
-                    reportCount : reportCount,
-                    damageAmount : damageAmount,
-                    reportHistory : reportHistory,
-                    isContract : isContract,
-                    isVerified : isVerified,
-                    isBlacked : isBlacked
-                }}
+                result={result}
                 />)
         } else if (val === 3) {
             return (<ResultScam 
                 inputValue={inputValue}
                 isURL={isURL}
-                result={{
-                    risk : risk,
-                    reportCount : reportCount,
-                    damageAmount : damageAmount,
-                    reportHistory : reportHistory,
-                    isContract : isContract,
-                    isVerified : isVerified,
-                    isBlacked : isBlacked
-                }}
+                result={result}
                 />)
         }
     }
