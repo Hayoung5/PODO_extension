@@ -56,11 +56,12 @@ export const searchAccount = async (account) => {
 
 export const searchDomain = async (domain) => {
   const data = { params : {
-    "address" : domain,
+    "domain" : domain,
   }};
   
   try {
     const response = await axios.get(`${config.apiBaseUrl}/domainInfo`, data);
+    console.log(response.data);
     return response;
   } catch (error) {
     throw error;
