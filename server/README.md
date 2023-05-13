@@ -59,7 +59,9 @@ Response
     reportCount: INT,
     reportHistory: ARRAY(REPORT),
     risk: INT,
-    blacklisted: BOOL,
+    blackListed: BOOL,
+    whiteListed: BOOL,
+    description: STRING,
 }
 ```
 

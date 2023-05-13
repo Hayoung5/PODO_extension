@@ -49,7 +49,8 @@ reports.riskAddress = async (address) => {
   if(!validAddress(address)) {
     throw new Error("Invalid Address: " + address)
   }
-  var isContract = etherscan.isContract(address);
+  // add "await" to return isContract's result, if not isContract is promise
+  var isContract = await etherscan.isContract(address);
   var snapshot = {};
   if(isContract) {
     var isVerified = await etherscan.isVerified(address);
@@ -145,39 +146,67 @@ reports.riskAddress = async (address) => {
 }
 
 reports.riskDomain = async (domain) => {
+  // Declare result object
+  const result = {
+    risk: undefined,
+    reportCount: undefined,
+    reportHistory: undefined,
+    blackListed: undefined,
+    whiteListed: undefined,
+    description: undefined,
+  }
+  
   if(!validDomain(domain)) {
     throw new Error("Invalid Domain: " + domain);
   }
+
   const parseResult = parseDomain(domain);
-  await db.ref("ReportedSite/" + parseResult).get().then(ret => {
+  await db.ref("ReportedSite/" + parseResult).get().then(async (ret) => {
     if(ret.exists()) {
-      snapshot = ret.val();
+      const snapshot = ret.val();
+      result.reportCount = snapshot.reportCount;
+      result.reportHistory = await getReportsFromHash(snapshot.reportHistory);
+
+      if (snapshot.reportCount > 9) {
+        result.risk = 3;
+      } else if (snapshot.reportCount > 0) {
+        result.risk = 2;
+      } else {
+        result.risk = 1;
+      }
     } else {
-      snapshot = null;
+      result.risk = 1;
+      result.reportCount = 0;
+      result.reportHistory = [];
     }
   });
 
-  if(snapshot == null) {
-    return {
-      risk: 1,
-      reportCount: 0,
-      reportHistory: [],
-    }
-  } else {
-    if(snapshot.reportCount > 9 ||
-      snapshot.blacklisted)
-    {
-      snapshot.risk = 3;
-    }
-    else if(snapshot.reportCount > 0)
-    {
-      snapshot.risk = 2;
-    }
-    else snapshot.risk = 1;
+  // Check if a domain is blacklisted or whitelisted
+  await db.ref("Domains/Blacklist").get().then(ret => {
+      const snapshot2 = ret.val();
+      for (el of snapshot2) {
+        if (el.domain === domain) {
+          result.risk = 3;
+          result.blackListed = true;
+          result.whiteListed = false;
+          result.description = el.description;
+          break;
+        }
+      }
+  });
 
-    snapshot.reportHistory = await getReportsFromHash(snapshot.reportHistory);
-    return snapshot;
-  }
+  await db.ref("Domains/Whitelist").get().then(ret => {
+    const snapshot2 = ret.val();
+    for (el of snapshot2) {
+      if (el.domain === domain) {
+        result.whiteListed = true;
+        result.description = el.description;
+        break;
+      }
+    }
+  });
+
+  return result;
 }
 
 reports.reportDomain = async (domain, hash) => {

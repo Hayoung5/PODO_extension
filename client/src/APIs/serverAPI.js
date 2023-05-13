@@ -40,6 +40,34 @@ export const postReport = async (reporter, content, domain, reportedAddr, txHash
   }
 };
 
+export const searchAccount = async (account) => {
+  const data = { params : {
+    "address" : account,
+  }};
+  
+  try {
+    const response = await axios.get(`${config.apiBaseUrl}/addressInfo`, data);
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const searchDomain = async (domain) => {
+  const data = { params : {
+    "domain" : domain,
+  }};
+  
+  try {
+    const response = await axios.get(`${config.apiBaseUrl}/domainInfo`, data);
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const examineTx = async(tx) => {
   const data = { "tx" : JSON.stringify(tx) };
     try {

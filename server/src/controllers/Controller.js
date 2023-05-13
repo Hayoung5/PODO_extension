@@ -48,7 +48,7 @@ Controller.getLogs = wrap(async (req, res) => {
 })
 
 Controller.getAddressInfo = wrap(async (req, res) => {
-  const data = req.body;
+  const data = req.query;
   if(!data) {
     res.status(400).send('Bad Request');
     return;
@@ -58,7 +58,7 @@ Controller.getAddressInfo = wrap(async (req, res) => {
 })
 
 Controller.getDomainInfo = wrap(async (req, res) => {
-  const data = req.body;
+  const data = req.query;
   if(!data) {
     res.status(400).send('Bad Request');
     return;

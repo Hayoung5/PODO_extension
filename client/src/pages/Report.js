@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Stack, TextField, Button, Avatar, Box, Typography } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Stack, TextField, Button, Avatar, Box, Typography, Tooltip } from "@mui/material";
 import * as serverAPI from '../APIs/serverAPI';
 import { styled } from '@mui/system';
+import SearchIcon from '@mui/icons-material/Search';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { returnType, returnDomain } from "../utils/utils";
 import { postReport } from "../APIs/serverAPI";
 import '../styles/styles.css';
+
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -21,19 +23,29 @@ const BackgroundBox = styled(Box)`
 `;
 
 const StyledTextField = styled(TextField)`
-	width: 330px;
-	left: 15px;
+	width: 300px;
+	left: 20px;
 	font-size: 30px;
     background: #2D2D2D;
     border-radius: 7.5px;
 `;
 
 const StyledTypography = styled(Typography)`
-    padding-left: 20px;
+    padding-left: 25px;
     color: #C0C0C0;
     font-weight: 600;
     line-height: 22px;
-    font-size: 18px;
+    font-size: 17px;
+    padding-top: 20px;
+`;
+
+const TitleTypography = styled(Typography)`
+    padding-top: 25px;
+    padding-left: 25px;
+    color: #FFFFFF;
+    font-weight: 600;
+    line-height: 24px;
+    font-size: 24px;
 `;
 
 const StyledButton1 = styled(Button)`
@@ -47,7 +59,7 @@ const StyledButton1 = styled(Button)`
     width: 135px;
     height: 55px;
     left: 112px;
-    top: 590px;
+    top: 770px;
     margin-bottom: 20px;
 
     color : #FFFFFF;
@@ -60,6 +72,12 @@ const StyledButton1 = styled(Button)`
     border-radius: 18px;
 `;
 
+const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
+    font-size: 17px;
+    color : #A0A0A0;
+    left: 300px;
+`;
+
 const Report = () => {
     const navigate = useNavigate();
 
@@ -70,6 +88,7 @@ const Report = () => {
     const handleReport = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
+        const category = data.get("category");
 		const reporter = data.get("reporter").replace(/\s/g, '');
         const content = data.get("content");
         const website = data.get("website").replace(/\s/g, '');
@@ -82,7 +101,7 @@ const Report = () => {
             alert(`페이지 주소 또는 사기 계정 주소를 올바르게 입력해주세요.`);
         } else {
             try {
-                const res = await postReport(reporter, content, returnDomain(website), reportedAddr, txHash);
+                const res = await postReport(category, reporter, content, returnDomain(website), reportedAddr, txHash);
                 if (res.status == 200) {
                     alert("신고가 등록 되었습니다!");
                     navigate("/");
@@ -97,39 +116,76 @@ const Report = () => {
 
 
 	return (
-		<BackgroundBox component="form" noValidate onSubmit={handleReport} sx={{ mt: 3 }}>
-            <Stack direction="column" justifyContent="flex-end" spacing={2}>
-                <span></span>
-                <StyledTypography align="left" variant="h6">
-                    {"피해를 입은 계정 주소 (필수)"}
-                </StyledTypography>
-                <StyledTextField name="reporter" type="text" id="reporter"
-                    InputProps={{ sx: {"& input": { color: "#FFFFFF"}, "& label" : {color: "#FFFFFF"}}}} placeholder="0x..." >
-                </StyledTextField>
-                <StyledTypography align="left" variant="h6">
+		<BackgroundBox component="form" noValidate onSubmit={handleReport} sx={{ mt: 3 }}>          
+            <Stack direction="column" justifyContent="flex-end" spacing={1}>
+            
+                <TitleTypography align="left" variant="h5">
                     {"어떤 피해를 입으셨나요?"}
-                </StyledTypography>
-                <StyledTextField name="content" type="text" id="content"
-                    InputProps={{ sx: {"& input": { color: "#FFFFFF"}, "& label" : {color: "#FFFFFF"}}}} placeholder="사기 유형, 수법 등을 공유해 주세요." >
-                </StyledTextField>
+                    { /* <span style={{ color: '#C80505', fontSize: '25px' }}>피해</span>
+                    {"를 입으셨나요?"} */ }
+                </TitleTypography>
+
                 <StyledTypography align="left" variant="h6">
-                    {"페이지 주소를 알려주세요."}
+                    {"피해 종류"}
+                    <span style={{ color: '#C80505' }}> *</span>
                 </StyledTypography>
-                <StyledTextField name="website" type="text" id="website"
-                    InputProps={{ sx: {"& input": { color: "#FFFFFF"}, "& label" : {color: "#FFFFFF"}}}} placeholder="https://..." >
+                <StyledTextField name="category" type="text" id="category"
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="종류 선택하기 (예정)" >
                 </StyledTextField>
+
                 <StyledTypography align="left" variant="h6">
-                    {"사기 계정 주소 (또는 컨트랙트 주소)를 알려주세요."}
+                    {"피해를 입은 지갑 주소"}
+                    <span style={{ color: '#C80505' }}> *</span>
                 </StyledTypography>
+                <Tooltip title="피해를 입은 계정의 주소를 알려주세요. 주소는 0x로 시작하는 40자리의 영문/숫자로 구성되어 있습니다.">
+                    <StyledHelpOutlineIcon sx={{position: 'absolute', top: "190px"}} />
+                </Tooltip>
+                <StyledTextField name="reporter" type="text" id="reporter"
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="0x..." >
+                </StyledTextField>
+
+                <StyledTypography align="left" variant="h6">
+                    {"상대방의 계정(지갑) 주소"}
+                    <span style={{ color: '#C80505' }}> *</span>
+                </StyledTypography>
+                <Tooltip title="상대방이 사용한 계정의 주소를 알려주세요. 주소는 0x로 시작하는 40자리의 영문/숫자로 구성되어 있습니다. EOA와 CA 모두 입력하실 수 있습니다.">
+                    <StyledHelpOutlineIcon sx={{position: 'absolute', top: "305px"}} />
+                </Tooltip>
                 <StyledTextField name="reportedAddr" type="text" id="reportedAddr"
-                    InputProps={{ sx: {"& input": { color: "#FFFFFF"}, "& label" : {color: "#FFFFFF"}}}} placeholder="0x..." >
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="0x..." >
                 </StyledTextField>
+
                 <StyledTypography align="left" variant="h6">
-                    {"트랜잭션 해시값을 알려주세요."}
+                    {"상대방의 홈페이지 주소"}
+                    <span style={{ color: '#C80505' }}> *</span>
                 </StyledTypography>
-                <StyledTextField name="txHash" type="text" id="txHash"
-                    InputProps={{ sx: {"& input": { color: "#FFFFFF"}, "& label" : {color: "#FFFFFF"}}}} placeholder="0x..." >
+                <Tooltip title="상대방이 사용한 홈페이지 주소를 알려주세요. 크롬 등의 웹브라우저 상단에 나오는 주소입니다.">
+                    <StyledHelpOutlineIcon sx={{position: 'absolute', top: "420px"}} />
+                </Tooltip>
+                <StyledTextField name="website" type="text" id="website"
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="https://..." >
                 </StyledTextField>
+
+                <StyledTypography align="left" variant="h6">
+                    {"Tx Hash (선택)"}
+                </StyledTypography>
+                <Tooltip title="상대방이 사용한 홈페이지 주소를 알려주세요. 크롬 등의 웹브라우저 상단에 나오는 주소입니다.">
+                    <StyledHelpOutlineIcon sx={{position: 'absolute', top: "530px"}} />
+                </Tooltip>
+                <StyledTextField name="txHash" type="text" id="txHash"
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="0x..." >
+                </StyledTextField>
+
+                <StyledTypography align="left" variant="h6">
+                    {"피해 내용 (선택)"}
+                </StyledTypography>
+                <Tooltip title="자세히 적어주실 수록 도움이 됩니다.">
+                    <StyledHelpOutlineIcon sx={{position: 'absolute', top: "645px"}} />
+                </Tooltip>
+                <StyledTextField name="content" type="text" id="content"
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="사기 유형, 수법 등을 공유해 주세요." >
+                </StyledTextField>
+
             </Stack>
             <StyledButton1 type="submit" variant="contained" >
                 {"제보 하기"}
