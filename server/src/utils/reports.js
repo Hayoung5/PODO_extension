@@ -334,7 +334,7 @@ reports.newReport = async (report, hash) => {
     var damage = 0;
     const _hasTx = validTx(report.associatedTx);
     if(_hasTx) {
-      damage = await etherscan.getDamage(report.associatedTx);
+      damage = await alchemy.getDamage(report.associatedTx, report.reporter, report.address);
       data.associatedTx = report.associatedTx;
     }
     const isContract = etherscan.isContract(report.address);
