@@ -337,7 +337,8 @@ reports.newReport = async (report, hash) => {
       damage = await etherscan.getDamage(report.associatedTx);
       data.associatedTx = report.associatedTx;
     }
-    const isContract = etherscan.isContract(report.address);
+    // add "await" to return isContract's result, if not isContract is promise
+    const isContract = await etherscan.isContract(report.address);
 
     if(isContract) {
       reports.reportContract(report.address, _hasTx, damage, hash);
