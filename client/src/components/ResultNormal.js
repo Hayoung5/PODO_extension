@@ -33,14 +33,14 @@ const TextBox1 = styled(Box)`
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
-    top: 200px;
+    top: 210px;
     transform: translate(-50%, -50%);
-    color: #46BD7B;
+    color: #00FF57;
     font-size: 25px;
-    display: flex;
     font-weight: 600;
     align-items: center;
-    text-align: center; 
+    text-align: center;
+    white-space: pre-line;
 `;
 
 
@@ -97,9 +97,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                     </div> 
                     : isURL && isWhited ?
                     <div style={{paddingBottom:"10px"}}>
-                        {"• "}
-                        <span style={{color:"#FFFFFF"}}>{`화이트 리스트로 등록된 ${description} 사이트`}</span>
-                        {" 입니다."}
+                        {"• 안전한 사이트 입니다"}
                     </div>
                     : <div/>
                 }
@@ -117,7 +115,15 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                 {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
             </TextBox1>
             <TextBox>
-                피해 없음
+                <span>
+                    피해 없음
+                </span>
+                
+                {isURL && isWhited ? 
+                <span style={{fontSize : "20px"}}>
+                    {`\n ✅ ${description}`}
+                </span> : <div/>
+                }
             </TextBox>
             <img
                 src={normalIcon}
@@ -126,6 +132,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                 position: "absolute",
                 left: "50%",
                 top: "85px",
+                width: 85,
                 transform: "translate(-50%, -50%)",
                 }}
             />
