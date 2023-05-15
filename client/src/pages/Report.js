@@ -88,7 +88,7 @@ const Report = () => {
     const handleReport = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-        const category = data.get("category");
+        // const category = data.get("category");
 		const reporter = data.get("reporter").replace(/\s/g, '');
         const content = data.get("content");
         const website = data.get("website").replace(/\s/g, '');
@@ -101,7 +101,7 @@ const Report = () => {
             alert(`페이지 주소 또는 사기 계정 주소를 올바르게 입력해주세요.`);
         } else {
             try {
-                const res = await postReport(category, reporter, content, returnDomain(website), reportedAddr, txHash);
+                const res = await postReport(reporter, content, returnDomain(website), reportedAddr, txHash);
                 if (res.status == 200) {
                     alert("신고가 등록 되었습니다!");
                     navigate("/");
@@ -125,13 +125,13 @@ const Report = () => {
                     {"를 입으셨나요?"} */ }
                 </TitleTypography>
 
-                <StyledTypography align="left" variant="h6">
+                {/* <StyledTypography align="left" variant="h6">
                     {"피해 종류"}
                     <span style={{ color: '#C80505' }}> *</span>
-                </StyledTypography>
-                <StyledTextField name="category" type="text" id="category"
+                </StyledTypography> */}
+                {/* <StyledTextField name="category" type="text" id="category"
                     InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="종류 선택하기 (예정)" >
-                </StyledTextField>
+                </StyledTextField> */}
 
                 <StyledTypography align="left" variant="h6">
                     {"피해를 입은 지갑 주소"}
