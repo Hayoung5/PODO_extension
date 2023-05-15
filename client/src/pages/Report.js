@@ -101,7 +101,7 @@ const Report = () => {
             alert(`페이지 주소 또는 사기 계정 주소를 올바르게 입력해주세요.`);
         } else {
             try {
-                const res = await postReport(category, reporter, content, returnDomain(website), reportedAddr, txHash);
+                const res = await postReport(reporter, content, returnDomain(website), reportedAddr, txHash);
                 if (res.status == 200) {
                     alert("신고가 등록 되었습니다!");
                     navigate("/");
