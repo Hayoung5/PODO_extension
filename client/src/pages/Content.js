@@ -10,6 +10,9 @@ import TokenList from "../components/TokenList";
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import { getAddBalance } from '../APIs/walletAPI';
 
+import { MetaMaskInpageProvider } from '@metamask/inpage-provider';
+import PortStream from 'extension-port-stream';
+
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -23,6 +26,9 @@ const style = {
 	p: 3,
 };
 
+function getMetaMaskId() {
+    return "nkbihfbeogaeaoehlefnkodbefgpgknn"
+}
 
 const Content = () => {
 	const [open, setOpen] = React.useState(false);
@@ -30,7 +36,17 @@ const Content = () => {
 	const [bal, setBal] = useState('');
 
 	const getData = async () => {
-		const { address } = await chrome.storage.local.get("address");
+		let provider
+		try {
+			let currentMetaMaskId = getMetaMaskId()
+			const metamaskPort = chrome.runtime.connect(currentMetaMaskId)
+			const pluginStream = new PortStream(metamaskPort)
+			provider = new MetaMaskInpageProvider(pluginStream)
+		} catch (e) {
+			console.dir(`Metamask connect error `, e)
+			throw e
+		}
+		const address = await provider.request({method: 'eth_requestAccounts'})
 		setUserAdd(address);
 		const balance = await getAddBalance(address);
 		console.log(2,balance);
