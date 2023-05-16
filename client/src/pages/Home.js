@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -56,24 +57,11 @@ const Button_Mypage = styled(Button)`
     font-size: 18px;
 `;
 
-// 이벤트 수신 함수
-const handleMetaMaskEvent = (event) => {
-	console.log("message!!");
-	if (event.data && event.data.method === 'eth_sendTransaction') {
-		console.log("yes");
-		console.log(event.data);
-		const rawTransaction = event.data.params[0];
-		console.log(rawTransaction);
-	}
-  }
   
 const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// 메타마스크 이벤트 수신 대기
-		console.log();
-		window.addEventListener('message', handleMetaMaskEvent);
 	}, []);
 
 	const handleKeyPress = (event) => {

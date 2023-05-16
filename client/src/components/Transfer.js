@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Stack, TextField, FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import {transfer} from '../APIs/walletAPI';
+import {transfer} from '../APIs/walletAPI_backup';
 
 const Transfer = ({wallet}) => {
 	const [ToAddress, setToAddress] = useState(""); // 받는 사람 주소
