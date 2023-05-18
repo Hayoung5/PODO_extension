@@ -25,10 +25,10 @@ const SelectButton = () => {
                 <Button onClick={()=>{navigate(`/tx`)}} >
                     트랜잭션
                 </Button>
-                <Button onClick={()=>{navigate(`/searchResult`)}} >
+                <Button onClick={()=>{navigate(`/address`)}} >
                     거래주소
                 </Button>
-                <Button onClick={()=>{navigate(`/searchResult`)}} >
+                <Button onClick={()=>{navigate(`/domain`)}} >
                     웹사이트
                 </Button>
             </div>

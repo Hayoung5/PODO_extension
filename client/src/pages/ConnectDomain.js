@@ -10,11 +10,13 @@ const ConnectDomain = () => {
 				setIntput(res.location);
 			};
 		});
-	}, []);
+	}, [input]);
 
     return (
         <div>
-        {<SearchResult inputValue={input} isURL={true} />}
+        {input ? <SearchResult inputValue={input} isURL={true} />
+        : <div/>
+        }
         </div>
     );
 };
