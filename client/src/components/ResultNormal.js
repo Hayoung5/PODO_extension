@@ -7,6 +7,7 @@ import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
 import normalIcon from "../assets/normal.png";
 import { shortenEthereumAddress } from "../utils/utils";
 import '../styles/styles.css';
+import SelectButton from "./SelectButton";
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -111,6 +112,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
     return (
         <div>
         <BackgroundBox>
+            <SelectButton />
             <TextBox1>
                 {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
             </TextBox1>

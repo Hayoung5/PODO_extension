@@ -5,6 +5,8 @@ import ResultWarning from "../components/ResultWarning";
 import ResultScam from "../components/ResultScam";
 import { searchAccount, searchDomain } from "../APIs/serverAPI";
 import { returnDomain } from "../utils/utils";
+import Loading from "./Loading";
+
 
 const SearchResult = ({inputValue, isURL}) => {
     const [risk, setRisk] = useState("");
@@ -100,7 +102,9 @@ const SearchResult = ({inputValue, isURL}) => {
 
 	return (
         <div>
-            {returnPage(risk)}
+            {risk === "" ?
+            <Loading guideText={"신고내역을 검색 중입니다."}/>
+            : returnPage(risk)}
         </div>
 	);
 };
