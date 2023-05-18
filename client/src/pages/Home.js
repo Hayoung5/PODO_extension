@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import * as serverAPI from '../APIs/serverAPI';
 import { styled } from '@mui/system';
 import { returnType } from "../utils/utils";
@@ -14,7 +15,7 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #282626;
+	background: #2D2626;
 `;
 
 
@@ -35,6 +36,7 @@ const Button_Report = styled(Button)`
     font-size: 17.5px;
     line-height: 22px;
     font-size: 18px;
+	text-align: left; 
 `;
 
 const Button_Mypage = styled(Button)`
@@ -53,6 +55,7 @@ const Button_Mypage = styled(Button)`
     font-weight: 600;
     line-height: 22px;
     font-size: 18px;
+	text-align: left; 
 `;
 
 const Home = ({setInputValue, setIsURL}) => {
@@ -87,20 +90,36 @@ const Home = ({setInputValue, setIsURL}) => {
 	return (
 		<div>
 		<BackgroundBox>
-				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 4 }}>
+				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 0 }}>
 				<div style={{ position: 'relative' }}>
-					<input type="text" className="home_input" placeholder="검색할 정보를 입력하세요" onKeyPress={handleKeyPress} />
-					<SearchIcon sx={{position: 'absolute', color: "#FFFFFF", fontSize: "30px", left: "290px", top: "100px"}} />
+				<input 
+					type="text" 
+					className="home_input" 
+					placeholder="검색할 정보를 입력하세요" 
+					onKeyPress={handleKeyPress} 
+					style={{ height: '90px' }} 
+				/>
+					<SearchIcon sx={{position: 'absolute', color: "#C0C0C0", fontSize: "30px", left: "290px", top: "115px"}} />
 				</div>
 					{/* <Button onClick={handleClick}> GET 테스트 </Button>
 					<Button onClick={handleClick2}> POST 테스트 </Button> */}
 				</Stack>
 				<Button_Report component={Link} to="/report" variant="body2">
-					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-					{"신고하기"}
+					<Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+						<div>
+							<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
+							{"신고하기"}
+						</div>
+						<ArrowForwardIosIcon sx={{color: '#DF4C0D'}} />
+					</Box>
 				</Button_Report>
 				<Button_Mypage component={Link} to="/myaccount">
-					{"내 정보 확인하기"}
+					<Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+						<div>
+							{"내 정보 확인하기"}
+						</div>
+						<ArrowForwardIosIcon />
+					</Box>
 				</Button_Mypage>
 		</BackgroundBox>
 		</div>

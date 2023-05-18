@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Box, IconButton,  Avatar, Button } from "@mui/material";
 import { styled } from '@mui/system';
 
@@ -24,10 +24,10 @@ const StyledAvatar = styled(Avatar)`
 `;
 
 const Box2 = styled(Box)`
-	position: absolute;
+	position: relative;
 	width: 74px;
 	height: 31px;
-	left: 143px;
+	left: 25px;
 	top: 15px;
 
 	font-style: normal;
@@ -36,6 +36,7 @@ const Box2 = styled(Box)`
 	line-height: 31px;
 	text-align: center;
 	letter-spacing: 0.0581866px;
+	text-decoration: none;
 
 	color: #FFFFFF;
 `;
@@ -48,9 +49,9 @@ const StyledButton = styled(Button)`
 	gap: 10px;
 
 	position: absolute;
-	width: 59px;
-	height: 29px;
-	left: 290px;
+	width: 60px;
+	height: 30px;
+	left: 275px;
 	top: 15px;
 
 	background: #131313;
@@ -66,10 +67,7 @@ const Navbar = () => {
 	return (
 		<>
 			<StyledBox>
-				<IconButton component={Link} to="/" sx={{ flexGrow: 1, px: 0 }}>
-					<StyledAvatar variant="circular" alt="Podo" src={require("../assets/podo_logo.png")} />
-				</IconButton>
-				<Box2>PODO</Box2>
+				<Box2 component={Link} to="/home">PODO</Box2>
 				<StyledButton>Connected</StyledButton>
 			</StyledBox>
 		</>

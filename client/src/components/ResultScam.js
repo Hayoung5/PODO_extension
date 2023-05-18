@@ -15,7 +15,7 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #282626;
+	background: #2D2626;
 `;
 
 const TextBox = styled(Box)`
