@@ -9,7 +9,9 @@ const StyledBox = styled(Box)`
 	height: 60px;
 	left: 0px;
 	top: 0px;
-	background: #2D2D2D;
+	background: #242424;
+	border-bottom: 2px solid #333333;
+	box-sizing: border-box;
 `;
 
 const StyledAvatar = styled(Avatar)`

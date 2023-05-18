@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/system';
-import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
+import { Stack, TextField, Button, Avatar, Box, Tooltip } from "@mui/material";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import normalIcon from "../assets/normal.png";
 import { shortenEthereumAddress } from "../utils/utils";
 import '../styles/styles.css';
@@ -14,35 +15,39 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #202020;
-`;
-
-const TextBox1 = styled(Box)`
-    position: absolute;
-    left: 50%;
-    top: 160px;
-    transform: translate(-50%, -50%);
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 25px;
-    display: flex;
-    align-items: center;
-    text-align: center; 
+	background: #2D2626;
 `;
 
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
-    top: 200px;
+    top: 160px;
     transform: translate(-50%, -50%);
     color: #46BD7B;
-    font-size: 25px;
+    font-size: 30px;
     display: flex;
     font-weight: 600;
     align-items: center;
     text-align: center; 
 `;
 
+const TextBox1 = styled(Box)`
+    position: absolute;
+    left: 50%;
+    top: 200px;
+    transform: translate(-50%, -50%);
+    color: #C0C0C0;
+    font-weight: 700;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+`;
+
+const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
+    font-size: 16px;
+    margin-left: 10px;
+`;
 
 const Button_Report = styled(Button)`
 	position: absolute;
@@ -113,12 +118,22 @@ const ResultNormal = ({inputValue, isURL, result}) => {
     return (
         <div>
         <BackgroundBox>
-            <TextBox1>
-                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
-            </TextBox1>
             <TextBox>
                 피해 없음
             </TextBox>
+            <TextBox1>
+                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
+                <Tooltip title={
+                        <React.Fragment>
+                            등록된 피해 사례가 없어요.
+                            <br/>
+                            화이트리스트에 없는 경우 항상 주의하세요!
+                        </React.Fragment>
+                    }>
+                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', marginLeft: '8px' }}/>
+                </Tooltip>
+
+            </TextBox1>
             <img
                 src={normalIcon}
                 alt="Normal"
@@ -132,7 +147,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
             {infoBox()}
             <Button_Report component={Link} to="/report">
                 <span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-                {"등록 하기"}
+                {"신고하기"}
             </Button_Report>
         </BackgroundBox>
         </div>

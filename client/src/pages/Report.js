@@ -19,7 +19,7 @@ const BackgroundBox = styled(Box)`
 	left: 0px;
 	top: 36px;
 	/* Back_Phantom */
-	background: #202020;
+	background: #282626;
 `;
 
 const StyledTextField = styled(TextField)`
@@ -119,7 +119,7 @@ const Report = () => {
 		<BackgroundBox component="form" noValidate onSubmit={handleReport} sx={{ mt: 3 }}>          
             <Stack direction="column" justifyContent="flex-end" spacing={1}>
             
-                <TitleTypography align="left" variant="h5">
+                <TitleTypography align="left" variant="h3">
                     {"어떤 피해를 입으셨나요?"}
                     { /* <span style={{ color: '#C80505', fontSize: '25px' }}>피해</span>
                     {"를 입으셨나요?"} */ }
@@ -159,7 +159,7 @@ const Report = () => {
                     {"상대방의 홈페이지 주소"}
                     <span style={{ color: '#C80505' }}> *</span>
                 </StyledTypography>
-                <Tooltip title="상대방이 사용한 홈페이지 주소를 알려주세요. 크롬 등의 웹브라우저 상단에 나오는 주소입니다.">
+                <Tooltip title="상대방이 사용한 홈페이지 주소를 알려주세요. https:// 형태로 시작하며 크롬 등의 웹브라우저 상단에 나오는 주소입니다.">
                     <StyledHelpOutlineIcon sx={{position: 'absolute', top: "420px"}} />
                 </Tooltip>
                 <StyledTextField name="website" type="text" id="website"

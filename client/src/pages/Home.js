@@ -14,8 +14,7 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	/* Back_Phantom */
-	background: #202020;
+	background: #282626;
 `;
 
 
@@ -69,7 +68,7 @@ const Home = ({setInputValue, setIsURL}) => {
 		if (type === "INVALID ADDRESS") {
 			alert(`유효하지 않은 계정 주소 입니다. 다시 한번 확인해보세요. \n입력값 : ${input}`);
 		} else if (type === "INVALID URL") {
-			alert(`유효하지 않은 URL 입니다. 다시 한번 확인해보세요. \n입력값 : ${input}`);
+			alert(`유효하지 않은 URL 입니다.\n도메인 주소 앞에 https://가 입력되어 있는지 확인해보세요. \n입력값 : ${input}`);
 		} else if (type === "URL") {
 			setInputValue(input);
 			setIsURL(true);
