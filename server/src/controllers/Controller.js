@@ -26,14 +26,16 @@ Controller.getIndex = (req, res) => {
   res.status(200).send({data: "Hello World!"});
 }
 
-Controller.postExamineTx = wrap(async (req, res) => {
-  const tx = JSON.parse(req.body[0]);
-  if(!tx) {
+Controller.getExamineTx = wrap(async (req, res) => {
+  const data = req.query;
+  console.log("the input is");
+  console.log(data);
+  if(!data) {
     res.status(400).send('Bad Request');
     return;
   }
 
-  risk = await utils.txRisk(tx);
+  risk = await utils.txRisk(data.tx);
   res.status(200).send({ risk: risk })
 })
 

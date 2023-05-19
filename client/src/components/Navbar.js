@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Box, IconButton,  Avatar, Button } from "@mui/material";

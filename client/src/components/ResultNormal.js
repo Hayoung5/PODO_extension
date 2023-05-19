@@ -8,6 +8,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import normalIcon from "../assets/normal.png";
 import { shortenEthereumAddress } from "../utils/utils";
 import '../styles/styles.css';
+import SelectButton from "./SelectButton";
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -28,7 +29,8 @@ const TextBox = styled(Box)`
     display: flex;
     font-weight: 600;
     align-items: center;
-    text-align: center; 
+    text-align: center;
+    white-space: pre-line;
 `;
 
 const TextBox1 = styled(Box)`
@@ -102,9 +104,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                     </div> 
                     : isURL && isWhited ?
                     <div style={{paddingBottom:"10px"}}>
-                        {"• "}
-                        <span style={{color:"#FFFFFF"}}>{`화이트 리스트로 등록된 ${description} 사이트`}</span>
-                        {" 입니다."}
+                        {"• 안전한 사이트 입니다"}
                     </div>
                     : <div/>
                 }
@@ -119,7 +119,15 @@ const ResultNormal = ({inputValue, isURL, result}) => {
         <div>
         <BackgroundBox>
             <TextBox>
-                피해 없음
+                <span>
+                    피해 없음
+                </span>
+                
+                {isURL && isWhited ? 
+                <span style={{fontSize : "20px"}}>
+                    {`\n ✅ ${description}`}
+                </span> : <div/>
+                }
             </TextBox>
             <TextBox1>
                 {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
@@ -141,6 +149,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                 position: "absolute",
                 left: "50%",
                 top: "85px",
+                width: 85,
                 transform: "translate(-50%, -50%)",
                 }}
             />

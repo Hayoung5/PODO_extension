@@ -69,9 +69,11 @@ export const searchDomain = async (domain) => {
 };
 
 export const examineTx = async(tx) => {
-  const data = { "tx" : JSON.stringify(tx) };
+  const data = { params : {
+    "tx" : tx,
+  }};
     try {
-    const response = await axios.post(`${config.apiBaseUrl}/examineTx`, data);
+    const response = await axios.get(`${config.apiBaseUrl}/examineTx`, data);
     return response.data;
   } catch (error) {
     console.error(error);
