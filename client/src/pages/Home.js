@@ -15,7 +15,7 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #2D2626;
+	background: #282626;
 `;
 
 
@@ -95,7 +95,7 @@ const Home = ({setInputValue, setIsURL}) => {
 				<input 
 					type="text" 
 					className="home_input" 
-					placeholder="검색할 정보를 입력하세요" 
+					placeholder="검색할 정보를 입력하세요"
 					onKeyPress={handleKeyPress} 
 					style={{ height: '90px' }} 
 				/>
