@@ -3,14 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import CircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/system';
+import { BackgroundBox, MyPageButton, ReportButton } from '../styles/style';
 
-const BackgroundBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	background: #202020;
+const LoadingBackgroundBox = styled(BackgroundBox)`
     color: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -24,12 +19,12 @@ const Loading = ({guideText}) => {
 
 	return (
         <div>
-            <BackgroundBox>
+            <LoadingBackgroundBox>
                 <div>{guideText}</div>
                 <div style={{paddingTop : "20px"}}>
                     <CircularProgress />
                 </div>
-            </BackgroundBox>
+            </LoadingBackgroundBox>
         </div>
 	);
 };

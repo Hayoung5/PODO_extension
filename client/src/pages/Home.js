@@ -6,71 +6,22 @@ import { Link } from "react-router-dom";
 import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import * as serverAPI from '../APIs/serverAPI';
 import { styled } from '@mui/system';
+import * as serverAPI from '../APIs/serverAPI';
+import { BackgroundBox, MyPageButton, ReportButton } from '../styles/style';
 import { returnType } from "../utils/utils";
 import '../styles/styles.css';
-
-const BackgroundBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	background: #282626;
-`;
-
-
-const Button_Report = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 239px;
-
-	/* Button_Phantom */
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #C0C0C0;
-    padding: 20px;
-    font-weight: 600;
-    font-size: 17.5px;
-    line-height: 22px;
-    font-size: 18px;
-	text-align: left; 
-`;
-
-const Button_Mypage = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 326px;
-
-	/* Button_Phantom */
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #C0C0C0;
-    padding: 20px;
-    font-weight: 600;
-    line-height: 22px;
-    font-size: 18px;
-	text-align: left; 
-`;
-
   
 const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		chrome.storage.local.get("msg", (res) => {
-			console.log(res.msg);
-            if(res.msg){
-				navigate(`/tx`);
-			};
-		});
+		// chrome.storage.local.get("msg", (res) => {
+		// 	console.log(res.msg);
+        //     if(res.msg){
+		// 		navigate(`/tx`);
+		// 	};
+		// });
 	}, []);
 
 	const handleKeyPress = (event) => {
@@ -113,23 +64,8 @@ const Home = ({setInputValue, setIsURL}) => {
 					{/* <Button onClick={handleClick}> GET 테스트 </Button>
 					<Button onClick={handleClick2}> POST 테스트 </Button> */}
 				</Stack>
-				<Button_Report component={Link} to="/report" variant="body2">
-					<Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-						<div>
-							<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-							{"신고하기"}
-						</div>
-						<ArrowForwardIosIcon sx={{color: '#DF4C0D'}} />
-					</Box>
-				</Button_Report>
-				<Button_Mypage component={Link} to="/myaccount">
-					<Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-						<div>
-							{"내 정보 확인하기"}
-						</div>
-						<ArrowForwardIosIcon />
-					</Box>
-				</Button_Mypage>
+				<ReportButton top={239} />
+				<MyPageButton top={326} />
 		</BackgroundBox>
 		</div>
 
