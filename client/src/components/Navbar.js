@@ -39,7 +39,7 @@ const Box2 = styled(Box)`
 	letter-spacing: 0.0581866px;
 	text-decoration: none;
 
-	color: #FFFFFF;
+	color: #5660E6;
 `;
 
 const StyledButton = styled(Button)`

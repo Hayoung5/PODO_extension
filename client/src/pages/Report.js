@@ -75,10 +75,12 @@ const StyledButton1 = styled(Button)`
     font-size: 18px;
     font-weight: 600;
 
-    background: #5660E6;
-    /* shadow */
     box-shadow: 0px 1px 14px rgba(0, 0, 0, 0.1);
     border-radius: 18px;
+
+    background: #C80505;
+    &:hover {
+        background: #C8050588;
 `;
 
 const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
@@ -243,7 +245,7 @@ const Report = () => {
                 </StyledTextField>
             </Stack>
             <StyledButton1 type="submit" variant="contained" >
-                {"제보 하기"}
+                {"신고하기"}
             </StyledButton1>
 		</BackgroundBox>
 
