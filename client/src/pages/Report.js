@@ -125,7 +125,14 @@ const Report = () => {
 		const data = new FormData(event.currentTarget);
         // const category = data.get("category");
 		const reporter = data.get("reporter").replace(/\s/g, '');
-        const content = data.get("content");
+        const selectValue = data.get("selectValue");
+        const directValue = data.get("directValue");
+        let content;
+        if (selectValue !== "direct") {
+            content = selectValue;
+        } else {
+            content = directValue;
+        }
         const website = data.get("website").replace(/\s/g, '');
         const reportedAddr = data.get("reportedAddr").replace(/\s/g, '');
         const txHash = data.get("txHash").replace(/\s/g, '');
@@ -167,25 +174,26 @@ const Report = () => {
                 </StyledTypography>
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                     <StyledSelect
-                    id="content"
-                    displayEmpty
-                    value={selectedValue}
-                    onChange={handleSelectChange}
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    sx={{ "& .MuiOutlinedInput-input": { color: "#797979" }, "& .MuiFormLabel-root": { color: "#797979" } }}
+                        id="content"
+                        name="selectValue"
+                        displayEmpty
+                        value={selectedValue}
+                        onChange={handleSelectChange}
+                        inputProps={{ 'aria-label': 'Without label' }}
+                        sx={{ "& .MuiOutlinedInput-input": { color: "#797979" }, "& .MuiFormLabel-root": { color: "#797979" } }}
                     >
-                    <MenuItem value="" style={{color: "#797979"}}>
-                        어떤 종류의 피해인가요?
-                    </MenuItem>
-                    <MenuItem value={10}>가짜 NFT 민팅</MenuItem>
-                    <MenuItem value={20}>가짜 암호화폐 거래소</MenuItem>
-                    <MenuItem value={30}>투자를 가장한 입금 사기</MenuItem>
-                    <MenuItem value="direct">직접 입력</MenuItem>
+                        <MenuItem value="" style={{color: "#797979"}}>
+                            어떤 종류의 피해인가요?
+                        </MenuItem>
+                        <MenuItem value={"가짜 NFT 민팅"}>가짜 NFT 민팅</MenuItem>
+                        <MenuItem value={"가짜 암호화폐 거래소"}>가짜 암호화폐 거래소</MenuItem>
+                        <MenuItem value={"투자를 가장한 입금 사기"}>투자를 가장한 입금 사기</MenuItem>
+                        <MenuItem value="direct">직접 입력</MenuItem>
                     </StyledSelect>
                     {selectedValue === 'direct' && 
-                    <StyledTextField 
-                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="간략한 내용을 적어주세요." 
-                    />
+                        <StyledTextField name = "directValue"
+                        InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="간략한 내용을 적어주세요." 
+                        />
                     }
                 </FormControl>
 
@@ -200,7 +208,7 @@ const Report = () => {
                     </Tooltip>
                 </Box>
                 <StyledTextField name="reporter" type="text" id="reporter"
-                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd ? connectedAdd : ""} >
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} defaultValue={connectedAdd ? connectedAdd : ""} >
                 </StyledTextField>
 
                 {/* 상대방의 계정 */}
