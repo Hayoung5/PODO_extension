@@ -6,6 +6,17 @@ TXHASH: Valid Ethereum Transaction Hash(string)
 DOMAIN: Valid Domain(string, "*.*.*")
 ```
 
+#### GET `/examineTx`
+Query Parameters
+```json
+{
+    id: INTEGER,
+    params: ARRAY,
+}
+```
+Retrurn Parameters
+1 or APPROVE or SETAPPROVEALL
+
 
 #### POST `/report`
 

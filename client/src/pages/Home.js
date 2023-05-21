@@ -1,3 +1,5 @@
+/*global chrome*/
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -56,11 +58,18 @@ const Button_Mypage = styled(Button)`
     font-size: 18px;
 `;
 
+  
 const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-	}, );
+		chrome.storage.local.get("msg", (res) => {
+			console.log(res.msg);
+            if(res.msg){
+				navigate(`/tx`);
+			};
+		});
+	}, []);
 
 	const handleKeyPress = (event) => {
 	  if (event.key === 'Enter') {

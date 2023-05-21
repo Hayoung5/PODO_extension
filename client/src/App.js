@@ -9,6 +9,9 @@ import Transfer from "./components/Transfer";
 import MyAccount from "./components/MyAccount";
 import SearchResult from "./pages/SearchResult";
 import Report from "./pages/Report"
+import ExamineTx from "./pages/ExamineTx"
+import ConnectAddress from "./pages/ConnectAddress";
+import ConnectDomain from "./pages/ConnectDomain";
 // import SignTransaction from "./components/SignTransaction";
 
 const App = () => {
@@ -29,6 +32,9 @@ const App = () => {
         		/>
 				<Route path="/myaccount" element={<MyAccount />} />
 				<Route path="/report" element={<Report /> } />
+				<Route path="/tx" element={<ExamineTx /> } />
+				<Route path="/address" element={<ConnectAddress />} />
+				<Route path="/domain" element={<ConnectDomain />} />
 				{/* <Route path="/signtransaction" element={<SignTransaction />} /> */}
 				{/* <Route path="/findmnemonic" element={<FindMnemonic />} /> */}
 			</Routes>

@@ -6,8 +6,7 @@ router.get('/', Controller.getIndex);
 router.get('/addressInfo', Controller.getAddressInfo);
 router.get('/domainInfo', Controller.getDomainInfo);
 router.get('/logs', Controller.getLogs);
-
-router.post('/examineTx', Controller.postExamineTx);
+router.get('/examineTx', Controller.getExamineTx);
 router.post('/report', Controller.postReport);
 
 

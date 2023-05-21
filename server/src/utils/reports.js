@@ -49,6 +49,13 @@ reports.riskAddress = async (address) => {
   if(!validAddress(address)) {
     throw new Error("Invalid Address: " + address)
   }
+
+  // if the address in lowercase convert to checksum address
+  if(/^[a-z]+$/.test(address)){
+    address = ethers.utils.getAddress(address);
+    console.log(address);
+  }
+
   // add "await" to return isContract's result, if not isContract is promise
   var isContract = await etherscan.isContract(address);
   var snapshot = {};

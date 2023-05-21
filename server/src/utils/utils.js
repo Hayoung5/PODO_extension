@@ -31,25 +31,34 @@ utils.getLogs = async (reporter) => {
 }
 
 utils.txRisk = async (tx) => {
-    const txData = tx.data;
-    const chainid = tx.chainId;
+    // the tx look like
+    // tx = {
+    //     id : chainid,
+    //     ...
+    //     params : {from, to, data}
+    // }
+
+    const params = tx.params[0];
+    const chainid = tx.id;
     const network = chainName(chainid);
 
-    destRisk = await lookupAddress(tx.to, network);
+    // if(params.to) {
+    //     const destRisk = await utils.lookupAddress(params.to, network);
+    //     console.log("search result");
+    //     console.log(destRisk);
+    //     return destRisk;
+    // }
 
-    if(txData == "0x") return destRisk;
+    if (params.data.includes(APPROVE)) {
+        return("APPROVE");
+    };
+    if (params.data.includes(SETAPPROVALFORALL)) {
+        return("SETAPPROVALFORALL");
+    };
 
-    selector = txData.substring(2, 10);
-    var risk = 1;
-
-    if (selector == APPROVE || selector == SETAPPROVALFORALL) {
-        risk = await lookupAddress("0x" + txData.substring(34, 74), network);
-    } else {
-        risk = 1;
-    }
-
-    return risk;
+    return (1);
 }
+
 
 utils.doReport = async (report) => {
     const hash = reports.reportHash(report);
