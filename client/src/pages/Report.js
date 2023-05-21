@@ -81,25 +81,29 @@ const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
 
 const Report = () => {
     const navigate = useNavigate();
-    const [connectedAdd, setConnectedAdd] = useState(false);
+    const [connectedAdd, setConnectedAdd] = useState("");
 
-	useEffect(async() => {
+    useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await getAddData();
-                if (res.length) {
-                    console.log(res);
-                    const add = res[0];
-                    setConnectedAdd(add);
-                }
+            const res = await getAddData();
+            if (res.length) {
+                console.log(res);
+                const add = res[0];
+                setConnectedAdd(add);
+            }
             } catch (error) {
-                console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error);
             }
         };
-    
-        fetchData();
         
-	}, []);
+        fetchData();
+        }, []);
+
+
+    const handleAdd = (event) => {
+        setConnectedAdd(event.target.value);
+    };
 
 
     const handleReport = async (event) => {
@@ -158,7 +162,7 @@ const Report = () => {
                     <StyledHelpOutlineIcon sx={{position: 'absolute', top: "190px"}} />
                 </Tooltip>
                 <StyledTextField name="reporter" type="text" id="reporter"
-                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd ? connectedAdd : ""} >
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd} onChange={handleAdd} >
                 </StyledTextField>
 
                 <StyledTypography align="left" variant="h6">
