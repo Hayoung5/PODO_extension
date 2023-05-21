@@ -8,6 +8,7 @@ router.get('/domainInfo', Controller.getDomainInfo);
 router.get('/logs', Controller.getLogs);
 router.get('/examineTx', Controller.getExamineTx);
 router.post('/report', Controller.postReport);
+router.post('/delete', Controller.postDelete);
 
 
 module.exports = router;

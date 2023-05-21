@@ -1,6 +1,7 @@
 var reports = {}
 const ethers = require("ethers");
 
+const alchemy = require("./alchemy.js");
 const etherscan = require("./etherscan.js")
 const db = require("./db.js");
 
@@ -302,6 +303,160 @@ reports.reportContract = async (address, hasTx, damage, hash) => {
   ctrRef.update(updates);
 }
 
+const deleteReportFromReporter = async (reporter, hash) => {
+  var snapshot = {};
+  await db.ref("ReportLog/" + reporter).get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      console.log("Reported Log Not Found");
+      return;
+    }
+  });
+  
+  var count = snapshot.reportCount;
+  var reportHistory = snapshot.reportHistory;
+
+  var found = false;
+  for(var i = 0; i < reportHistory.length; i++) {
+    if(reportHistory[i] == hash) {
+      reportHistory.splice(i, 1);
+      found = true;
+      break;
+    }
+  }
+  if(!found) {
+    console.log("Report Not Found in Logs");
+    return;
+  }
+
+  var updates = {}
+
+  updates['/reportCount'] = count - 1;
+  updates['/reportHistory'] = reportHistory;
+
+  db.ref("ReportLog/" + reporter).update(updates);
+
+}
+
+const deleteReportFromDomain = async (domain, hash) => {
+  const parseResult = parseDomain(domain);
+  var snapshot = {};
+  await db.ref("ReportedSite/" + parseResult).get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      console.log("Reported Domain Not Found");
+      return;
+    }
+  });
+  
+  var count = snapshot.reportCount;
+  var reportHistory = snapshot.reportHistory;
+
+  var found = false;
+  for(var i = 0; i < reportHistory.length; i++) {
+    if(reportHistory[i] == hash) {
+      reportHistory.splice(i, 1);
+      found = true;
+      break;
+    }
+  }
+  if(!found) {
+    console.log("Report Not Found in Domain");
+    return;
+  }
+
+  var updates = {}
+
+  updates['/reportCount'] = count - 1;
+  updates['/reportHistory'] = reportHistory;
+
+  db.ref("ReportedSite/" + parseResult).update(updates);
+}
+
+const deleteReportFromAccount = async (address, hasTx, damage, hash) => {
+  const accRef = db.ref("ReportedAccount/" + address);
+  var snapshot = {};
+  await accRef.get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      console.log("Reported Account Not Found");
+      return;
+    }
+  });
+
+  var count = snapshot.reportCount;
+  var txcount = snapshot.txReportCount;
+  var accDamage = snapshot.damageAmount;
+  var reportHistory = snapshot.reportHistory;
+
+  var found = false;
+  for(var i = 0; i < reportHistory.length; i++) {
+    if(reportHistory[i] == hash) {
+      reportHistory.splice(i, 1);
+      found = true;
+      break;
+    }
+  }
+  if(!found) {
+    console.log("Report Not Found in Account");
+    return;
+  }
+
+  var updates = {};
+
+  updates["/reportCount"] = count - 1;
+  updates["/txReportCount"] = txcount - (hasTx ? 1 : 0);
+  updates["/damageAmount"] = accDamage - damage;
+  updates["/reportHistory"] = reportHistory;
+
+  accRef.update(updates);
+}
+
+const deleteReportFromContract = async (address, hasTx, damage, hash) => {
+  const ctrRef = db.ref("ReportedContract/" + address);
+  var snapshot = {};
+  await ctrRef.get().then(ret => {
+    if(ret.exists()) {
+      snapshot = ret.val();
+    } else {
+      console.log("Reported Contract Not Found");
+      return;
+    }
+  });
+
+  var count = snapshot.reportCount;
+  var txcount = snapshot.txReportCount;
+  var accDamage = snapshot.damageAmount;
+  var reportHistory = snapshot.reportHistory;
+
+  var found = false;
+  for(var i = 0; i < reportHistory.length; i++) {
+    if(reportHistory[i] == hash) {
+      reportHistory.splice(i, 1);
+      found = true;
+      break;
+    }
+  }
+  if(!found) {
+    console.log("Report Not Found in Contract");
+    return;
+  }
+
+  var updates = {};
+
+  updates["/reportCount"] = count - 1;
+  updates["/txReportCount"] = txcount - (hasTx ? 1 : 0);
+  updates["/damageAmount"] = accDamage - damage;
+  updates["/reportHistory"] = reportHistory;
+  console.log(updates);
+
+  ctrRef.update(updates);
+}
+
+
 reports.reportHash = (report) => {
   return ethers.utils.base58.encode(
     ethers.utils.solidityKeccak256(
@@ -384,6 +539,26 @@ reports.newReport = async (report, hash) => {
   updates["/reportHistory/" + count] = hash;
 
   logRef.update(updates);
+}
+
+reports.deleteReport = async (report, hash) => {
+  if(validAddress(report.address)) {
+    const _hasTx = validTx(report.associatedTx);
+    console.log(report);
+    var isContract = await etherscan.isContract(report.address)
+    console.log(isContract);
+    if(isContract) {
+      await deleteReportFromContract(report.address, _hasTx, report.damage, hash);
+    } else {
+      await deleteReportFromAccount(report.address, _hasTx, report.damage, hash);
+    }
+  }
+  if(validDomain(report.domain)) {
+    await deleteReportFromDomain(report.domain, hash);
+  }
+  if(validAddress(report.reporter)) {
+    await deleteReportFromReporter(report.reporter, hash);
+  }
 }
 
 const validAddress = (address) => {

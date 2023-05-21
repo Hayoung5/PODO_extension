@@ -20,7 +20,7 @@ const ethChange = async (address, block) => {
 module.exports.getDamage = async (tx, from, to) => {
     const receipt = await alchemy.core.getTransactionReceipt(tx);
     const block = parseInt(receipt.block, 16);
-    if(receipt.from != from) throw new Error("Not from reporter");
+    //if(receipt.from != from) throw new Error("Not from reporter");
     if(receipt.status != 1) throw new Error("Tx not successful");
     
     var [fromChange, toChange] = await Promise.all([
@@ -45,10 +45,3 @@ module.exports.getDamage = async (tx, from, to) => {
 //     return ethers.utils.formatEther(beforeBal.sub(afterBal));      
 // }
 
-async function test() {
-    const res = await erc20Change("0x9c32df9fbc97c7bcfd9ca627ac1adcde9dfefc57", 17251331, "0x6982508145454ce325ddbe47a25d4ec3d2311933")
-
-    console.log(res);
-}
-
-test();
