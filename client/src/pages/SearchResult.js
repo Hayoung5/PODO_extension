@@ -5,6 +5,8 @@ import ResultWarning from "../components/ResultWarning";
 import ResultScam from "../components/ResultScam";
 import { searchAccount, searchDomain } from "../APIs/serverAPI";
 import { returnDomain } from "../utils/utils";
+import Loading from "./Loading";
+
 
 const SearchResult = ({inputValue, isURL}) => {
     const [risk, setRisk] = useState("");
@@ -24,7 +26,9 @@ const SearchResult = ({inputValue, isURL}) => {
         // 결과에 따른 page 보여주기
         if (inputValue && !isURL) {
             try {
+                console.log("searh!!");
                 const res = await searchAccount(inputValue);
+                console.log(res);
                 if (res.status == 200) {
                     const result = res.data;
                     setRisk(result.risk);
@@ -100,7 +104,9 @@ const SearchResult = ({inputValue, isURL}) => {
 
 	return (
         <div>
-            {returnPage(risk)}
+            {risk === "" ?
+            <Loading guideText={"신고내역을 검색 중입니다."}/>
+            : returnPage(risk)}
         </div>
 	);
 };

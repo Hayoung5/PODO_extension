@@ -49,6 +49,13 @@ reports.riskAddress = async (address) => {
   if(!validAddress(address)) {
     throw new Error("Invalid Address: " + address)
   }
+
+  // if the address in lowercase convert to checksum address
+  if(/^[a-z]+$/.test(address)){
+    address = ethers.utils.getAddress(address);
+    console.log(address);
+  }
+
   // add "await" to return isContract's result, if not isContract is promise
   var isContract = await etherscan.isContract(address);
   var snapshot = {};
@@ -337,7 +344,8 @@ reports.newReport = async (report, hash) => {
       damage = await alchemy.getDamage(report.associatedTx, report.reporter, report.address);
       data.associatedTx = report.associatedTx;
     }
-    const isContract = etherscan.isContract(report.address);
+    // add "await" to return isContract's result, if not isContract is promise
+    const isContract = await etherscan.isContract(report.address);
 
     if(isContract) {
       reports.reportContract(report.address, _hasTx, damage, hash);

@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { returnType, returnDomain } from "../utils/utils";
 import { postReport } from "../APIs/serverAPI";
+import { getAddData } from "../APIs/walletAPI";
 import '../styles/styles.css';
 
 
@@ -80,15 +81,31 @@ const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
 
 const Report = () => {
     const navigate = useNavigate();
+    const [connectedAdd, setConnectedAdd] = useState(false);
 
-	useEffect(() => {
-	}, );
+	useEffect(async() => {
+        const fetchData = async () => {
+            try {
+                const res = await getAddData();
+                if (res.length) {
+                    console.log(res);
+                    const add = res[0];
+                    setConnectedAdd(add);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        fetchData();
+        
+	}, []);
 
 
     const handleReport = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-        const category = data.get("category");
+        // const category = data.get("category");
 		const reporter = data.get("reporter").replace(/\s/g, '');
         const content = data.get("content");
         const website = data.get("website").replace(/\s/g, '');
@@ -98,10 +115,10 @@ const Report = () => {
         if (returnType(reporter) != "ADDRESS") {
             alert(`피해를 입은 계정 주소를 확인해주세요. 입력값 : ${reporter}`);
         } else if (returnType(website) != "URL" && returnType(reportedAddr) != "ADDRESS") {
-            alert(`페이지 주소 또는 사기 계정 주소를 올바르게 입력해주세요.`);
+            alert(`피해를 준 계정 주소 또는 웹사이트 주소를 올바르게 입력해주세요.`);
         } else {
             try {
-                const res = await postReport(category, reporter, content, returnDomain(website), reportedAddr, txHash);
+                const res = await postReport(reporter, content, returnDomain(website), reportedAddr, txHash);
                 if (res.status == 200) {
                     alert("신고가 등록 되었습니다!");
                     navigate("/");
@@ -125,13 +142,13 @@ const Report = () => {
                     {"를 입으셨나요?"} */ }
                 </TitleTypography>
 
-                <StyledTypography align="left" variant="h6">
+                {/* <StyledTypography align="left" variant="h6">
                     {"피해 종류"}
                     <span style={{ color: '#C80505' }}> *</span>
-                </StyledTypography>
-                <StyledTextField name="category" type="text" id="category"
+                </StyledTypography> */}
+                {/* <StyledTextField name="category" type="text" id="category"
                     InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="종류 선택하기 (예정)" >
-                </StyledTextField>
+                </StyledTextField> */}
 
                 <StyledTypography align="left" variant="h6">
                     {"피해를 입은 지갑 주소"}
@@ -141,7 +158,7 @@ const Report = () => {
                     <StyledHelpOutlineIcon sx={{position: 'absolute', top: "190px"}} />
                 </Tooltip>
                 <StyledTextField name="reporter" type="text" id="reporter"
-                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} placeholder="0x..." >
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd ? connectedAdd : ""} >
                 </StyledTextField>
 
                 <StyledTypography align="left" variant="h6">

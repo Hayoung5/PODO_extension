@@ -6,6 +6,7 @@ import warningIcon from "../assets/warning.png";
 import { shortenEthereumAddress } from "../utils/utils";
 import HistoryModal from "./HistoryModal";
 import '../styles/styles.css';
+import SelectButton from "./SelectButton";
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -130,6 +131,7 @@ const ResultWarning = ({inputValue, isURL, result}) => {
     return (
         <div>
         <BackgroundBox>
+            <SelectButton />
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
             <TextBox1>
                 {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
