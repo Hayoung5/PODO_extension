@@ -12,6 +12,38 @@ import { BackgroundBox } from '../styles/style';
 import { returnType } from "../utils/utils";
 import '../styles/styles.css';
   
+const Button_Report = styled(Button)`
+	position: absolute;
+	width: 320px;
+	height: 72px;
+	left: 20px;
+	background: #2D2D2D;
+	border-radius: 7.5px;
+	color: #C0C0C0;
+    padding: 20px;
+    font-weight: 600;
+    font-size: 17.5px;
+    line-height: 22px;
+    font-size: 18px;
+	text-align: left; 
+`;
+
+const Button_Mypage = styled(Button)`
+	position: absolute;
+	width: 320px;
+	height: 72px;
+	left: 20px;
+	background: #2D2D2D;
+	border-radius: 7.5px;
+	color: #C0C0C0;
+	padding: 20px;
+	font-weight: 600;
+	line-height: 22px;
+	font-size: 18px;
+	text-align: left;
+`;
+
+
 const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
