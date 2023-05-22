@@ -188,7 +188,7 @@ const Report = () => {
                         <MenuItem value={"가짜 NFT 민팅"}>가짜 NFT 민팅</MenuItem>
                         <MenuItem value={"가짜 암호화폐 거래소"}>가짜 암호화폐 거래소</MenuItem>
                         <MenuItem value={"투자를 가장한 입금 사기"}>투자를 가장한 입금 사기</MenuItem>
-                        <MenuItem value="direct">직접 입력</MenuItem>
+                        <MenuItem value="direct">기타 (직접 입력)</MenuItem>
                     </StyledSelect>
                     {selectedValue === 'direct' && 
                         <StyledTextField name = "directValue"
