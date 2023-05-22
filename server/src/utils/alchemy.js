@@ -19,7 +19,7 @@ const ethChange = async (address, block) => {
 
 module.exports.getDamage = async (tx, from, to) => {
     const receipt = await alchemy.core.getTransactionReceipt(tx);
-    const block = parseInt(receipt.block, 16);
+    const block = receipt.blockNumber;
     //if(receipt.from != from) throw new Error("Not from reporter");
     if(receipt.status != 1) throw new Error("Tx not successful");
     

@@ -15,7 +15,21 @@ Query Parameters
 }
 ```
 Retrurn Parameters
-1 or APPROVE or SETAPPROVEALL
+```json
+{
+    risk: {
+        txInfo: STRING [ "APPROVE" | "SETAPPROVALFORALL" | NONE ]
+        damageAmount: INT,
+        reportCount: INT,
+        txReportCount: INT,
+        reportHistory: ARRAY(REPORT),
+        risk: INT,
+        isVerified: BOOL,
+        isContract: BOOL,
+        blacklisted: BOOL,
+    }
+}
+```
 
 
 #### POST `/report`
@@ -31,6 +45,17 @@ Query Parameters
     timestamp: INT, // UNIX Timestamp
 }
 ```
+
+#### POST `/delete`
+
+Query Parameters
+```json
+{
+    hash: REPORTHASH
+}
+```
+
+: Delete corresponding report, if none return 500
 
 #### GET `/addressInfo`
 
