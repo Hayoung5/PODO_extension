@@ -64,8 +64,8 @@ const Home = ({setInputValue, setIsURL}) => {
 
 	useEffect(() => {
 		chrome.storage.local.get("msg", (res) => {
-			console.log(res.msg);
             if(res.msg){
+				console.log(res.msg);
 				navigate(`/tx`);
 			};
 		});
@@ -109,7 +109,7 @@ const Home = ({setInputValue, setIsURL}) => {
 					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
 					{"신고하기"}
 				</Button_Report>
-				<Button_Mypage component={Link} to="/myaccount">
+				<Button_Mypage component={Link} to="/mypage">
 					{"내 정보 확인하기"}
 				</Button_Mypage>
 		</BackgroundBox>

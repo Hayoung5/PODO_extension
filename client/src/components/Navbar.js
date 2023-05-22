@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, IconButton,  Avatar, Button } from "@mui/material";
 import { styled } from '@mui/system';
+import { getAddData } from "../APIs/walletAPI";
+
 
 const StyledBox = styled(Box)`
 	position: absolute;
@@ -61,6 +63,28 @@ const StyledButton = styled(Button)`
 
 
 const Navbar = () => {
+    const [connectedAdd, setConnectedAdd] = useState();
+
+    useEffect(() => {
+		chrome.storage.local.get("connectedAdd", async(res) => {
+            if (res.connectedAdd) {
+				setConnectedAdd(res.connectedAdd);
+			} else {
+				try {
+					const res = await getAddData();
+					if (res.length) {
+						console.log(res);
+						const add = res[0];
+						setConnectedAdd(add);
+						chrome.storage.local.set({ connectedAdd: add });
+					}
+				} catch (error) {
+					console.error('Error fetching data:', error);
+				}
+			}
+		});
+
+    }, []);
 
 	return (
 		<>
@@ -69,7 +93,11 @@ const Navbar = () => {
 					<StyledAvatar variant="circular" alt="Podo" src={require("../assets/podo_logo.png")} />
 				</IconButton>
 				<Box2>PODO</Box2>
+				{connectedAdd ? 
 				<StyledButton>Connected</StyledButton>
+				:<StyledButton>Unconnected</StyledButton>
+				}
+				
 			</StyledBox>
 		</>
 	);

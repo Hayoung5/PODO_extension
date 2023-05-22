@@ -1,3 +1,5 @@
+/*global chrome*/
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -8,7 +10,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { returnType, returnDomain } from "../utils/utils";
 import { postReport } from "../APIs/serverAPI";
-import { getAddData } from "../APIs/walletAPI";
 import '../styles/styles.css';
 
 
@@ -83,22 +84,13 @@ const Report = () => {
     const navigate = useNavigate();
     const [connectedAdd, setConnectedAdd] = useState("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-            const res = await getAddData();
-            if (res.length) {
-                console.log(res);
-                const add = res[0];
-                setConnectedAdd(add);
-            }
-            } catch (error) {
-            console.error('Error fetching data:', error);
-            }
-        };
-        
-        fetchData();
-        }, []);
+    useEffect(() => { 
+		chrome.storage.local.get("connectedAdd", async(res) => {
+            if (res.connectedAdd) {
+				setConnectedAdd(res.connectedAdd);
+			}
+		});
+    }, []);
 
 
     const handleAdd = (event) => {
