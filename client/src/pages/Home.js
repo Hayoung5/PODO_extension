@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/system';
 import * as serverAPI from '../APIs/serverAPI';
-import { BackgroundBox, MyPageButton, ReportButton } from '../styles/style';
+import { BackgroundBox } from '../styles/style';
 import { returnType } from "../utils/utils";
 import '../styles/styles.css';
   
@@ -16,12 +16,12 @@ const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// chrome.storage.local.get("msg", (res) => {
-		// 	console.log(res.msg);
-        //     if(res.msg){
-		// 		navigate(`/tx`);
-		// 	};
-		// });
+		chrome.storage.local.get("msg", (res) => {
+            if(res.msg){
+				console.log(res.msg);
+				navigate(`/tx`);
+			};
+		});
 	}, []);
 
 	const handleKeyPress = (event) => {
@@ -45,6 +45,30 @@ const Home = ({setInputValue, setIsURL}) => {
 		}
 	  }
 	};
+
+	const ReportButton = ({ top }) => (
+		<Button_Report component={Link} to="/report" variant="body2" style={{ top: `${top}px` }}>
+			<Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+				<div>
+					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
+					{"신고하기"}
+				</div>
+				<ArrowForwardIosIcon sx={{color: '#DF4C0D'}} />
+			</Box>
+		</Button_Report>
+	);
+	
+	const MyPageButton = ({ top }) => (
+		<Button_Mypage component={Link} to="/mypage" style={{ top: `${top}px` }}>
+			<Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+				<div>
+					{"내 정보 확인하기"}
+				</div>
+				<ArrowForwardIosIcon />
+			</Box>
+		</Button_Mypage>
+	);
+	
 
 
 	return (

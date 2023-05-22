@@ -4,18 +4,13 @@ import * as ReactDOM from "react-dom";
 import { Route, Routes, Link } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Transfer from "./components/Transfer";
-import MyAccount from "./components/MyAccount";
 import SearchResult from "./pages/SearchResult";
 import Report from "./pages/Report"
 import ExamineTx from "./pages/ExamineTx"
-import ConnectAddress from "./pages/ConnectAddress";
-import ConnectDomain from "./pages/ConnectDomain";
-// import SignTransaction from "./components/SignTransaction";
+import Mypage from "./pages/Mypage";
 
 const App = () => {
-  	const [wallet, setWallet] = useState({});
+  	// const [wallet, setWallet] = useState({});
 	const [inputValue, setInputValue] = useState("");
 	const [isURL, setIsURL] = useState(false);
   	console.log("hello word!");
@@ -23,18 +18,10 @@ const App = () => {
 	return (
 			<Routes>
 				<Route path="/*" element={<Home setInputValue = {setInputValue} setIsURL = {setIsURL} />} />
-				<Route 
-					path="/login" 
-					element={<Login setWallet = {setWallet}/>}
-				/>
 				<Route path="/searchResult" element={<SearchResult inputValue = {inputValue} isURL = {isURL} />} />
-				<Route path="/transfer" element={<Transfer wallet = {wallet} />} 
-        		/>
-				<Route path="/myaccount" element={<MyAccount />} />
+				<Route path="/mypage" element={<Mypage />} />
 				<Route path="/report" element={<Report /> } />
 				<Route path="/tx" element={<ExamineTx /> } />
-				<Route path="/address" element={<ConnectAddress />} />
-				<Route path="/domain" element={<ConnectDomain />} />
 				{/* <Route path="/signtransaction" element={<SignTransaction />} /> */}
 				{/* <Route path="/findmnemonic" element={<FindMnemonic />} /> */}
 			</Routes>

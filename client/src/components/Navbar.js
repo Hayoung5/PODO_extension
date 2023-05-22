@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Box, IconButton,  Avatar, Button } from "@mui/material";
 import { styled } from '@mui/system';
+import { getAddData } from "../APIs/walletAPI";
+import { ethers } from "ethers";
+import { utils } from "ethers";
 
 const StyledBox = styled(Box)`
 	position: absolute;
@@ -64,12 +67,45 @@ const StyledButton = styled(Button)`
 
 
 const Navbar = () => {
+    const [connectedAdd, setConnectedAdd] = useState();
+
+    useEffect(() => {
+		chrome.storage.local.get("connectedAdd", async(res) => {
+            if (res.connectedAdd) {
+				let add = res.connectedAdd;
+				if(/^[0-9a-z]+$/.test(add)){
+					add = ethers.getAddress(add);
+				}
+				setConnectedAdd(add);
+			} else {
+				try {
+					const res = await getAddData();
+					if (res.length) {
+						console.log(res);
+						let add = res[0];
+						setConnectedAdd(add);
+						if(/^[0-9a-z]+$/.test(add)){
+							add = ethers.getAddress(add);
+						}
+						console.log(add);
+						chrome.storage.local.set({ connectedAdd: add });
+					}
+				} catch (error) {
+					console.error('Error fetching data:', error);
+				}
+			}
+		});
+
+    }, []);
 
 	return (
 		<>
 			<StyledBox>
 				<Box2 component={Link} to="/home">PODO</Box2>
+				{connectedAdd ? 
 				<StyledButton>Connected</StyledButton>
+				:<StyledButton>Unconnected</StyledButton>
+				}
 			</StyledBox>
 		</>
 	);

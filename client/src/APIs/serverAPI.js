@@ -11,14 +11,17 @@ export const getGreeting = async () => {
     });
 };
 
-export const getLogs = async () => {
-  return await axios.get(`${config.apiBaseUrl}/logs`)
-    .then(response => {
-      return response.data.logs;
-    })
-    .catch(error => {
-      console.error(error);
-    });
+export const getLogs = async (account) => {
+  const data = { params : {
+    "reporter" : account,
+  }};
+  
+  try {
+    const response = await axios.get(`${config.apiBaseUrl}/logs`, data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 
@@ -47,7 +50,6 @@ export const searchAccount = async (account) => {
   
   try {
     const response = await axios.get(`${config.apiBaseUrl}/addressInfo`, data);
-    console.log(response.data);
     return response;
   } catch (error) {
     throw error;
@@ -61,7 +63,6 @@ export const searchDomain = async (domain) => {
   
   try {
     const response = await axios.get(`${config.apiBaseUrl}/domainInfo`, data);
-    console.log(response.data);
     return response;
   } catch (error) {
     throw error;

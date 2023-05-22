@@ -8,7 +8,6 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { shortenEthereumAddress } from "../utils/utils";
 import HistoryModal from "./HistoryModal";
 import '../styles/styles.css';
-import SelectButton from "./SelectButton";
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -175,7 +174,6 @@ const ResultScam = ({inputValue, isURL, result}) => {
     return (
         <div>
         <BackgroundBox>
-            <SelectButton />
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
             <TextBox>
                 위험!

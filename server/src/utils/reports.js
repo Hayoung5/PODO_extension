@@ -52,7 +52,7 @@ reports.riskAddress = async (address) => {
   }
 
   // if the address in lowercase convert to checksum address
-  if(/^[a-z]+$/.test(address)){
+  if(/^[/^[0-9a-z]+$/.test(address)){
     address = ethers.utils.getAddress(address);
     console.log(address);
   }

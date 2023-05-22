@@ -8,7 +8,6 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import normalIcon from "../assets/normal.png";
 import { shortenEthereumAddress } from "../utils/utils";
 import '../styles/styles.css';
-import SelectButton from "./SelectButton";
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
