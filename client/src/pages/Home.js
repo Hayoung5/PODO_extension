@@ -5,70 +5,23 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import * as serverAPI from '../APIs/serverAPI';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/system';
+import * as serverAPI from '../APIs/serverAPI';
+import { BackgroundBox, MyPageButton, ReportButton } from '../styles/style';
 import { returnType } from "../utils/utils";
 import '../styles/styles.css';
-
-const BackgroundBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	/* Back_Phantom */
-	background: #202020;
-`;
-
-
-const Button_Report = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 239px;
-
-	/* Button_Phantom */
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #C0C0C0;
-    padding: 20px;
-    font-weight: 600;
-    font-size: 17.5px;
-    line-height: 22px;
-    font-size: 18px;
-`;
-
-const Button_Mypage = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 326px;
-
-	/* Button_Phantom */
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #C0C0C0;
-    padding: 20px;
-    font-weight: 600;
-    line-height: 22px;
-    font-size: 18px;
-`;
-
   
 const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		chrome.storage.local.get("msg", (res) => {
-			console.log(res.msg);
-            if(res.msg){
-				navigate(`/tx`);
-			};
-		});
+		// chrome.storage.local.get("msg", (res) => {
+		// 	console.log(res.msg);
+        //     if(res.msg){
+		// 		navigate(`/tx`);
+		// 	};
+		// });
 	}, []);
 
 	const handleKeyPress = (event) => {
@@ -78,7 +31,7 @@ const Home = ({setInputValue, setIsURL}) => {
 		if (type === "INVALID ADDRESS") {
 			alert(`유효하지 않은 계정 주소 입니다. 다시 한번 확인해보세요. \n입력값 : ${input}`);
 		} else if (type === "INVALID URL") {
-			alert(`유효하지 않은 URL 입니다. 다시 한번 확인해보세요. \n입력값 : ${input}`);
+			alert(`유효하지 않은 URL 입니다.\n도메인 주소 앞에 https://가 입력되어 있는지 확인해보세요. \n입력값 : ${input}`);
 		} else if (type === "URL") {
 			setInputValue(input);
 			setIsURL(true);
@@ -97,21 +50,22 @@ const Home = ({setInputValue, setIsURL}) => {
 	return (
 		<div>
 		<BackgroundBox>
-				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 4 }}>
+				<Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={3} sx={{ mt: 0 }}>
 				<div style={{ position: 'relative' }}>
-					<input type="text" className="home_input" placeholder="검색할 정보를 입력하세요" onKeyPress={handleKeyPress} />
-					<SearchIcon sx={{position: 'absolute', color: "#FFFFFF", fontSize: "30px", left: "290px", top: "100px"}} />
+				<input 
+					type="text" 
+					className="home_input" 
+					placeholder="검색할 정보를 입력하세요"
+					onKeyPress={handleKeyPress} 
+					style={{ height: '90px' }} 
+				/>
+					<SearchIcon sx={{position: 'absolute', color: "#C0C0C0", fontSize: "30px", left: "290px", top: "115px"}} />
 				</div>
 					{/* <Button onClick={handleClick}> GET 테스트 </Button>
 					<Button onClick={handleClick2}> POST 테스트 </Button> */}
 				</Stack>
-				<Button_Report component={Link} to="/report" variant="body2">
-					<span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-					{"신고하기"}
-				</Button_Report>
-				<Button_Mypage component={Link} to="/myaccount">
-					{"내 정보 확인하기"}
-				</Button_Mypage>
+				<ReportButton top={239} />
+				<MyPageButton top={326} />
 		</BackgroundBox>
 		</div>
 

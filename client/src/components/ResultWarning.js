@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/system';
-import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
+import { Stack, TextField, Button, Avatar, Box, Tooltip } from "@mui/material";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import warningIcon from "../assets/warning.png";
 import { shortenEthereumAddress } from "../utils/utils";
 import HistoryModal from "./HistoryModal";
@@ -14,30 +15,16 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #202020;
+	background: #2D2626;
 `;
-
-const TextBox1 = styled(Box)`
-    position: absolute;
-    left: 50%;
-    top: 160px;
-    transform: translate(-50%, -50%);
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 25px;
-    display: flex;
-    align-items: center;
-    text-align: center; 
-`;
-
 
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
-    top: 200px;
+    top: 150px;
     transform: translate(-50%, -50%);
     color: #FFFFFF;
-    font-size: 25px;
+    font-size: 30px;
     display: flex;
     font-weight: 600;
     flex-direction: column;
@@ -45,6 +32,18 @@ const TextBox = styled(Box)`
     text-align: center; 
 `;
 
+const TextBox1 = styled(Box)`
+    position: absolute;
+    left: 50%;
+    top: 210px;
+    transform: translate(-50%, -50%);
+    color: #C0C0C0;
+    font-weight: 700;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+`;
 
 const Button_Report = styled(Button)`
 	position: absolute;
@@ -61,6 +60,11 @@ const Button_Report = styled(Button)`
     font-size: 17.5px;
     line-height: 22px;
     font-size: 18px;
+`;
+
+const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
+    font-size: 16px;
+    margin-left: 10px;
 `;
 
 const InfoBox = styled(Box)`
@@ -133,13 +137,23 @@ const ResultWarning = ({inputValue, isURL, result}) => {
         <BackgroundBox>
             <SelectButton />
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
-            <TextBox1>
-                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
-            </TextBox1>
             <TextBox>
                 <br />
-                <a style={{color : "#FFE800", paddingRight: "5px"}}>주의 필요</a>
+                <a style={{color : "#FFE800", paddingRight: "5px"}}>주의!</a>
             </TextBox>
+            <TextBox1>
+                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
+                <Tooltip title={
+                        <React.Fragment>
+                            거래 전 주의가 필요해요!
+                            <br/>
+                            피해가 처음 신고되어 조사 중이거나, 컨트랙트의 내용을 검증받지 않았어요. 
+                        </React.Fragment>
+                    }>
+                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', marginLeft: '8px' }}/>
+                </Tooltip>
+            </TextBox1>
+
                 <img
                 src={warningIcon}
                 alt="Normal"
@@ -153,7 +167,7 @@ const ResultWarning = ({inputValue, isURL, result}) => {
             {infoBox()}
             <Button_Report component={Link} to="/report">
                 <span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-                {"등록 하기"}
+                {"신고하기"}
             </Button_Report>
         </BackgroundBox>
         </div>
