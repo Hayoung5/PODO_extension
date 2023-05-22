@@ -43,21 +43,38 @@ utils.txRisk = async (tx) => {
     const network = chainName(chainid);
     const txData = params.data;
 
-    var risk;
-    const destRisk = await utils.lookupAddress(params.to)
-    if(txData == "0x") return destRisk;
+    let risk;
+
+    // contract를 배포하는 경우 params.to가 없음!
+    if (!params.to){
+        return({risk : 0})
+    }
+    const destRisk = await utils.lookupAddress(params.to);
+    
+    
+    destRisk.inputValue = params.to;
+    if(txData === "0x") return destRisk;
 
     selector = txData.substring(2, 10);
 
+
     if (selector == APPROVE || selector == SETAPPROVALFORALL) {
+        const inputValue = "0x" + txData.substring(34, 74);
         risk = await utils.lookupAddress("0x" + txData.substring(34, 74), network);
+        risk.inputValue = inputValue;
+
         if(!risk.isContract) {
             risk.risk = 3;
+        }
+        // save more info to response
+        if (selector == APPROVE) {
+            risk.txInfo = "APPROVE";
+        } else if (selector == SETAPPROVALFORALL){
+            risk.txInfo = "SETAPPROVALFORALL";
         }
     } else {
         risk = destRisk;
     }
-
     return (risk);
 }
 

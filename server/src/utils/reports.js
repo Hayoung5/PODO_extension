@@ -54,7 +54,6 @@ reports.riskAddress = async (address) => {
   // if the address in lowercase convert to checksum address
   if(/^[a-z]+$/.test(address)){
     address = ethers.utils.getAddress(address);
-    console.log(address);
   }
 
   // add "await" to return isContract's result, if not isContract is promise
