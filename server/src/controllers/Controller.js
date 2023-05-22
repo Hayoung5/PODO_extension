@@ -82,4 +82,16 @@ Controller.postReport = wrap(async (req, res) => {
   res.status(200).send('Reported');
 })
 
+Controller.postDelete = wrap(async (req, res) => {
+  const data = req.body;
+  if(!data) {
+    res.status(400).send('Bad Request');
+    return;
+  }
+
+  await utils.deleteReport(data.hash);
+
+  res.status(200).send('Deleted');
+})
+
 module.exports = Controller;
