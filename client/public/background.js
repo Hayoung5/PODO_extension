@@ -14,6 +14,7 @@ chrome.runtime.onMessage.addListener(async(message, sender, sendResponse) => {
         // });
     
         const newWindow = () => {
+            // windowId = createdWindow.id;
             console.log('in new window function');
         };
         chrome.windows.create(
@@ -30,3 +31,15 @@ chrome.runtime.onMessage.addListener(async(message, sender, sendResponse) => {
       
     }
 });
+
+// chrome.windows.onRemoved 이벤트 리스너 등록
+chrome.windows.onRemoved.addListener(() => {
+    // 데이터 삭제 작업 수행
+    chrome.storage.local.remove("msg", () => {
+        console.log("msg 데이터가 삭제되었습니다.");
+    });
+    chrome.storage.local.remove("location", () => {
+        console.log("location 데이터가 삭제되었습니다.");
+    });
+});
+  
