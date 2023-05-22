@@ -40,13 +40,17 @@ Controller.getExamineTx = wrap(async (req, res) => {
 })
 
 Controller.getLogs = wrap(async (req, res) => {
-  const data = req.body;
+  const data = req.query;
+  console.log(data.reporter);
   if(!data) {
     res.status(400).send('Bad Request');
     return;
   }
 
-  res.status(200).send(await utils.getLogs(data.reporter));
+  const response = await utils.getLogs(data.reporter);
+  console.log(response);
+
+  res.status(200).send(response);
 })
 
 Controller.getAddressInfo = wrap(async (req, res) => {

@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/system';
-import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
+import { Stack, TextField, Button, Avatar, Box, Tooltip } from "@mui/material";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { shortenEthereumAddress } from "../utils/utils";
 import HistoryModal from "./HistoryModal";
 import '../styles/styles.css';
-import SelectButton from "./SelectButton";
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -15,34 +15,35 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #202020;
-`;
-
-const TextBox1 = styled(Box)`
-    position: absolute;
-    left: 50%;
-    top: 160px;
-    transform: translate(-50%, -50%);
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 25px;
-    display: flex;
-    align-items: center;
-    text-align: center; 
+	background: #2D2626;
 `;
 
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
-    top: 200px;
+    top: 170px;
     transform: translate(-50%, -50%);
     color: #C80505;
-    font-size: 25px;
+    font-size: 30px;
     display: flex;
     font-weight: 600;
     align-items: center;
     text-align: center; 
 `;
+
+const TextBox1 = styled(Box)`
+    position: absolute;
+    left: 50%;
+    top: 210px;
+    transform: translate(-50%, -50%);
+    color: #C0C0C0;
+    font-weight: 700;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+`;
+
 
 const Button_Report = styled(Button)`
 	position: absolute;
@@ -59,6 +60,28 @@ const Button_Report = styled(Button)`
     font-size: 17.5px;
     line-height: 22px;
     font-size: 18px;
+`;
+
+const Button_Home = styled(Button)`
+	position: absolute;
+	width: 320px;
+	height: 72px;
+	left: 20px;
+	top: 460px;
+
+	background: #2D2D2D;
+	border-radius: 7.5px;
+	color: #FFFFFF;
+    padding: 20px;
+    font-weight: 600;
+    font-size: 17.5px;
+    line-height: 22px;
+    font-size: 18px;
+`;
+
+const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
+    font-size: 16px;
+    margin-left: 10px;s
 `;
 
 const InfoBox = styled(Box)`
@@ -98,14 +121,30 @@ const ResultScam = ({inputValue, isURL, result}) => {
                     <div style={{paddingBottom:"10px"}}>
                         {
                             isContract === true && isVerified === false
-                            ? "• 검증 받지 않은 컨트랙트 입니다." 
+                            ? <>
+                                {"• 검증 받지 않은 컨트랙트 입니다."}
+                                <Tooltip title="Example" arrow>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle' }}/>
+                                </Tooltip>
+                            </>
                             : isContract === true && isVerified === true
-                            ? "• 검증 받은 컨트랙트 주소 입니다." 
+                            ? <>
+                                {"• 검증 받은 컨트랙트 주소 입니다."}
+                                <Tooltip title="Example" arrow>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle' }}/>
+                                </Tooltip>
+                            </>
                             : isContract === false 
-                            ? "• EOA 계정 주소 입니다."
+                            ? <>
+                                {"• 검증 받은 컨트랙트 주소 입니다."}
+                                <Tooltip title="Example" arrow>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle' }}/>
+                                </Tooltip>
+                            </>
                             : ""
                         }
-                    </div> 
+                    </div>
+
                     : isURL && isBlacked ?
                     <div style={{paddingBottom:"10px"}}>
                         {"• "}
@@ -135,20 +174,28 @@ const ResultScam = ({inputValue, isURL, result}) => {
     return (
         <div>
         <BackgroundBox>
-            <SelectButton />
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
-            <TextBox1>
-                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
-            </TextBox1>
             <TextBox>
-            <br />
                 위험!
             </TextBox>
+            <TextBox1>
+                {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
+                <Tooltip title={
+                        <React.Fragment>
+                            거래 시 피해를 입을 수 있어요!
+                            <br/>
+                            2회 이상 피해 신고를 받았거나, PODO의 블랙 리스트에 등록되어 있는 계정이에요. 
+                        </React.Fragment>
+                    }>
+                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', marginLeft: '8px' }}/>
+                </Tooltip>
+            </TextBox1>
+
             <div style={{position: "absolute", left: "50%", top: "85px", fontSize: "70px", transform: "translate(-50%, -50%)"}}>🚨</div>
             {infoBox()}
             <Button_Report component={Link} to="/report">
                 <span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-                {"등록 하기"}
+                {"신고하기"}
             </Button_Report>
         </BackgroundBox>
         </div>

@@ -7,7 +7,6 @@ import { searchAccount, searchDomain } from "../APIs/serverAPI";
 import { returnDomain } from "../utils/utils";
 import Loading from "./Loading";
 
-
 const SearchResult = ({inputValue, isURL}) => {
     const [risk, setRisk] = useState("");
     const [reportCount, setReportCount] = useState("");

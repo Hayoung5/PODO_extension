@@ -50,7 +50,7 @@ export default function HistoryModal({open, setOpen, reportHistory}) {
         >
             <Fade in={open}>
             <ModalBox>
-            {reportHistory.map((el, i) => {
+            {reportHistory ? reportHistory.map((el, i) => {
                 const content = el.content;
                 console.log(content);
                 return (
@@ -69,7 +69,8 @@ export default function HistoryModal({open, setOpen, reportHistory}) {
                         </div>
                     </CardBox>
                 )
-            })}
+            })
+            : <div/>}
             </ModalBox>
             </Fade>
         </Modal>

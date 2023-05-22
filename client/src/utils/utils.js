@@ -51,8 +51,18 @@ export const returnDomain = (url) => {
 };
 
 export const shortenEthereumAddress = (address) => {
+  if (typeof(address) !== "string"){return ""}
   const prefix = address.substring(0, 5);
   const suffix = address.substring(address.length - 4);
+  
+  // Return the shortened address
+  return `${prefix}...${suffix}`;
+};
+
+export const shortenEthereumAddress2 = (address) => {
+  if (typeof(address) !== "string"){return ""}
+  const prefix = address.substring(0, 7);
+  const suffix = address.substring(address.length - 6);
   
   // Return the shortened address
   return `${prefix}...${suffix}`;
