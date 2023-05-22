@@ -1,6 +1,6 @@
 /*global chrome*/
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Box, IconButton,  Avatar, Button } from "@mui/material";
 import { styled } from '@mui/system';
 import { getAddData } from "../APIs/walletAPI";
@@ -13,7 +13,9 @@ const StyledBox = styled(Box)`
 	height: 60px;
 	left: 0px;
 	top: 0px;
-	background: #2D2D2D;
+	background: #242424;
+	border-bottom: 2px solid #333333;
+	box-sizing: border-box;
 `;
 
 const StyledAvatar = styled(Avatar)`
@@ -26,10 +28,10 @@ const StyledAvatar = styled(Avatar)`
 `;
 
 const Box2 = styled(Box)`
-	position: absolute;
+	position: relative;
 	width: 74px;
 	height: 31px;
-	left: 143px;
+	left: 25px;
 	top: 15px;
 
 	font-style: normal;
@@ -38,8 +40,9 @@ const Box2 = styled(Box)`
 	line-height: 31px;
 	text-align: center;
 	letter-spacing: 0.0581866px;
+	text-decoration: none;
 
-	color: #FFFFFF;
+	color: #5660E6;
 `;
 
 const StyledButton = styled(Button)`
@@ -50,9 +53,9 @@ const StyledButton = styled(Button)`
 	gap: 10px;
 
 	position: absolute;
-	width: 59px;
-	height: 29px;
-	left: 290px;
+	width: 60px;
+	height: 30px;
+	left: 275px;
 	top: 15px;
 
 	background: #131313;
@@ -98,15 +101,11 @@ const Navbar = () => {
 	return (
 		<>
 			<StyledBox>
-				<IconButton component={Link} to="/" sx={{ flexGrow: 1, px: 0 }}>
-					<StyledAvatar variant="circular" alt="Podo" src={require("../assets/podo_logo.png")} />
-				</IconButton>
-				<Box2>PODO</Box2>
+				<Box2 component={Link} to="/home">PODO</Box2>
 				{connectedAdd ? 
 				<StyledButton>Connected</StyledButton>
 				:<StyledButton>Unconnected</StyledButton>
 				}
-				
 			</StyledBox>
 		</>
 	);
