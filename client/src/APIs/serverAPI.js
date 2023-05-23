@@ -81,3 +81,17 @@ export const examineTx = async(tx) => {
     throw error;
   }
 }
+
+
+export const deleteReport = async(hash) => {
+  const data = {
+    "hash" : hash,
+  };
+  
+  try {
+    const response = await axios.post(`${config.apiBaseUrl}/delete`, data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
