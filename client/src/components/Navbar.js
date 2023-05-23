@@ -5,7 +5,6 @@ import { Box, IconButton,  Avatar, Button } from "@mui/material";
 import { styled } from '@mui/system';
 import { getAddData } from "../APIs/walletAPI";
 import { ethers } from "ethers";
-import { utils } from "ethers";
 
 const StyledBox = styled(Box)`
 	position: absolute;
