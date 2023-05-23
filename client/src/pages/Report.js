@@ -16,12 +16,17 @@ import '../styles/styles.css';
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
-    overflow:scroll;
 	width: 360px;
 	height: 470px;
 	left: 0px;
 	top: 36px;
 	background: #2D2626;
+    overflow-y: scroll;
+    /* Hide the scrollbar */
+
+    &::-webkit-scrollbar {
+        width: 0
+    }
 `;
 
 const StyledTextField = styled(TextField)`

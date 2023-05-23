@@ -4,8 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Box, IconButton,  Avatar, Button } from "@mui/material";
 import { styled } from '@mui/system';
 import { getAddData } from "../APIs/walletAPI";
-import { ethers } from "ethers";
-import { utils } from "ethers";
+import { convertChecksumAdd } from "../utils/utils";
 
 const StyledBox = styled(Box)`
 	position: absolute;
@@ -70,38 +69,43 @@ const Navbar = () => {
     const [connectedAdd, setConnectedAdd] = useState();
 
     useEffect(() => {
-		chrome.storage.local.get("connectedAdd", async(res) => {
-            if (res.connectedAdd) {
-				let add = res.connectedAdd;
-				if(/^[0-9a-z]+$/.test(add)){
-					add = ethers.getAddress(add);
-				}
+
+
+        const fetchData = async () => {
+
+            const getStoredData = await new Promise((resolve) => {
+                chrome.storage.local.get("connectedAdd", (result) => {
+                    resolve(result.connectedAdd);
+                });
+            });
+    
+            if (getStoredData) {
+				let add = getStoredData;
+				add = convertChecksumAdd(add);
 				setConnectedAdd(add);
-			} else {
+            } else {
 				try {
 					const res = await getAddData();
 					if (res.length) {
-						console.log(res);
 						let add = res[0];
+						add = convertChecksumAdd(add);
 						setConnectedAdd(add);
-						if(/^[0-9a-z]+$/.test(add)){
-							add = ethers.getAddress(add);
-						}
-						console.log(add);
 						chrome.storage.local.set({ connectedAdd: add });
 					}
 				} catch (error) {
 					console.error('Error fetching data:', error);
 				}
-			}
-		});
+            }
+        }
+
+        fetchData();
 
     }, []);
 
 	return (
 		<>
 			<StyledBox>
-				<Box2 component={Link} to="/home">PODO</Box2>
+				<Box2 component={Link} to="/">PODO</Box2>
 				{connectedAdd ? 
 				<StyledButton>Connected</StyledButton>
 				:<StyledButton>Unconnected</StyledButton>

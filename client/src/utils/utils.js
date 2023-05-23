@@ -1,5 +1,5 @@
-// const lightwallet = require("eth-lightwallet");
-// const CryptoJS = require('crypto-js');
+import { ethers } from "ethers";
+
 
 //이 함수를 사용하여 다음과 같이 문자열이 유효한 URL인지 확인할 수 있습니다.
 const isValidUrl = (input) => {
@@ -60,7 +60,7 @@ export const shortenEthereumAddress = (address) => {
 };
 
 export const shortenEthereumAddress2 = (address) => {
-  if (typeof(address) !== "string"){return ""}
+  if (typeof(address) !== "string"){console.log("not string!"); return ""}
   const prefix = address.substring(0, 7);
   const suffix = address.substring(address.length - 6);
   
@@ -78,4 +78,22 @@ export const convertUnixTime = (unixTime) => {
   const minute = date.getMinutes(); // 분 가져오기
   
   return (`${year}.${month}.${day} ${hour}:${minute}`);
+}
+
+export const convertChecksumAdd = (add) => {
+  if(/^[0-9a-z]+$/.test(add)){
+    add = ethers.getAddress(add);
+  }
+  return add;
+}
+
+export const getHash = (report) => {
+  return ethers.encodeBase58(
+    ethers.solidityPackedKeccak256(
+      ["string", "string", "string", "string"],
+      [report.address,
+       report.associatedTx,
+       report.domain,
+       report.reporter]
+  ))
 }

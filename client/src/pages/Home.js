@@ -48,12 +48,21 @@ const Home = ({setInputValue, setIsURL}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		chrome.storage.local.get("msg", (res) => {
-            if(res.msg){
-				console.log(res.msg);
-				navigate(`/tx`);
-			};
-		});
+        const fetchData = async () => {
+
+            const getStoredData = await new Promise((resolve) => {
+                chrome.storage.local.get("msg", (res) => {
+                    resolve(res.msg);
+                });
+            });
+    
+            if (getStoredData) {
+				console.log(getStoredData);
+                navigate(`/tx`);
+            }
+        }
+
+        fetchData();
 	}, []);
 
 	const handleKeyPress = (event) => {
