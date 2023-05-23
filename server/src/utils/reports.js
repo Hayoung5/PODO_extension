@@ -54,7 +54,6 @@ reports.riskAddress = async (address) => {
   // if the address in lowercase convert to checksum address
   if(/^[/^[0-9a-z]+$/.test(address)){
     address = ethers.utils.getAddress(address);
-    console.log(address);
   }
 
   // add "await" to return isContract's result, if not isContract is promise
@@ -451,7 +450,6 @@ const deleteReportFromContract = async (address, hasTx, damage, hash) => {
   updates["/txReportCount"] = txcount - (hasTx ? 1 : 0);
   updates["/damageAmount"] = accDamage - damage;
   updates["/reportHistory"] = reportHistory;
-  console.log(updates);
 
   ctrRef.update(updates);
 }
@@ -544,9 +542,7 @@ reports.newReport = async (report, hash) => {
 reports.deleteReport = async (report, hash) => {
   if(validAddress(report.address)) {
     const _hasTx = validTx(report.associatedTx);
-    console.log(report);
     var isContract = await etherscan.isContract(report.address)
-    console.log(isContract);
     if(isContract) {
       await deleteReportFromContract(report.address, _hasTx, report.damage, hash);
     } else {
