@@ -77,6 +77,10 @@ const DomainPart = ({inputValue, result}) => {
         } else if (risk == 2) {
             return (
                 <div>
+                    {damageAmount ? 
+                        <div style={{paddingBottom:"10px"}}>{`• 파악된 피해 금액 : ${parseFloat(damageAmount).toFixed(4)} 이더`}</div>
+                        : <div/>
+                    }
                     <span>{"• "}</span>
                     <Modal_Button onClick={handleOpen}>
                         {`피해 사례가 ${reportCount}회 접수`}
