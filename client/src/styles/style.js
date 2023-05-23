@@ -12,5 +12,10 @@ export const BackgroundBox = styled(Box)`
 	left: 0px;
 	top: 60px;
 	background: #282626;
-    overflow: ${(props) => (props.scroll ? "scroll" : "visible")};
+	overflow-y: scroll;
+    /* Hide the scrollbar */
+
+    &::-webkit-scrollbar {
+        width: 0
+    }
 `;

@@ -16,9 +16,14 @@ const ModalBox = styled(Box)`
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
-    overflow: scroll;
     font-size : 15px;
     font-weight : 500;
+    overflow-y: scroll;
+    /* Hide the scrollbar */
+
+    &::-webkit-scrollbar {
+        width: 0
+    }
 `;
 
 const CardBox = styled(Box)`

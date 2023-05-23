@@ -17,9 +17,14 @@ const BackgroundBox = styled(Box)`
 	width: 360px;
 	height: 470px;
 	left: 0px;
-    overflow: scroll;
 	top: 60px;
 	background: #503030;
+    overflow-y: scroll;
+    /* Hide the scrollbar */
+
+    &::-webkit-scrollbar {
+        width: 0
+    }
 `;
 
 const Button_Report = styled(Button)`
@@ -66,7 +71,7 @@ const ExamineTx = () => {
             // setTxRisk(result[1]);
             // setDomain("https:remix.ide/");
 
-            
+
             const result = [];
             const locationData = await new Promise((resolve) => {
                 chrome.storage.local.get("location", (result) => {
