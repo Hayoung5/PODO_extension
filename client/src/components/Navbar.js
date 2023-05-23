@@ -101,7 +101,7 @@ const Navbar = () => {
 	return (
 		<>
 			<StyledBox>
-				<Box2 component={Link} to="/home">PODO</Box2>
+				<Box2 component={Link} to="/">PODO</Box2>
 				{connectedAdd ? 
 				<StyledButton>Connected</StyledButton>
 				:<StyledButton>Unconnected</StyledButton>
