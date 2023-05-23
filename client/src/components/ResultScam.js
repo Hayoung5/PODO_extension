@@ -88,7 +88,7 @@ const InfoBox = styled(Box)`
     position: absolute;
     width: 300px;
 	left: 20px;
-    top: 252px;
+    top: 235px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
@@ -159,6 +159,10 @@ const ResultScam = ({inputValue, isURL, result}) => {
                         reportCount === 0
                         ? "• 등록된 피해 사례가 없습니다."
                         : <div>
+                            {damageAmount ? 
+                                <div style={{paddingBottom:"10px"}}>{`• 파악된 피해 금액 : ${parseFloat(damageAmount).toFixed(4)} 이더`}</div>
+                                : <div/>
+                            }
                             <span>{"• "}</span>
                             <Modal_Button onClick={handleOpen}>
                                 {`피해 사례가 ${reportCount}회 접수`}

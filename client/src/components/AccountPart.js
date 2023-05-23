@@ -79,6 +79,10 @@ const AccountPart = ({result}) => {
                         reportCount === 0
                         ? "• 등록된 피해 사례가 없습니다."
                         : <div>
+                            {damageAmount ? 
+                                <div style={{paddingBottom:"10px"}}>{`• 파악된 피해 금액 : ${parseFloat(damageAmount).toFixed(4)} 이더`}</div>
+                                : <div/>
+                            }
                             <span>{"• "}</span>
                             <Modal_Button onClick={handleOpen}>
                                 {`피해 사례가 ${reportCount}회 접수`}

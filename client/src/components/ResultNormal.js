@@ -71,7 +71,7 @@ const InfoBox = styled(Box)`
     position: absolute;
     width: 300px;
 	left: 20px;
-    top: 252px;
+    top: 235px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
