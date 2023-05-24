@@ -210,7 +210,7 @@ const Report = () => {
                     </Tooltip>
                 </Box>
                 <StyledTextField name="reporter" type="text" id="reporter"
-                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd} onChange={handleAdd} >
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd} placeholder="0x로 시작하는 40자리 주소" onChange={handleAdd} >
                 </StyledTextField>
 
                 {/* 상대방의 계정 */}
