@@ -24,11 +24,20 @@ const TextBox = styled(Box)`
     white-space: pre-line;
 `;
 
+const TextBox2 = styled(Box)`
+    margin-top: 180px;
+    margin-left: 40%;
+    color: #C0C0C0;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+`;
+
 const TextBox1 = styled(Box)`
-    position: absolute;
-    left: 50%;
-    top: 200px;
-    transform: translate(-50%, -50%);
+    margin-top: 0px;
+    margin-left: 10%;
     color: #C0C0C0;
     font-weight: 700;
     font-size: 24px;
@@ -37,11 +46,13 @@ const TextBox1 = styled(Box)`
     text-align: center; 
 `;
 
+
+
 const InfoBox = styled(Box)`
     position: absolute;
     width: 300px;
 	left: 20px;
-    top: 235px;
+    top: 250px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
@@ -91,13 +102,14 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                 <span>
                     피해 없음
                 </span>
-                
+            </TextBox>
+            <TextBox2>
                 {isURL && isWhited ? 
-                <span style={{fontSize : "20px"}}>
+                <span>
                     {`\n ✅ ${description}`}
                 </span> : <div/>
                 }
-            </TextBox>
+            </TextBox2>
             <TextBox1>
                 {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
                 <Tooltip title={
@@ -123,7 +135,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                 }}
             />
             {infoBox()}
-            <ReportButton top={380} />
+            <ReportButton top={360} />
         </BackgroundBox>
         </div>
     );
