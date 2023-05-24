@@ -13,22 +13,21 @@ import '../styles/styles.css';
 import { StyledHelpOutlineIcon  } from '../styles/style';
 
 
+
 // style 재활용하기에 top이 달라서 그냥 색만 통일
 const BackgroundBox = styled(Box)`
 	position: absolute;
 	width: 360px;
+    height: 470px;
 	left: 0px;
 	top: 36px;
-	background: #282626;
+	background: #272626;
     overflow-y: scroll;
     /* Hide the scrollbar */
-
     &::-webkit-scrollbar {
         width: 0
     }
 `;
-
-
 
 const StyledTextField = styled(TextField)`
 	width: 300px;
@@ -61,7 +60,7 @@ const TitleTypography = styled(Typography)`
     color: #FFFFFF;
     font-weight: 600;
     line-height: 24px;
-    font-size: 20px;
+    font-size: 22px;
 `;
 
 const StyledButton1 = styled(Button)`
@@ -162,6 +161,21 @@ const Report = () => {
                     {"를 입으셨나요?"} */}
                 </TitleTypography>
 
+                {/* 피해를 입은 계정 */}
+                <Box sx={{ display: 'flex', alignItems: 'flex-end', position: 'relative' }}>
+                    <StyledTypography align="left" variant="h6">
+                        {"피해를 입은 계정 주소"}
+                        <span style={{ color: '#C80505' }}> *</span>
+                    </StyledTypography>
+                    <Tooltip title="PODO와 연결된 지갑의 주소가 자동으로 입력됩니다.">
+                        <StyledHelpOutlineIcon sx={{ position: 'absolute', left: '300px'}} />
+                    </Tooltip>
+                </Box>
+                <StyledTextField name="reporter" type="text" id="reporter"
+                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd} placeholder="0x로 시작하는 40자리 주소" onChange={handleAdd} >
+                </StyledTextField>
+
+
                 {/* 피해 종류 */}
                 <StyledTypography align="left" variant="h6">
                     {"피해 종류"}
@@ -192,19 +206,6 @@ const Report = () => {
                     }
                 </FormControl>
 
-                {/* 피해를 입은 계정 */}
-                <Box sx={{ display: 'flex', alignItems: 'flex-end', position: 'relative' }}>
-                    <StyledTypography align="left" variant="h6">
-                        {"피해를 입은 계정 주소"}
-                        <span style={{ color: '#C80505' }}> *</span>
-                    </StyledTypography>
-                    <Tooltip title="PODO와 연결된 지갑의 주소가 자동으로 입력됩니다.">
-                        <StyledHelpOutlineIcon sx={{ position: 'absolute', left: '300px'}} />
-                    </Tooltip>
-                </Box>
-                <StyledTextField name="reporter" type="text" id="reporter"
-                    InputProps={{ sx: {"& input": { color: "#E0E0E0"}, "& label" : {color: "#E0E0E0"}}}} value={connectedAdd} placeholder="0x로 시작하는 40자리 주소" onChange={handleAdd} >
-                </StyledTextField>
 
                 {/* 상대방의 계정 */}
                 <Box sx={{ display: 'flex', alignItems: 'flex-end', position: 'relative' }}>
