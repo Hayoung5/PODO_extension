@@ -25,25 +25,27 @@ const TextBox = styled(Box)`
 `;
 
 const TextBox2 = styled(Box)`
+    width: 100%;
     margin-top: 180px;
-    margin-left: 40%;
     color: #C0C0C0;
     font-weight: 700;
     font-size: 18px;
     display: flex;
     align-items: center;
     text-align: center; 
+    justify-content: center;
 `;
 
 const TextBox1 = styled(Box)`
+    width: 100%;
     margin-top: 0px;
-    margin-left: 10%;
     color: #C0C0C0;
     font-weight: 700;
     font-size: 24px;
     display: flex;
     align-items: center;
     text-align: center; 
+    justify-content: center;
 `;
 
 
