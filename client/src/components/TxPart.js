@@ -36,7 +36,7 @@ const TxPart = ({result}) => {
     const evaluation = () => {
         if (risk == 0 || risk == 1){
             return (
-                <span style={{color : "#00FF57"}}> 피해 없음</span>
+                <span style={{color : "#009632"}}> 피해 없음</span>
             )
         } else if (risk == 2) {
             return (
@@ -86,15 +86,19 @@ const TxPart = ({result}) => {
 
     return (
         <div>
-            <Stack style={{paddingLeft: "20px"}}>
-                <TextBox>
-                    <span style={{color : "#C0C0C0"}}>
-                        보내는 트랜잭션 : 
-                    </span>
-                    {evaluation()}
-                </TextBox>
-                {infoBox()}
-            </Stack>
+            {txInfo ?
+                <Stack style={{paddingLeft: "20px"}}>
+                    <TextBox>
+                        <span style={{color : "#C0C0C0"}}>
+                            보내는 트랜잭션 : 
+                        </span>
+                        {evaluation()}
+                    </TextBox>
+                    {infoBox()}
+                </Stack>
+                : <div/>
+            }
+
         </div>
         );
 };

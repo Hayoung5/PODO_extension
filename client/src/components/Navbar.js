@@ -17,14 +17,6 @@ const StyledBox = styled(Box)`
 	box-sizing: border-box;
 `;
 
-const StyledAvatar = styled(Avatar)`
-	position: absolute;
-	width: 36.79px;
-	height: 38.99px;
-	left: 15.53px;
-	top: 10.47px;
-	background: #131313;
-`;
 
 const Box2 = styled(Box)`
 	position: relative;
@@ -57,7 +49,7 @@ const StyledButton = styled(Button)`
 	left: 275px;
 	top: 15px;
 
-	background: #131313;
+	background: #2D2D2D;
 	border-radius: 15px;
 	font-size: 8px;
 	color: #FFFFFF;

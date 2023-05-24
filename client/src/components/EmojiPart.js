@@ -36,7 +36,7 @@ const EmojiPart = ({risk}) => {
                     transform: "translate(-50%, -50%)",
                     }}
                 />
-                <TextBox style={{color : "#00FF57"}}>피해 없음</TextBox>
+                <TextBox style={{color : "#009632"}}>피해 없음</TextBox>
             </div>
         )
     }
