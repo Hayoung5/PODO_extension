@@ -52,10 +52,10 @@ const TxPart = ({result}) => {
     const infoBox = () => {
         return (
             <InfoBox>
-                {txInfo=="SETAPPROVEFORALL" ?
+                {txInfo=="SETAPPROVALFORALL" ?
                     <div>
                         <div style={{paddingBottom: "10px"}}>
-                            {"• setApproveForAll 함수를 호출해요."}
+                            {"• setApprovalForAll 함수를 호출해요."}
                         </div>
                         <div style={{paddingBottom: "10px"}}>
                             {"• 상대가 나의 NFT를 이체할 수 있어요."}
