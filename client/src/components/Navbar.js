@@ -67,6 +67,30 @@ const StyledButton = styled(Button)`
 
 const Navbar = () => {
     const [connectedAdd, setConnectedAdd] = useState();
+	const [connect, setConnect] = useState(false);
+
+	const handleConnect = async(event) => {
+		event.preventDefault(); 
+		try {
+			const res = await getAddData();
+			if (res.length) {
+				let add = res[0];
+				add = convertChecksumAdd(add);
+				setConnectedAdd(add);
+				chrome.storage.local.set({ connectedAdd: add });
+				setConnect(true);
+			}
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
+
+	}
+
+	const handleUnconnect = (event) => {
+		event.preventDefault(); 
+		chrome.storage.local.set({connectedAdd: null});
+		setConnect(false);
+	}
 
     useEffect(() => {
 
@@ -83,19 +107,8 @@ const Navbar = () => {
 				let add = getStoredData;
 				add = convertChecksumAdd(add);
 				setConnectedAdd(add);
-            } else {
-				try {
-					const res = await getAddData();
-					if (res.length) {
-						let add = res[0];
-						add = convertChecksumAdd(add);
-						setConnectedAdd(add);
-						chrome.storage.local.set({ connectedAdd: add });
-					}
-				} catch (error) {
-					console.error('Error fetching data:', error);
-				}
-            }
+				setConnect(true);
+            } 
         }
 
         fetchData();
@@ -106,9 +119,13 @@ const Navbar = () => {
 		<>
 			<StyledBox>
 				<Box2 component={Link} to="/">PODO</Box2>
-				{connectedAdd ? 
-				<StyledButton>Connected</StyledButton>
-				:<StyledButton>Unconnected</StyledButton>
+				{connect ? 
+				<StyledButton onClick={(event) => {handleUnconnect(event)}}>
+					Connected
+				</StyledButton>
+				:<StyledButton onClick={(event) => {handleConnect(event)}}>
+					Unconnected
+				</StyledButton>
 				}
 			</StyledBox>
 		</>

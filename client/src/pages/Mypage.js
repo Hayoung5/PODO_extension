@@ -3,13 +3,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Stack, TextField, Button, Avatar, Box } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Stack, TextField, Button, IconButton, Box } from "@mui/material";
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 import * as serverAPI from '../APIs/serverAPI';
 import { styled } from '@mui/system';
 import { convertUnixTime, shortenEthereumAddress, shortenEthereumAddress2 } from "../utils/utils";
 import { getLogs, deleteReport } from "../APIs/serverAPI";
 import { getHash } from "../utils/utils";
+
+const Orange = "#DF4C0D";
 
 const InfoBox = styled(Box)`
     position: absolute;
@@ -20,7 +23,8 @@ const InfoBox = styled(Box)`
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
-    padding-top : 20px;
+    padding-top : 10px;
+    padding-Bottom : 20px;
     padding-left : 20px;
     font-size : 16px;
     font-weight : 700;
@@ -73,6 +77,20 @@ const Mypage = () => {
     const [renderKey, setRenderKey] = useState('');
     const navigate = useNavigate();
 
+
+    const handleCopy = (event) => {
+        event.preventDefault();
+        const copyText = connectedAdd;
+      
+        navigator.clipboard.writeText(copyText)
+          .then(() => {
+            console.log('Text copied to clipboard:', copyText);
+          })
+          .catch((error) => {
+            console.error('Failed to copy text:', error);
+          });
+      };
+
     const handleDelete = async (el, event) => {
         event.preventDefault(); // Prevent the default behavior of the click event
         if (window.confirm("등록한 신고를 삭제 하시겠습니까?")) {
@@ -115,13 +133,18 @@ const Mypage = () => {
             <BackgroundBox>
                 <Stack key={renderKey}>
                     <InfoBox>
-                        <div style={{paddingBottom:"10px"}}>
+                        <div>
                             {`연결된 계정 : ${shortenEthereumAddress2(connectedAdd)}`}
+                            <IconButton 
+                                onClick={(event) => {handleCopy(event)}}
+                                style={{color: Orange}}
+                            >
+                                <FileCopyIcon style={{width:"18px", paddingLeft:"25px"}} />
+                            </IconButton>
                         </div>
-                        <div style={{paddingBottom:"5px"}}>
+                        <div>
                             {`등록한 신고 : ${reportHistory.length}회`}
                         </div>
-                        
                     </InfoBox>
                     <div style={{ color : "#C0C0C0", paddingTop : "140px", paddingLeft : "25px", fontSize : "16px", fontWeight : 700,}}>
                         {"신고 내역"}
@@ -135,12 +158,12 @@ const Mypage = () => {
                                     <CardBox>
                                         <div>
                                             {` # ${i+1}`}
-                                            <Button 
+                                            <IconButton 
                                                 onClick={(event) => handleDelete(el, event)} 
-                                                style={{paddingLeft:"180px", color: "#fc6900"}}
+                                                style={{paddingLeft:"230px", color: Orange}}
                                             >
-                                                {"신고 삭제"}
-                                            </Button>
+                                                <DeleteForever style={{width:"20px"}} />
+                                            </IconButton>
                                         </div>
                                         <div>
                                             {`• 신고한 계정 : ${shortenEthereumAddress(el.address)}`}
