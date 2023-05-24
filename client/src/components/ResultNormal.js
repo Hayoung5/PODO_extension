@@ -7,23 +7,15 @@ import { Stack, TextField, Button, Avatar, Box, Tooltip } from "@mui/material";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import normalIcon from "../assets/normal.png";
 import { shortenEthereumAddress } from "../utils/utils";
+import { BackgroundBox, StyledHelpOutlineIcon, ReportButton  } from '../styles/style';
 import '../styles/styles.css';
-
-const BackgroundBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	background: #2D2626;
-`;
 
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
     top: 160px;
     transform: translate(-50%, -50%);
-    color: #46BD7B;
+    color: #009632;
     font-size: 30px;
     display: flex;
     font-weight: 600;
@@ -43,28 +35,6 @@ const TextBox1 = styled(Box)`
     display: flex;
     align-items: center;
     text-align: center; 
-`;
-
-const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
-    font-size: 16px;
-    margin-left: 10px;
-`;
-
-const Button_Report = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 380px;
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #FFFFFF;
-    padding: 20px;
-    font-weight: 600;
-    font-size: 17.5px;
-    line-height: 22px;
-    font-size: 18px;
 `;
 
 const InfoBox = styled(Box)`
@@ -153,10 +123,7 @@ const ResultNormal = ({inputValue, isURL, result}) => {
                 }}
             />
             {infoBox()}
-            <Button_Report component={Link} to="/report">
-                <span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-                {"신고하기"}
-            </Button_Report>
+            <ReportButton top={380} />
         </BackgroundBox>
         </div>
     );

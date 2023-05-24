@@ -47,7 +47,7 @@ const AccountPart = ({result}) => {
         console.log(risk);
         if (risk == 0 || risk == 1){
             return (
-                <span style={{color : "#00FF57"}}> 피해 없음</span>
+                <span style={{color : "#009632"}}> 피해 없음</span>
             )
         } else if (risk == 2) {
             return (
@@ -58,6 +58,15 @@ const AccountPart = ({result}) => {
                 <span style={{color : "#FFE800"}}> 위험!</span>
             )
         }
+    }
+
+    const returnAccount = (acc) => {
+        if (typeof acc != "string") {
+            return ("• 컨트랙트 배포")
+        } else {
+            return(`• 검색 계정 : ${shortenEthereumAddress2(acc)}`)
+        }
+        
     }
 
     const infoBox = () => {
@@ -76,7 +85,7 @@ const AccountPart = ({result}) => {
                 </div>
                 <div style={{paddingBottom: "10px"}}>
                     {
-                        reportCount === 0
+                        reportCount === 0 || reportCount == undefined
                         ? "• 등록된 피해 사례가 없습니다."
                         : <div>
                             {damageAmount ? 
@@ -107,7 +116,7 @@ const AccountPart = ({result}) => {
                 </TextBox>
                 <InfoBox>
                     <div style={{paddingBottom:"5px"}}>
-                        {`• 검색 계정 : ${shortenEthereumAddress2(inputValue)}`}
+                        {returnAccount(inputValue)}
                     </div>
                     {infoBox()}
                 </InfoBox>

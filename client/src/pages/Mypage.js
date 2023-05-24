@@ -11,6 +11,7 @@ import { styled } from '@mui/system';
 import { convertUnixTime, shortenEthereumAddress, shortenEthereumAddress2 } from "../utils/utils";
 import { getLogs, deleteReport } from "../APIs/serverAPI";
 import { getHash } from "../utils/utils";
+import { BackgroundBox } from '../styles/style';
 
 const Orange = "#DF4C0D";
 
@@ -30,15 +31,6 @@ const InfoBox = styled(Box)`
     font-weight : 700;
 `;
 
-const BackgroundBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	/* Back_Phantom */
-	background: #282626;
-`;
 
 
 
@@ -63,7 +55,7 @@ const ModalBox = styled(Box)`
 `;
 
 const CardBox = styled(Box)`
-    background : #323232;
+    background : #242222;
     margin-top: 20px;
     margin-bottom: 20px;
     color : #C0C0C0;

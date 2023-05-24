@@ -11,6 +11,7 @@ import EmojiPart from "../components/EmojiPart";
 import DomainPart from "../components/DomainPart";
 import AccountPart from "../components/AccountPart";
 import TxPart from "../components/TxPart";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const BackgroundBox = styled(Box)`
 	position: absolute;
@@ -18,7 +19,7 @@ const BackgroundBox = styled(Box)`
 	height: 470px;
 	left: 0px;
 	top: 60px;
-	background: #503030;
+	background: #282626;
     overflow-y: scroll;
     /* Hide the scrollbar */
 
@@ -28,9 +29,10 @@ const BackgroundBox = styled(Box)`
 `;
 
 const Button_Report = styled(Button)`
-	width: 240px;
-	height: 30px;
-    margin-left: 18%;
+    width: 320px;
+	height: 72px;
+    margin-left: 20px;
+    margin-top: 10px;
 	/* Button_Phantom */
 
 	background: #2D2D2D;
@@ -124,8 +126,6 @@ const ExamineTx = () => {
         
 	}, []);
 
-
-
 	return (
         <div>
             {totalRisk ?
@@ -136,8 +136,13 @@ const ExamineTx = () => {
                         <AccountPart result={txRisk} />
                         <TxPart result={txRisk} />
                         <Button_Report component={Link} to="/report" variant="body2">
-                            <span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-                            {"신고하기"}
+                            <Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                                <div>
+                                    <span style={{color : "#C80505", paddingRight: "5px"}}>{"피해 사례"}</span>
+                                    {"신고하기"}
+                                </div>
+                                <ArrowForwardIosIcon sx={{color: '#C80505'}} />
+                            </Box>
                         </Button_Report>
                     </Stack>
                 </BackgroundBox>

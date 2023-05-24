@@ -7,20 +7,19 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Stack, TextField, Bu
 import * as serverAPI from '../APIs/serverAPI';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled } from '@mui/system';
-import SearchIcon from '@mui/icons-material/Search';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { returnType, returnDomain } from "../utils/utils";
 import { postReport } from "../APIs/serverAPI";
 import '../styles/styles.css';
+import { StyledHelpOutlineIcon  } from '../styles/style';
 
 
+// style 재활용하기에 top이 달라서 그냥 색만 통일
 const BackgroundBox = styled(Box)`
 	position: absolute;
 	width: 360px;
-	height: 470px;
 	left: 0px;
 	top: 36px;
-	background: #2D2626;
+	background: #282626;
     overflow-y: scroll;
     /* Hide the scrollbar */
 
@@ -28,6 +27,8 @@ const BackgroundBox = styled(Box)`
         width: 0
     }
 `;
+
+
 
 const StyledTextField = styled(TextField)`
 	width: 300px;
@@ -60,7 +61,7 @@ const TitleTypography = styled(Typography)`
     color: #FFFFFF;
     font-weight: 600;
     line-height: 24px;
-    font-size: 24px;
+    font-size: 20px;
 `;
 
 const StyledButton1 = styled(Button)`
@@ -88,14 +89,6 @@ const StyledButton1 = styled(Button)`
     &:hover {
         background: #C8050588;
 `;
-
-const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
-    font-size: 17px;
-    color : #A0A0A0;
-    left: 300px;
-`;
-
-
 
 
 const Report = () => {
@@ -163,7 +156,7 @@ const Report = () => {
 		<BackgroundBox component="form" noValidate onSubmit={handleReport} sx={{ mt: 3 }}>          
             <Stack direction="column" justifyContent="flex-end" spacing={1}>
             
-                <TitleTypography align="left" variant="h4">
+                <TitleTypography align="left" >
                     {"어떤 피해를 입으셨나요?"}
                     {/* <span style={{ color: '#C80505', fontSize: '25px' }}>피해</span>
                     {"를 입으셨나요?"} */}

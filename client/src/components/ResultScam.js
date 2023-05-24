@@ -7,23 +7,15 @@ import { Stack, TextField, Button, Avatar, Box, Tooltip } from "@mui/material";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { shortenEthereumAddress } from "../utils/utils";
 import HistoryModal from "./HistoryModal";
+import { BackgroundBox, StyledHelpOutlineIcon, ReportButton  } from '../styles/style';
 import '../styles/styles.css';
-
-const BackgroundBox = styled(Box)`
-	position: absolute;
-	width: 360px;
-	height: 470px;
-	left: 0px;
-	top: 60px;
-	background: #2D2626;
-`;
 
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
     top: 170px;
     transform: translate(-50%, -50%);
-    color: #C80505;
+    color: #FFFFFF;
     font-size: 30px;
     display: flex;
     font-weight: 600;
@@ -42,46 +34,6 @@ const TextBox1 = styled(Box)`
     display: flex;
     align-items: center;
     text-align: center; 
-`;
-
-
-const Button_Report = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 380px;
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #FFFFFF;
-    padding: 20px;
-    font-weight: 600;
-    font-size: 17.5px;
-    line-height: 22px;
-    font-size: 18px;
-`;
-
-const Button_Home = styled(Button)`
-	position: absolute;
-	width: 320px;
-	height: 72px;
-	left: 20px;
-	top: 460px;
-
-	background: #2D2D2D;
-	border-radius: 7.5px;
-	color: #FFFFFF;
-    padding: 20px;
-    font-weight: 600;
-    font-size: 17.5px;
-    line-height: 22px;
-    font-size: 18px;
-`;
-
-const StyledHelpOutlineIcon = styled(HelpOutlineIcon)`
-    font-size: 16px;
-    margin-left: 10px;s
 `;
 
 const InfoBox = styled(Box)`
@@ -124,14 +76,14 @@ const ResultScam = ({inputValue, isURL, result}) => {
                             ? <>
                                 {"• 검증 받지 않은 컨트랙트 입니다."}
                                 <Tooltip title="Example" arrow>
-                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle' }}/>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', paddingLeft:"10px"}}/>
                                 </Tooltip>
                             </>
                             : isContract === true && isVerified === true
                             ? <>
                                 {"• 검증 받은 컨트랙트 주소 입니다."}
                                 <Tooltip title="Example" arrow>
-                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle' }}/>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', paddingLeft:"10px"}}/>
                                 </Tooltip>
                             </>
                             : isContract === false 
@@ -177,7 +129,7 @@ const ResultScam = ({inputValue, isURL, result}) => {
 
     return (
         <div>
-        <BackgroundBox>
+        <BackgroundBox style={{backgroun: "#"}}>
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
             <TextBox>
                 위험!
@@ -197,10 +149,7 @@ const ResultScam = ({inputValue, isURL, result}) => {
 
             <div style={{position: "absolute", left: "50%", top: "85px", fontSize: "70px", transform: "translate(-50%, -50%)"}}>🚨</div>
             {infoBox()}
-            <Button_Report component={Link} to="/report">
-                <span style={{color : "#DF4C0D", paddingRight: "5px"}}>{"피해 사례"}</span>
-                {"신고하기"}
-            </Button_Report>
+            <ReportButton top={380} />
         </BackgroundBox>
         </div>
         );
