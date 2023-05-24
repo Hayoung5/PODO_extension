@@ -73,11 +73,27 @@ const ResultWarning = ({inputValue, isURL, result}) => {
                     <div style={{paddingBottom:"10px"}}>
                         {
                             isContract === true && isVerified === false
-                            ? "• 검증 받지 않은 컨트랙트 입니다." 
+                            ? <>
+                                {"• 검증 받지 않은 컨트랙트 입니다."}
+                                <Tooltip title={`이더스캔에 verify되지 않은 컨트랙트 에요!\n
+                                    신뢰성 및 안전성이 부족할 수 있습니다.`} arrow>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', paddingLeft:"10px"}}/>
+                                </Tooltip>
+                            </>
                             : isContract === true && isVerified === true
-                            ? "• 검증 받은 컨트랙트 주소 입니다." 
+                            ? <>
+                                {"• 검증 받은 컨트랙트 주소 입니다."}
+                                <Tooltip title="이더스캔에 verify된 컨트랙트 에요." arrow>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle', paddingLeft:"10px"}}/>
+                                </Tooltip>
+                            </>
                             : isContract === false 
-                            ? "• EOA 계정 주소 입니다."
+                            ? <>
+                                {"• EOA 주소 입니다."}
+                                <Tooltip title="컨트랙트 주소가 아닌 일반적인 주소 계정이에요." arrow>
+                                    <StyledHelpOutlineIcon style={{ verticalAlign: 'middle' }}/>
+                                </Tooltip>
+                            </>
                             : ""
                         }
                     </div>

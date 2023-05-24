@@ -9,16 +9,17 @@ import { convertUnixTime, shortenEthereumAddress } from "../utils/utils";
 
 const ModalBox = styled(Box)`
     position: absolute;
-    width: 220px;
-    height: 180px;
-    top: 25%;
-    left : 5%;
+    width: 320px;
+    max-height: 200px;
+    top: 170px;
+	left: 20px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
+    overflow-y: scroll;
     font-size : 15px;
     font-weight : 500;
-    overflow-y: scroll;
+
     /* Hide the scrollbar */
 
     &::-webkit-scrollbar {
@@ -27,7 +28,7 @@ const ModalBox = styled(Box)`
 `;
 
 const CardBox = styled(Box)`
-    background : #323232;
+    background : #242222;
     margin-top: 20px;
     margin-bottom: 20px;
     color : #C0C0C0;
