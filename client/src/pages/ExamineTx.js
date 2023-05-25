@@ -128,8 +128,8 @@ const ExamineTx = () => {
 
 	return (
         <div>
-            {totalRisk ?
-                <BackgroundBox>
+            {totalRisk == 3 ?
+                <BackgroundBox style={{background: "rgb(140, 29, 10)"}}>
                     <Stack style={{paddingTop:"200px", paddingBottom:"30px"}}>
                         <EmojiPart risk={totalRisk} />
                         <DomainPart inputValue={domain} result={domainRisk}/>
@@ -146,6 +146,24 @@ const ExamineTx = () => {
                         </Button_Report>
                     </Stack>
                 </BackgroundBox>
+                : totalRisk !== 3 && totalRisk ?
+                <BackgroundBox>
+                    <Stack style={{paddingTop:"200px", paddingBottom:"30px"}}>
+                        <EmojiPart risk={totalRisk} />
+                        <DomainPart inputValue={domain} result={domainRisk}/>
+                        <AccountPart result={txRisk} />
+                        <TxPart result={txRisk} />
+                        <Button_Report component={Link} to="/report" variant="body2">
+                            <Box sx={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                                <div>
+                                    <span style={{color : "#C80505", paddingRight: "5px"}}>{"피해 사례"}</span>
+                                    {"신고하기"}
+                                </div>
+                                <ArrowForwardIosIcon sx={{color: '#C80505'}} />
+                            </Box>
+                        </Button_Report>
+                    </Stack>
+                </BackgroundBox>                
                 : 
                 <Loading guideText={"거래를 분석 중입니다."}/>
             }
