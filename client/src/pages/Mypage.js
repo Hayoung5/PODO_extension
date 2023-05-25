@@ -157,9 +157,14 @@ const Mypage = () => {
                                                 <DeleteForever style={{width:"20px"}} />
                                             </IconButton>
                                         </div>
-                                        <div>
-                                            {`• 신고한 계정 : ${shortenEthereumAddress(el.address)}`}
-                                        </div>
+                                        {el.address ? 
+                                        <div> {`• 신고한 계정 : ${shortenEthereumAddress(el.address)}`} </div>
+                                        : <div/>
+                                        }
+                                        {el.domain ? 
+                                        <div> {`• 신고한 도메인 : ${el.domain}`} </div>
+                                        : <div/>
+                                        }
                                         <div>
                                             {`• 내용 : ${el.content}`}
                                         </div>

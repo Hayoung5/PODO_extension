@@ -130,7 +130,7 @@ const ResultScam = ({inputValue, isURL, result}) => {
 
     return (
         <div>
-        <BackgroundBox style={{backgroun: "#"}}>
+        <BackgroundBox style={{background: "rgb(140, 29, 10)"}}>
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
             <TextBox>
                 위험!
