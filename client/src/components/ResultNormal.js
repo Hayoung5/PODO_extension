@@ -41,7 +41,7 @@ const TextBox1 = styled(Box)`
     margin-top: 0px;
     color: #C0C0C0;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 23px;
     display: flex;
     align-items: center;
     text-align: center; 

@@ -13,7 +13,7 @@ import '../styles/styles.css';
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
-    top: 170px;
+    top: 160px;
     transform: translate(-50%, -50%);
     color: #FFFFFF;
     font-size: 30px;
@@ -30,7 +30,7 @@ const TextBox1 = styled(Box)`
     transform: translate(-50%, -50%);
     color: #C0C0C0;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 23px;
     display: flex;
     align-items: center;
     text-align: center; 
@@ -40,7 +40,7 @@ const InfoBox = styled(Box)`
     position: absolute;
     width: 300px;
 	left: 20px;
-    top: 235px;
+    top: 260px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
@@ -148,7 +148,7 @@ const ResultScam = ({inputValue, isURL, result}) => {
                 </Tooltip>
             </TextBox1>
 
-            <div style={{position: "absolute", left: "50%", top: "85px", fontSize: "70px", transform: "translate(-50%, -50%)"}}>🚨</div>
+            <div style={{position: "absolute", left: "50%", top: "85px", fontSize: "85px", transform: "translate(-50%, -50%)"}}>🚨</div>
             {infoBox()}
             <ReportButton top={380} />
         </BackgroundBox>

@@ -12,7 +12,8 @@ import '../styles/styles.css';
 const TextBox = styled(Box)`
     position: absolute;
     left: 50%;
-    top: 150px;
+    top: 140px;
+    width: 100%;
     transform: translate(-50%, -50%);
     color: #FFFFFF;
     font-size: 30px;
@@ -21,6 +22,7 @@ const TextBox = styled(Box)`
     flex-direction: column;
     align-items: center;
     text-align: center; 
+    justify-content: center;
 `;
 
 const TextBox1 = styled(Box)`
@@ -30,7 +32,7 @@ const TextBox1 = styled(Box)`
     transform: translate(-50%, -50%);
     color: #C0C0C0;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 23px;
     display: flex;
     align-items: center;
     text-align: center; 
@@ -40,7 +42,7 @@ const InfoBox = styled(Box)`
     position: absolute;
     width: 300px;
 	left: 20px;
-    top: 235px;
+    top: 260px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
@@ -127,7 +129,7 @@ const ResultWarning = ({inputValue, isURL, result}) => {
             <HistoryModal open={open} setOpen={setOpen} reportHistory={reportHistory} />
             <TextBox>
                 <br />
-                <a style={{color : "#FFE800", paddingRight: "5px"}}>주의!</a>
+                <a style={{color : "#FFE800"}}>주의!</a>
             </TextBox>
             <TextBox1>
                 {!isURL ? shortenEthereumAddress(inputValue) : inputValue}
@@ -149,6 +151,7 @@ const ResultWarning = ({inputValue, isURL, result}) => {
                 position: "absolute",
                 left: "50%",
                 top: "85px",
+                width: 85,
                 transform: "translate(-50%, -50%)",
                 }}
             />
