@@ -37,7 +37,9 @@ const TextBox2 = styled(Box)`
 `;
 
 const TextBox1 = styled(Box)`
-    width: 100%;
+    width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
     margin-top: 0px;
     color: #C0C0C0;
     font-weight: 700;

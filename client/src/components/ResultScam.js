@@ -24,26 +24,26 @@ const TextBox = styled(Box)`
 `;
 
 const TextBox1 = styled(Box)`
-    position: absolute;
-    left: 50%;
-    top: 210px;
-    transform: translate(-50%, -50%);
+    width: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 190px;
     color: #C0C0C0;
     font-weight: 700;
     font-size: 23px;
     display: flex;
     align-items: center;
     text-align: center; 
+    justify-content: center;
 `;
 
 const InfoBox = styled(Box)`
-    position: absolute;
-    width: 300px;
-	left: 20px;
-    top: 260px;
     background: #2D2D2D;
     border-radius: 7.5px;
     color : #C0C0C0;
+    width: 300px;
+	margin-left: 20px;
+    margin-top: 10px;
     padding-top : 20px;
     padding-left : 20px;
     font-size : 17.5px;
