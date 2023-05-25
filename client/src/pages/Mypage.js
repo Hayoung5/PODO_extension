@@ -162,7 +162,7 @@ const Mypage = () => {
                                         : <div/>
                                         }
                                         {el.domain ? 
-                                        <div> {`• 신고한 도메인 : ${shortenEthereumAddress(el.domain)}`} </div>
+                                        <div> {`• 신고한 도메인 : ${el.domain}`} </div>
                                         : <div/>
                                         }
                                         <div>
