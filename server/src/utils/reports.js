@@ -95,7 +95,7 @@ reports.riskAddress = async (address) => {
       if((!isVerified &&
           (snapshot.reportCount > 2 ||
           snapshot.txReportCount > 0)) ||
-        snapshot.damage > 10 ||
+        snapshot.damage > 0.1 ||
         snapshot.txReportCount > 1 ||
         snapshot.reportCount > 4 ||
         snapshot.blacklisted)
@@ -132,7 +132,7 @@ reports.riskAddress = async (address) => {
         isContract: false,
       }
     } else {
-      if(snapshot.damage > 10 ||
+      if(snapshot.damage > 0.1 ||
         snapshot.txReportCount > 1 ||
         snapshot.reportCount > 4 ||
         snapshot.blacklisted)
