@@ -97,11 +97,11 @@ client 폴더에서 build 폴더를 선택
 <center>
     <img width=600 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/8cba559b-4d4f-4d58-a8d5-96e8f2028588" />
 </center>
-
+  
   
 <br>
-
-
+  
+  
 <details>
 <summary>크롬 익스텐션 업로드 방법(영상)</summary>
 <div markdown="1">       
@@ -260,28 +260,45 @@ node index.js
 - Ethers.js
 - Alchemy API
 - Etherscan API
+  
+  
+  
+<br>
+  
 
 # Architecture
 
----
 
 ### Mockup
+![스크린샷 2023-05-23 오후 4 13 50 (1)](https://github.com/Hayoung5/PODO_extension/assets/104472372/58ddfd0a-e556-4a5e-a615-b21842dd657b)
 
-![스크린샷 2023-05-23 오후 4.13.50.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8a8be72-7a16-4f4a-a471-c9f8b3143b93/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-23_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_4.13.50.png)
+
 
 ### DB schema
 
-![스크린샷 2023-05-23 오후 5.21.08.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ecea155-d5e1-4834-acee-864db14cd127/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-23_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.21.08.png)
+<center>
+	<img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/1c7b1ca3-21f6-466c-b9a9-5a502230a593" />
+</center>
 
-![스크린샷 2023-05-23 오후 5.20.55.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e32bbac0-9b75-4add-8957-16a320ad8ec2/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-23_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.20.55.png)
+<center>
+	<img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/f9b0da82-caea-49ba-9753-068bb231355e" />
+</center>
+
+
 
 ### Sequence Diagram
 
-![스크린샷 2023-05-25 오전 10.16.06.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/82bdd363-b22a-4f30-8523-8f3762b3718d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-25_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_10.16.06.png)
+<center>
+	<img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/d9ccd9e8-ca15-494b-adef-44e3d00d9243" />
+</center>
+
+
 
 ### Server API
 
-- https://github.com/Hayoung5/PODO_wallet/tree/main/server README 참고
+https://github.com/Hayoung5/PODO_wallet/tree/main/server README 참고
+
+
 
 ### PODO Risk Standard
 
@@ -341,6 +358,7 @@ client
 		└── utils
 		    └── utils.js        // 다양한 util 함수 정의
 ```
+
 
 ### server 디렉터리 구조 및 주요 파일 설명
 
