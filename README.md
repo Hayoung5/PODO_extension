@@ -116,6 +116,8 @@ client 폴더에서 build 폴더를 선택
 ### server 실행 방법
 
 **PODO server는 google cloud platform에 배포 되어 별다른 서버 실행이 필요하지 않습니다.**
+
+
 **PODO serve를 로컬에서 실행하고 싶으신 경우, 아래 설명을 따라 주세요.**
 
 
@@ -289,7 +291,7 @@ node index.js
 ### Sequence Diagram
 
 <center>
-	<img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/d9ccd9e8-ca15-494b-adef-44e3d00d9243" />
+	<img width=600 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/d9ccd9e8-ca15-494b-adef-44e3d00d9243" />
 </center>
 
 
@@ -302,8 +304,7 @@ https://github.com/Hayoung5/PODO_wallet/tree/main/server README 참고
 
 ### PODO Risk Standard
 
-![스크린샷 2023-05-26 오후 3.20.17.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a72c5682-f221-482f-b0aa-632cb2161272/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-26_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_3.20.17.png)
-
+<img width="1252" alt="스크린샷 2023-05-26 오후 3 20 17" src="https://github.com/Hayoung5/PODO_extension/assets/104472372/b71dfa88-8a9e-4c3f-9026-9e4e834d7332">
 
   
 <br>
