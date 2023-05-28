@@ -79,7 +79,7 @@ $ npm run build
 
 
 <center>
-    <img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/6d3ed4dd-34e9-427c-89b0-99da42684e8a" />
+    <img width=600 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/6d3ed4dd-34e9-427c-89b0-99da42684e8a" />
 </center>
 
 
@@ -87,7 +87,7 @@ client 폴더에서 build 폴더를 선택
   
 
 <center>
-    <img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/c3c1e244-b4fd-44a0-88b3-a05c9787b046" />
+    <img width=600 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/c3c1e244-b4fd-44a0-88b3-a05c9787b046" />
 </center>
   
 
@@ -95,11 +95,12 @@ client 폴더에서 build 폴더를 선택
   
 
 <center>
-    <img width=800 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/8cba559b-4d4f-4d58-a8d5-96e8f2028588" />
+    <img width=600 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/8cba559b-4d4f-4d58-a8d5-96e8f2028588" />
 </center>
 
   
-  
+<br>
+
 
 <details>
 <summary>크롬 익스텐션 업로드 방법(영상)</summary>
@@ -169,7 +170,7 @@ node index.js
 <summary>메타마스크 연결</summary>
 <div markdown="1">       
 
-![chrome_extension사용법.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96889335-4492-4589-becc-467fea32175f/chrome_extension%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8.gif
+![메타마스크_연결](https://github.com/Hayoung5/PODO_extension/assets/104472372/c8499ece-9277-4cdd-a5e8-37d283db3b52)
 
 </div>
 </details>
@@ -178,8 +179,8 @@ node index.js
 <details>
 <summary>도메인 검색</summary>
 <div markdown="1">       
-
-![chrome_extension사용법.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96889335-4492-4589-becc-467fea32175f/chrome_extension%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8.gif
+	
+![도메인검색_노멀](https://github.com/Hayoung5/PODO_extension/assets/104472372/87ccd947-3762-4a1c-b715-f653a1086c08)
 
 </div>
 </details>
@@ -190,7 +191,7 @@ node index.js
 <summary>계정 검색</summary>
 <div markdown="1">       
 
-![chrome_extension사용법.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96889335-4492-4589-becc-467fea32175f/chrome_extension%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8.gif
+![CA주소검색](https://github.com/Hayoung5/PODO_extension/assets/104472372/2c3a22ab-43fd-4bdb-85f2-d15ed7d8e412)
 
 </div>
 </details>
@@ -200,19 +201,20 @@ node index.js
 
 <details>
 <summary>트랜잭션 자동 검사</summary>
-<div markdown="1">       
-
-![chrome_extension사용법.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96889335-4492-4589-becc-467fea32175f/chrome_extension%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8.gif
+<div markdown="1">  
+	
+![트랜잭션_검사_노말](https://github.com/Hayoung5/PODO_extension/assets/104472372/cfad73a1-382d-49e4-bc03-bc899b0f2f49)
 
 </div>
 </details>
+
 
 
 <details>
 <summary>사기거래 신고 등록</summary>
 <div markdown="1">       
 
-![chrome_extension사용법.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96889335-4492-4589-becc-467fea32175f/chrome_extension%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8.gif
+![신고등록](https://github.com/Hayoung5/PODO_extension/assets/104472372/e249424e-77bb-4fcf-87bf-8dd6b75a3d73)
 
 </div>
 </details>
@@ -222,7 +224,7 @@ node index.js
 <summary>신고 등록 내역 조회 및 삭제</summary>
 <div markdown="1">       
 
-![chrome_extension사용법.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/96889335-4492-4589-becc-467fea32175f/chrome_extension%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%87%E1%85%A5%E1%86%B8.gif
+![마이페이지](https://github.com/Hayoung5/PODO_extension/assets/104472372/9948b641-1ffb-427d-b64e-4c3da9b9c20d)
 
 </div>
 </details>
