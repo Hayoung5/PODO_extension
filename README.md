@@ -410,3 +410,7 @@ server
 - Front-end/ Back-end Development
 - Junior Blockchain Engineer
 - Contact : dalja@gmail.com
+
+<br>
+<br>
+Note: This is a prototype app. The PODO team has made efforts to deliver reliable and practical information. All content provided in the prototype is for reference only, not for financial and investment advice, and the information does not guarantee the safety of every transaction.
