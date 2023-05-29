@@ -272,7 +272,8 @@ node index.js
 
 
 ### Mockup
-![스크린샷 2023-05-23 오후 4 13 50 (1)](https://github.com/Hayoung5/PODO_extension/assets/104472372/58ddfd0a-e556-4a5e-a615-b21842dd657b)
+![PODO_MVP (1)](https://github.com/Hayoung5/PODO_extension/assets/113669807/6eb057a6-fa25-42bb-8ba2-6477f7dab49b)
+
 
 
 
