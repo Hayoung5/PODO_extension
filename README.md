@@ -1,7 +1,7 @@
 # PODO (Protect Our Digital Ownership)
 
 <center>
-    <img width=1000 src="https://github.com/Hayoung5/PODO_extension/assets/104472372/47a14276-d3b4-468a-a370-c8b5fff3ea9a" />
+   <img width="1920" alt="2podo" src="https://github.com/Hayoung5/PODO_extension/assets/113669807/55bc4afa-5370-449a-a15e-7bd333c3cad2">
 </center>
 
 
